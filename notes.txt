@@ -1,0 +1,8 @@
+to-do-items
+    properties:
+        - Action / Title
+        - Description
+        - Complete
+        - Currency
+
+    
