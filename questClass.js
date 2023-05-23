@@ -1,8 +1,8 @@
 export default class Quest {
-    constructor(objective, date, completionCheckbox, reward) {
+    constructor(objective, dateToComplete, questComplete, reward) {
         this.objective = objective;
-        this.date = date;
-        this.completionCheckbox = completionCheckbox;
+        this.dateToComplete = dateToComplete;
+        this.questComplete = questComplete;
         this.reward = reward;
     }
 
