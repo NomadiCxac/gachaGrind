@@ -8,7 +8,7 @@ export default function createQuestCards (currentQuestList) {
         // Initialize Card (Container) Creation and Content
         let card = document.createElement("div");
         card.classList.add("questCard")
-        card.setAttribute("id", `${currentQuestList[questIndex].objective}`);
+        card.setAttribute("id", `${[questIndex]}`);
 
 
         //Quest Objective Content
@@ -23,13 +23,13 @@ export default function createQuestCards (currentQuestList) {
 
         let questCompleteLabel = document.createElement("label");
         questCompleteLabel.textContent = "Mark Quest Complete";
-        questCompleteLabel.htmlFor = "isQuestComplete";
+        questCompleteLabel.htmlFor = `isQuestComplete-${questIndex}`;
        
 
         let questCompleteCheckbox = document.createElement("input");
         questCompleteCheckbox.classList.add("questCompleteCheckbox");
         questCompleteCheckbox.setAttribute("type", "checkbox");
-        questCompleteCheckbox.setAttribute("id", "isQuestComplete");
+        questCompleteCheckbox.setAttribute("id", `isQuestComplete-${questIndex}`);
 
         questCompleteContainer.appendChild(questCompleteCheckbox);
         questCompleteContainer.appendChild(questCompleteLabel);
