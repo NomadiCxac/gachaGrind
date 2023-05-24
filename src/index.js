@@ -4,7 +4,7 @@ import Currency from "./currencyClass.js";
 import getObjective from "./getObjective.js";
 import isQuestComplete from "./checkQuestCompletion.js";
 import currencyAggregator from "./currencyAggregator.js";
-import createQuestCard from "./questCard.js";
+import createQuestCards from "./questCard.js";
 import getNewQuest from "./getNewQuest.js";
 
 const modalDiv = document.getElementById('modal-form');
@@ -37,20 +37,18 @@ function closeFormModal (event) {
     modalDiv.style.display = 'none';
 }
 
-console.log(currencyContainer);
 
+// test cases
 let gymTask = new Quest(getObjective("Gym"), dueDate(20, 30, 0), isQuestComplete(true), new Currency("Keys", 2));
 let waterTask = new Quest(getObjective("Water"), dueDate(20, 30, 0), isQuestComplete(true), new Currency("GG Tokens", 15));
 addQuest(currentQuestList, gymTask);
 addQuest(currentQuestList, waterTask);
 (currencyAggregator(currencyContainer, gymTask));
 (currencyAggregator(currencyContainer, waterTask));
+createQuestCards(currentQuestList);
 
-console.log(currentQuestList);
-console.log(currencyContainer);
-
-let taskButton = document.querySelector("button#taskButton")
-taskButton.addEventListener("click", function (e) {
+let addQuestButton = document.querySelector("button#addQuestButton")
+addQuestButton.addEventListener("click", function () {
     displayFormModal();
 })
 
@@ -58,6 +56,6 @@ let formSubmitButton = document.querySelector("#formSubmitButton");
 formSubmitButton.addEventListener("click", function (e) {
     closeFormModal(e);
     let newlyGeneratedQuest = getNewQuest();
-    console.log(newlyGeneratedQuest);
-    createQuestCard(newlyGeneratedQuest);
+    addQuest(currentQuestList, newlyGeneratedQuest);
+    createQuestCards(currentQuestList);
 })

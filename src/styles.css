@@ -42,17 +42,18 @@
 /* Main Container CSS stops here */
 
 
-.taskContainer {
+.questContainer {
     height: 90%;
+    width: 65%;
 }
 
-.taskButtonContainer {
+.addQuestButtonContainer {
     display: flex;
     align-items: center;
     height: 10%;
 }
 
-#taskButton {
+#addQuestButton {
     width: 100px;
     height: 20px;
     margin-left: 1%;
@@ -72,9 +73,13 @@
     justify-content: space-evenly;
     margin-left: 2em;
     margin-right: 3em;
+    margin-top: 1.5em;
 }
 
 .questCardObjective {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     width: 60%;
     height: 70%;
     border: black 2px solid;
@@ -90,6 +95,7 @@
     border: black 2px solid;
     border-radius: 8px;
     padding: 0.5em;
+    color: red;
     /* margin-right: 7em; */
 }
 
@@ -99,4 +105,22 @@
     border: black 2px solid;
     border-radius: 8px;
     padding: 0.5em;
+}
+
+.questCompleteContainer {
+    display: flex;
+    border: 2px solid black;
+    width: 10em;
+    height: 6em;
+    background-color: #f3fcff;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+}
+
+.questCompleteCheckbox {
+    margin-left: 1em;
+    margin-right: 0.5em;
+    width: 4em;
+    height: 4em;
 }
