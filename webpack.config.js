@@ -1,5 +1,9 @@
 // Generated using webpack-cli https://github.com/webpack/webpack-cli
 
+// import path from "path";
+// import HtmlWebpackPlugin from "html-webpack-plugin";
+// import MiniCssExtractPlugin from "mini-css-extract-plugin";
+
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
@@ -13,6 +17,7 @@ const config = {
   output: {
     path: path.resolve(__dirname, "dist"),
   },
+  devtool: "inline-source-map",
   devServer: {
     open: true,
     host: "localhost",
@@ -28,10 +33,10 @@ const config = {
     // Learn more about plugins from https://webpack.js.org/configuration/plugins/
   ],
   module: {
-    rules: [
+    rules: [ 
       {
         test: /\.css$/i,
-        use: [stylesHandler, "css-loader"],
+        use: [stylesHandler, "css-loader", "sass-loader"],
       },
       {
         test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif)$/i,

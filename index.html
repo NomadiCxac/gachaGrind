@@ -8,24 +8,68 @@
     </head>
     <body>
         <div class="appContainer">
+
+            <div id="modal-form" style="display: none">
+
+                <form class="createQuestForm">
+
+                    <div class="formTop">
+                        <button class="formTopButton" id="formTopExitButton">X</button>
+                    </div>
+
+                    <div>
+                        <label for="formObjective">Objective:</label>
+                        <input type="text" name="formObjective" id="formObjective" class="formInput">
+                        <br>
+                    </div>
+
+                    <div>
+                        <label for="formDate">Date to Complete:</label>
+                        <input type="date" name="formDate"  id="formDate" class="formInput">
+                        <br>
+                    </div>
+
+                    <div>
+                        <label for ="formCurrencyType">Currency Type</label>
+                        <input type="text" name="formCurrencyType"  id="formCurrencyType" class="formInput" max="10000" min="1">
+                        <br>
+                    </div>
+
+                    <div>
+                        <label for="formCurrencyAmount">Currency Amount:</label>
+                        <input type="number" name="formCurrencyAmount"  id="formCurrencyAmount" class="formInput" max="10000" min="1">
+                        <br>
+                    </div>
+
+                    <div class="formButtonDiv">
+                        <button class="formButton" id="formSubmitButton">Submit</button>
+                    </div>
+
+                </form>
+            </div>
+
+                <div class="pixelProfile">
+                    Pixel Profile
+                </div>
+
+                <div class="topNav">
+                    Top Nav
+                </div>
+
+                <div class="sideNav">
+                    Side Nav
+                </div>
+                    
+                <div class="appContent">
+                    <div class="taskButtonContainer">
+                        <button id="taskButton">Add Task</button>
+                    </div>
+                    <div class="taskContainer"></div>
+                </div>
+
             
-            <div class="pixelProfile">
-                Pixel Profile
-            </div>
-
-            <div class="topNav">
-                Top Nav
-            </div>
-
-            <div class="sideNav">
-                Side Nav
-            </div>
-                
-            <div class="appContent">
-                App Content
-            </div>
-
         </div>
+        <script src="./dist/main.js"></script>
     </body>
     
 </html>
