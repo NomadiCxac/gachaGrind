@@ -1,4 +1,4 @@
-export default class Quest {
+export class Quest {
     constructor(objective, dateToComplete, questComplete, reward, id) {
         this.objective = objective;
         this.dateToComplete = dateToComplete;
@@ -7,4 +7,11 @@ export default class Quest {
         this.id = id;
     }
 
+}
+
+export class Currency {
+    constructor(type, amount) {
+        this.type = type;
+        this.amount = amount;
+    }
 }

@@ -1,6 +1,5 @@
-import Quest from "./questClass.js";
+import { Quest, Currency } from "./classes.js";
 import dueDate from "./dueDate.js";
-import Currency from "./currencyClass.js";
 import getObjective from "./getObjective.js";
 import currencyAggregator from "./currencyAggregator.js";
 import createAndDisplayQuestCards from "./questCard.js";
@@ -21,7 +20,6 @@ questForm.setAttribute("value", formattedDate);
 function addQuest (currentQuestList, quest) {
     currentQuestList.push(quest);
 }
-
 
 
 // test cases
