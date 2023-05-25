@@ -1,10 +1,10 @@
 import { Quest, Currency } from "./classes.js";
+import { getNewQuest, createAndDisplayQuestCards } from "./questFunctions.js";
+import { displayFormModal, closeFormModal } from "./modalfunctions.js";
 import dueDate from "./dueDate.js";
 import getObjective from "./getObjective.js";
 import currencyAggregator from "./currencyAggregator.js";
-import createAndDisplayQuestCards from "./questCard.js";
-import getNewQuest from "./getNewQuest.js";
-import { displayFormModal, closeFormModal } from "./modalfunctions.js";
+
 
 let currentQuestList = [];
 let currencyContainer = [new Currency("GG Tokens", 0), new Currency("Keys", 0)]
