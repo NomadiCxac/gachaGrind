@@ -1,5 +1,8 @@
-import Quest from './questClass.js'
-import Currency from './currencyClass.js';
+import { Quest, Currency } from './classes.js'
+import { rewardUtilities } from './currencyFunctions.js';
+
+
+
 
 export function getNewQuest () {
     let questObject = new Quest(null, null, null, new Currency(null, null), null)
@@ -69,12 +72,19 @@ export function createAndDisplayQuestCards (currentQuestList) {
         let rewardBox =  document.createElement("div");
         rewardBox.classList.add("rewardBox");
         rewardBox.setAttribute("id", `questCard-${[questIndex]}-reward`);
-        let rewardBoxCurrencyType = document.createElement("div");
-        rewardBoxCurrencyType.textContent = (currentQuestList[questIndex].reward.type);
-        let rewardBoxCurrencyAmount = document.createElement("div");
-        rewardBoxCurrencyAmount.textContent = (currentQuestList[questIndex].reward.amount);
-        rewardBox.appendChild(rewardBoxCurrencyType);
-        rewardBox.appendChild(rewardBoxCurrencyAmount);
+
+            // Reward Box Image
+            let rewardBoxCurrencyTypeImage = document.createElement("img");
+            rewardBoxCurrencyTypeImage.setAttribute("src", rewardUtilities.getRewardImage(currentQuestList[questIndex]));            
+            console.log(rewardUtilities.getRewardImage(currentQuestList[questIndex]));
+            rewardBoxCurrencyTypeImage.classList.add("questRewardImage");
+            rewardBox.appendChild(rewardBoxCurrencyTypeImage)
+           
+            // Reward Box Currency Amount
+            let rewardBoxCurrencyAmount = document.createElement("div");
+            rewardBoxCurrencyAmount.classList.add("questRewardAmount");
+            rewardBoxCurrencyAmount.textContent = (`${currentQuestList[questIndex].reward.amount} ${currentQuestList[questIndex].reward.type}`);
+            rewardBox.appendChild(rewardBoxCurrencyAmount);
 
         card.appendChild(questObjective);
         card.appendChild(dateToCompleteBox);
@@ -83,4 +93,8 @@ export function createAndDisplayQuestCards (currentQuestList) {
         taskContainer.appendChild(card);
     }
     
+}
+
+export function addQuest (currentQuestList, quest) {
+    currentQuestList.push(quest);
 }

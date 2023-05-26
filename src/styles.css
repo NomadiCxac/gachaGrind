@@ -100,6 +100,10 @@
 }
 
 .rewardBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
     width: 15%;
     height: 70%;
     border: black 2px solid;
@@ -123,4 +127,16 @@
     margin-right: 0.5em;
     width: 4em;
     height: 4em;
+}
+
+.questRewardImage {
+    max-width: 5em;
+    max-height: 5em;
+    margin-top: 0.5em;
+}
+
+.questRewardAmount {
+    max-width: 100%;
+    font-weight: 800;
+    font-style: italic;
 }

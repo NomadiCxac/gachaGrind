@@ -1,13 +1,17 @@
+import './styles.css';
 import { Quest, Currency } from "./classes.js";
-import { getNewQuest, createAndDisplayQuestCards } from "./questFunctions.js";
+import { getNewQuest, createAndDisplayQuestCards, addQuest } from "./questFunctions.js";
 import { displayFormModal, closeFormModal } from "./modalfunctions.js";
 import dueDate from "./dueDate.js";
 import getObjective from "./getObjective.js";
 import currencyAggregator from "./currencyAggregator.js";
+import GGTokens from "../src/images/GGToken.png"
+import Keys from "../src/images/ChestKey.png"
 
 
+// Globally Scoped Variables
 let currentQuestList = [];
-let currencyContainer = [new Currency("GG Tokens", 0), new Currency("Keys", 0)]
+let currencyContainer = [new Currency("GGTokens", 0), new Currency("Keys", 0)]
 var currentDate = new Date();
 var year = currentDate.getFullYear();
 var month = String(currentDate.getMonth() + 1).padStart(2, '0');
@@ -17,14 +21,10 @@ let questForm = document.getElementById("formDate");
 questForm.setAttribute("min", formattedDate);
 questForm.setAttribute("value", formattedDate);
 
-function addQuest (currentQuestList, quest) {
-    currentQuestList.push(quest);
-}
-
 
 // test cases
 let gymTask = new Quest(getObjective("Gym"), dueDate(20, 30, 0), false, new Currency("Keys", 2));
-let waterTask = new Quest(getObjective("Water"), dueDate(20, 30, 0), false, new Currency("GG Tokens", 15));
+let waterTask = new Quest(getObjective("Water"), dueDate(20, 30, 0), false, new Currency("GGTokens", 15));
 addQuest(currentQuestList, gymTask);
 addQuest(currentQuestList, waterTask);
 (currencyAggregator(currencyContainer, gymTask));
