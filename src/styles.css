@@ -1,3 +1,4 @@
+
 /* Main Container CSS Below */
 .appContainer {
     display: grid;
@@ -15,6 +16,10 @@
 }
 
 .topNav {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    color: white;
     grid-column: 2;
     grid-row: 1;
     background-color: blue;
@@ -139,4 +144,29 @@
     max-width: 100%;
     font-weight: 800;
     font-style: italic;
+}
+
+/* Top Nav CSS Starts Here */
+
+.playerCurrencyContainer {
+    display: flex;
+    width: 40%;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.playerCurrency {
+    display: flex;
+    align-items: center;
+    width: 7em;
+    justify-content: space-between;
+}
+
+.topNavCurrencyImage {
+    width: 32px;
+    height: 32px;
+}
+
+.currencyAmountUserInterface {
+    font-size: smaller;
 }
