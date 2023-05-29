@@ -98,3 +98,16 @@ export function createAndDisplayQuestCards (currentQuestList) {
 export function addQuest (currentQuestList, quest) {
     currentQuestList.push(quest);
 }
+
+export function removeCompletedQuest (currentQuestList) {
+    for (let index = 0; index < currentQuestList.length; index++) {
+        if (currentQuestList[index].questComplete == true) {
+            currentQuestList.splice(index, 1);
+        }
+    }
+    
+}
+
+// export function questListManager (currentQuestList) {
+
+// }

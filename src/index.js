@@ -1,6 +1,6 @@
 import './styles.css';
 import { Quest, Currency } from "./classes.js";
-import { getNewQuest, createAndDisplayQuestCards, addQuest } from "./questFunctions.js";
+import { getNewQuest, createAndDisplayQuestCards, addQuest, removeCompletedQuest } from "./questFunctions.js";
 import { displayFormModal, closeFormModal } from "./modalfunctions.js";
 import dueDate from "./dueDate.js";
 import getObjective from "./getObjective.js";
@@ -55,7 +55,8 @@ checkBoxes.forEach(checkBox => {
     checkBox.addEventListener("change", function () {
         if (this.checked) {
             currentQuestList[(this.parentNode.parentNode.parentNode.id)].questComplete = true;
-            console.log(currentQuestList);
+            removeCompletedQuest(currentQuestList);
+            createAndDisplayQuestCards(currentQuestList);
         } else {
             currentQuestList[(this.parentNode.parentNode.parentNode.id)].questComplete = false;
         }
