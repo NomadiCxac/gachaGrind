@@ -1,5 +1,7 @@
 import { Quest, Currency } from './classes.js'
-import { rewardUtilities } from './currencyFunctions.js';
+import { rewardUtilities, currencyAggregator } from './currencyFunctions.js';
+import userInterfaceManager from './eventManager.js';
+
 
 
 
@@ -15,7 +17,7 @@ export function getNewQuest () {
     questObject.dateToComplete = getQuestFormDate;
     questObject.questComplete = false;
     questObject.reward.type = getQuestCurrencyType;
-    questObject.reward.amount = getQuestCurrencyAmount;
+    questObject.reward.amount = parseInt(getQuestCurrencyAmount);
     questObject.id = null;
 
     return questObject;
@@ -23,15 +25,15 @@ export function getNewQuest () {
 
 
 
-export function createAndDisplayQuestCards (currentQuestList) {
+export function createAndDisplayQuestCards (currentQuestList, currencyContainer) {
 
     let taskContainer = document.querySelector(".questContainer");
     taskContainer.textContent = "";
 
-    for (let questIndex = 0; questIndex < currentQuestList.length; questIndex++) {
+    for (let questIndex in currentQuestList) {
 
         // Initialize Card (Container) Creation and Content
-        let card = document.createElement("div");
+        let card = document.createElement("div"); 
         card.classList.add("questCard")
         card.setAttribute("id", `${[questIndex]}`);
 
@@ -55,6 +57,18 @@ export function createAndDisplayQuestCards (currentQuestList) {
         questCompleteCheckbox.classList.add("questCompleteCheckbox");
         questCompleteCheckbox.setAttribute("type", "checkbox");
         questCompleteCheckbox.setAttribute("id", `isQuestComplete-${questIndex}`);
+        questCompleteCheckbox.addEventListener("change", function() {
+
+                if (this.checked) {
+                    console.log("This is working");
+                    console.log(currencyContainer);
+                    currentQuestList[questIndex].questComplete = true;
+                    currencyContainer = currencyAggregator(window.currencyContainer, currentQuestList[questIndex]);
+                    console.log(currencyContainer);
+                    userInterfaceManager(currentQuestList, currencyContainer);
+                } 
+            });
+
 
         questCompleteContainer.appendChild(questCompleteCheckbox);
         questCompleteContainer.appendChild(questCompleteLabel);
@@ -76,7 +90,6 @@ export function createAndDisplayQuestCards (currentQuestList) {
             // Reward Box Image
             let rewardBoxCurrencyTypeImage = document.createElement("img");
             rewardBoxCurrencyTypeImage.setAttribute("src", rewardUtilities.getRewardImage(currentQuestList[questIndex]));            
-            console.log(rewardUtilities.getRewardImage(currentQuestList[questIndex]));
             rewardBoxCurrencyTypeImage.classList.add("questRewardImage");
             rewardBox.appendChild(rewardBoxCurrencyTypeImage)
            
@@ -105,9 +118,5 @@ export function removeCompletedQuest (currentQuestList) {
             currentQuestList.splice(index, 1);
         }
     }
-    
 }
 
-// export function questListManager (currentQuestList) {
-
-// }

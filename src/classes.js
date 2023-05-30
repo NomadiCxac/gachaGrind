@@ -15,3 +15,5 @@ export class Currency {
         this.amount = amount;
     }
 }
+
+export const currencyContainer = [];
