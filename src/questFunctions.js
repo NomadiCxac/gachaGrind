@@ -1,6 +1,7 @@
 import { Quest, Currency } from './classes.js'
 import { rewardUtilities, currencyAggregator } from './currencyFunctions.js';
 import userInterfaceManager from './eventManager.js';
+import { saveDataToLocalStorage } from './localStorageFunctions.js';
 
 
 
@@ -64,7 +65,7 @@ export function createAndDisplayQuestCards (currentQuestList, currencyContainer)
                     console.log(currencyContainer);
                     currentQuestList[questIndex].questComplete = true;
                     currencyContainer = currencyAggregator(window.currencyContainer, currentQuestList[questIndex]);
-                    console.log(currencyContainer);
+                    saveDataToLocalStorage('currencyContainer', currencyContainer);
                     userInterfaceManager(currentQuestList, currencyContainer);
                 } 
             });
@@ -110,6 +111,7 @@ export function createAndDisplayQuestCards (currentQuestList, currencyContainer)
 
 export function addQuest (currentQuestList, quest) {
     currentQuestList.push(quest);
+    return currentQuestList;
 }
 
 export function removeCompletedQuest (currentQuestList) {

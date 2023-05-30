@@ -5,5 +5,6 @@ export default function timeToComplete (hours, minutes, seconds) {
     currentDate.setMinutes(minutes);
     currentDate.setSeconds(seconds);
 
+
     return currentDate;
 }
