@@ -61,11 +61,8 @@ export function createAndDisplayQuestCards (currentQuestList, currencyContainer)
         questCompleteCheckbox.addEventListener("change", function() {
 
                 if (this.checked) {
-                    console.log("This is working");
-                    console.log(currencyContainer);
                     currentQuestList[questIndex].questComplete = true;
-                    currencyContainer = currencyAggregator(window.currencyContainer, currentQuestList[questIndex]);
-                    saveDataToLocalStorage('currencyContainer', currencyContainer);
+                    currencyAggregator(currencyContainer, currentQuestList[questIndex]);
                     userInterfaceManager(currentQuestList, currencyContainer);
                 } 
             });

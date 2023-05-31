@@ -35,6 +35,7 @@ export function displayPlayerCurrentCurrency (currencyContainer) {
 
 
 export function currencyAggregator (currencyContainer, currentQuest) {
+
     if (currentQuest.questComplete == true) {
         for (let index in currencyContainer) {
             if (currencyContainer[index].type == currentQuest.reward.type) {
@@ -42,6 +43,5 @@ export function currencyAggregator (currencyContainer, currentQuest) {
             }
         }
     } 
-    return currencyContainer;
 }
 

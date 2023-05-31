@@ -1,5 +1,5 @@
 import './styles.css';
-import { Quest, Currency, currencyContainer } from "./classes.js";
+import { Quest, Currency } from "./classes.js";
 import { getNewQuest, createAndDisplayQuestCards, addQuest} from "./questFunctions.js";
 import { displayFormModal, closeFormModal } from "./modalfunctions.js";
 import dueDate from "./dueDate.js";
@@ -9,10 +9,10 @@ import { getDataFromLocalStorage, saveDataToLocalStorage } from './localStorageF
 
 
 // Globally Scoped Variables
-window.currentQuestList = getDataFromLocalStorage('currentQuestList') || []; // Load from local storage
-window.currencyContainer = (getDataFromLocalStorage('currencyContainer') 
+let currentQuestList = getDataFromLocalStorage('currentQuestList') || []; // Load from local storage
+let currencyContainer = (getDataFromLocalStorage('currencyContainer') 
 || [new Currency("GGTokens", 0), new Currency("ChestKeys", 0)]); // Load from local storage
-userInterfaceManager(currentQuestList, window.currencyContainer);
+userInterfaceManager(currentQuestList, currencyContainer);
 
 // Event Listener to Open Quest Creation Modal
 let addQuestButtonClicked = document.querySelector("button#addQuestButton")
@@ -26,8 +26,7 @@ let formSubmitButton = document.querySelector("#formSubmitButton");
 formSubmitButton.addEventListener("click", function (e) {
     closeFormModal(e);
     let newlyGeneratedQuest = getNewQuest();
-    let currentQuestList = addQuest(window.currentQuestList, newlyGeneratedQuest);
-    saveDataToLocalStorage('currentQuestList', currentQuestList);
+    addQuest(currentQuestList, newlyGeneratedQuest);
     userInterfaceManager(currentQuestList, currencyContainer);
 })
 
@@ -43,9 +42,7 @@ formSubmitButton.addEventListener("click", function (e) {
 
 
 // // test cases
-// let gymTask = new Quest(getObjective("Gym"), dueDate(20, 30, 0), false, new Currency("ChestKeys", 2));
-// let waterTask = new Quest(getObjective("Water"), dueDate(20, 30, 0), false, new Currency("GGTokens", 15));
 // addQuest(currentQuestList, gymTask);
 // addQuest(currentQuestList, waterTask);
-// createAndDisplayQuestCards(currentQuestList, window.currencyContainer);
+// createAndDisplayQuestCards(currentQuestList, currencyContainer);
 
