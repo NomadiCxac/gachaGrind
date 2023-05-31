@@ -10,8 +10,10 @@ import { getDataFromLocalStorage, saveDataToLocalStorage } from './localStorageF
 
 // Globally Scoped Variables
 let currentQuestList = getDataFromLocalStorage('currentQuestList') || []; // Load from local storage
-let currencyContainer = (getDataFromLocalStorage('currencyContainer') 
-|| [new Currency("GGTokens", 0), new Currency("ChestKeys", 0)]); // Load from local storage
+let currencyContainer = (getDataFromLocalStorage('currencyContainer') || [new Currency("GGTokens", 0), new Currency("ChestKeys", 0)]); // Load from local storage
+let playerInventory = getDataFromLocalStorage('playerInventory') || [];
+let playerEquippedItems = getDataFromLocalStorage('playerEquippedItems') || [];
+
 userInterfaceManager(currentQuestList, currencyContainer);
 
 // Event Listener to Open Quest Creation Modal
