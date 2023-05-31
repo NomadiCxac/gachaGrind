@@ -29,7 +29,7 @@ export function displayPlayerCurrentCurrency (currencyContainer) {
     for (let index in currencyContainer) {
         let currencyAmount = document.querySelector(`#${currencyContainer[index].type}UserInterface`);
         currencyAmount.textContent = "";
-        currencyAmount.textContent = (`: ${currencyContainer[index].amount}`);
+        currencyAmount.textContent = (`${currencyContainer[index].amount}`);
     }
 }
 

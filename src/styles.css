@@ -1,5 +1,9 @@
 
 /* Main Container CSS Below */
+* {
+    margin: 0;
+}
+
 .appContainer {
     display: grid;
     height: 100vh;
@@ -11,7 +15,7 @@
 .pixelProfile {
     grid-column: 1;
     grid-row: 1 / 4;
-    background-color: red;
+    background-color: white;
     border: 2px solid black;
 }
 
@@ -19,17 +23,18 @@
     display: flex;
     align-items: flex-end;
     justify-content: flex-end;
-    color: white;
+    font-weight: 800;
     grid-column: 2;
     grid-row: 1;
-    background-color: blue;
+    background-color:  #82e9ff;
+    color: white;
     border: 2px solid black;
 }
 
 .sideNav {
     grid-column: 1;
     grid-row: 4 / 13;
-    background-color: yellow;
+    background-color: #82e9ff;
     border: 2px solid black;
 }
 
@@ -40,7 +45,7 @@
     /* component properties */
     display: flex;
     flex-direction: column;
-    background-color: green;
+    background-color: #f5f5f5;
     border: 2px solid black;
 }
 
@@ -59,9 +64,15 @@
 }
 
 #addQuestButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 100px;
     height: 20px;
     margin-left: 1%;
+    background-color: green;
+    color: white;
+    font-weight: 800;
 }
 
 /* Quest Card CSS */
@@ -91,16 +102,21 @@
     border-radius: 8px;
     padding: 0.5em;
     /* margin-right: 7em; */
-    background-color: yellow;
+    background-color: #ffab92;
 }
 
 .dateToCompleteBox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 12.5%;
     height: 70%;
     border: black 2px solid;
     border-radius: 8px;
     padding: 0.5em;
     color: red;
+    background-color: #ffffcc;
+    font-weight: 800;
     /* margin-right: 7em; */
 }
 
@@ -114,6 +130,7 @@
     border: black 2px solid;
     border-radius: 8px;
     padding: 0.5em;
+    background-color: #c8e6c9;
 }
 
 .questCompleteContainer {
@@ -158,8 +175,10 @@
 .playerCurrency {
     display: flex;
     align-items: center;
-    width: 3.5em;
+    width: 6em;
     justify-content: space-between;
+    background-color: rgba(0, 0, 0, 0.5);
+    margin-bottom: 0.2em;
 }
 
 .topNavCurrencyImage {
@@ -169,4 +188,5 @@
 
 .currencyAmountUserInterface {
     font-size: smaller;
+    margin-right: 1em;
 }
