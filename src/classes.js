@@ -138,10 +138,11 @@ export class PlayerStats {
   
 
 export class PlayerCharacterSheet {
-    constructor(spriteImage, stats, equippedItems) {
+    constructor(spriteImage, stats, equippedItems, elementalAffinity) {
         this._spriteImage = spriteImage;
         this._stats = stats;
         this._equippedItems = equippedItems;
+        this._elementalAffinity = elementalAffinity;
     }
 
     get spriteImage() {
@@ -168,6 +169,14 @@ export class PlayerCharacterSheet {
         this._equippedItems = equippedItems;
     }
 
+    get elementalAffinity() {
+        return this._elementalAffinity;
+    }
+    
+    set elementalAffinity(elementalAffinity) {
+        this._elementalAffinity = elementalAffinity;
+    }
+
     equipItem(item) {
         // Additional logic for equipping an item
         this._equippedItems.push(item);
@@ -185,3 +194,14 @@ export class PlayerCharacterSheet {
     
       // Other methods can be added here for further functionality
 }
+
+
+export class elementalPower {
+    constructor(name, dateRange, baseElement, uniqueElement, godGoddess) {
+      this.name = name;
+      this.dateRange = dateRange;
+      this.baseElement = baseElement;
+      this.uniqueElement = uniqueElement;
+      this.godGoddess = godGoddess;
+    }
+  }
