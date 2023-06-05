@@ -1,4 +1,29 @@
-import { elementalPower as ZodiacSign } from "./classes"
+class ZodiacSign {
+    constructor(name, dateRange, baseElement, uniqueElement, deity) {
+      this._name = name;
+      this._dateRange = dateRange;
+      this._baseElement = baseElement;
+      this._uniqueElement = uniqueElement;
+      this._deity = deity;
+    }
+
+    convertDateRange(dateRange) {
+      // Split the date range string into start and end dates
+      const [startStr, endStr] = dateRange.split(' - ');
+    
+      // Parse the start and end dates using the Date constructor
+      const startDate = new Date(startStr);
+      const endDate = new Date(endStr);
+    
+      // Adjust the year of the end date if necessary
+      if (endDate < startDate) {
+        endDate.setFullYear(startDate.getFullYear() + 1);
+      }
+    
+      // Return the start and end dates as an object
+      return { startDate, endDate };
+    }
+  }
 
 const zodiacSigns = [
     new ZodiacSign(

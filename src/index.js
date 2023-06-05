@@ -1,5 +1,5 @@
 import './styles.css';
-import { Quest, Currency } from "./classes.js";
+import { Quest, Currency, Weapon, PlayerCharacter, PlayerStats } from "./classes.js";
 import { getNewQuest, createAndDisplayQuestCards, addQuest} from "./questFunctions.js";
 import { displayFormModal, closeFormModal } from "./modalfunctions.js";
 import dueDate from "./dueDate.js";
@@ -13,6 +13,8 @@ let currentQuestList = getDataFromLocalStorage('currentQuestList') || []; // Loa
 let currencyContainer = (getDataFromLocalStorage('currencyContainer') || [new Currency("GGTokens", 0), new Currency("ChestKeys", 0)]); // Load from local storage
 let playerInventory = getDataFromLocalStorage('playerInventory') || [];
 let playerEquippedItems = getDataFromLocalStorage('playerEquippedItems') || [];
+
+
 
 userInterfaceManager(currentQuestList, currencyContainer);
 
@@ -32,6 +34,21 @@ formSubmitButton.addEventListener("click", function (e) {
     userInterfaceManager(currentQuestList, currencyContainer);
 })
 
+// Weapon Creation Test
+let fireSword = new Weapon("fire sword", "sword", "rare", {strength: 30});
+// console.log(fireSword);
+
+let birthday = new Date("1996-01-21");
+let birthday2 = new Date("1998-12-22");
+let currentPlayerStats = new PlayerStats("warrior");
+let currentPlayer = new PlayerCharacter(null, currentPlayerStats, playerEquippedItems, birthday);
+
+currentPlayer.equipItem(fireSword);
+currentPlayer.stats.levelUp();
+currentPlayer.stats.allocateSkillPoint("strength");
+console.log(currentPlayer);
+console.log(birthday)
+console.log(currentPlayer._elementalAffinity);
 
 // // var currentDate = new Date();
 // // var year = currentDate.getFullYear();

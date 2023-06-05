@@ -1,3 +1,5 @@
+import zodiacSigns from "./zodiacPowers";
+
 export class Quest {
     constructor(objective, dateToComplete, questComplete, reward, id) {
         this.objective = objective;
@@ -8,7 +10,6 @@ export class Quest {
     }
 
 }
-
 export class Currency {
     constructor(type, amount) {
         this.type = type;
@@ -17,22 +18,67 @@ export class Currency {
 }
 
 export class Equipment {
-    constructor(name, type, isEquipped, inPlayerInventory, id) {
-        this.name = name;
-        this.type = type;
-        this.isEquipped = isEquipped;
-        this.inPlayerInventory = inPlayerInventory;
-        this.id = id;
+    constructor(object, isEquipped, inPlayerInventory, id) {
+        this._object = object;
+        this._isEquipped = isEquipped;
+        this._inPlayerInventory = inPlayerInventory;
+        this._id = id;
     }
 }
 
 export class Weapon {
-
-}
-
-export class Armour {
-
-}
+    constructor(name, type, rarity, stats) {
+      this._name = name;
+      this._type = type;
+      this._rarity = rarity;
+      this._stats = stats;
+    }
+  
+    get name() {
+      return this._name;
+    }
+  
+    get type() {
+      return this._type;
+    }
+  
+    get rarity() {
+      return this._rarity;
+    }
+  
+    get elementalValue() {
+      return this._elementalValue;
+    }
+  
+    get stats() {
+      return this._stats;
+    }
+  }
+  
+  export class Armour {
+    constructor(name, type, rarity, stats) {
+      this._name = name;
+      this._type = type;
+      this._rarity = rarity;
+      this._stats = stats;
+    }
+  
+    get name() {
+      return this._name;
+    }
+  
+    get type() {
+      return this._type;
+    }
+  
+    get rarity() {
+      return this._rarity;
+    }
+  
+    get stats() {
+      return this._stats;
+    }
+  }
 
 export class PlayerStats {
     constructor(classType) {
@@ -137,14 +183,15 @@ export class PlayerStats {
   }
   
 
-export class PlayerCharacterSheet {
-    constructor(spriteImage, stats, equippedItems, elementalAffinity) {
-        this._spriteImage = spriteImage;
-        this._stats = stats;
-        this._equippedItems = equippedItems;
-        this._elementalAffinity = elementalAffinity;
+    export class PlayerCharacter {
+        constructor(spriteImage, stats, equippedItems, elementalSelection) {
+            this._spriteImage = spriteImage;
+            this._stats = stats;
+            this._equippedItems = equippedItems;
+            this._elementalSelection = elementalSelection;
+            this._elementalAffinity = this.getElementalAffinity(elementalSelection);
     }
-
+  
     get spriteImage() {
         return this._spriteImage;
     }
@@ -180,6 +227,7 @@ export class PlayerCharacterSheet {
     equipItem(item) {
         // Additional logic for equipping an item
         this._equippedItems.push(item);
+        this._stats.equipItemStats(item.stats);
       }
     
     attack(target) {
@@ -191,17 +239,76 @@ export class PlayerCharacterSheet {
         // Perform special attack logic here
         console.log(`Special Attacking ${target}!`);
     }
+
+    isBirthdayInRange(birthday, startDate, endDate) {
+        // Convert the birthday to a Date object if it's a string
+        const birthdayDate = typeof birthday === 'string' ? new Date(birthday) : birthday;
+
+        // Get the month and day of the birthday
+        const birthdayMonth = birthdayDate.getMonth();
+        const birthdayDay = birthdayDate.getDate();
+
+        // Check if the month and day of the birthday fall within the range
+        const startMonth = startDate.getMonth();
+        const startDay = startDate.getDate();
+        const endMonth = endDate.getMonth();
+        const endDay = endDate.getDate();
+        
+        // Capricorn edge case
+        if (birthdayMonth == 11 && birthdayDay > 21) {
+            return "Capricorn";
+        }
+        
+        if (birthdayMonth == 0 && birthdayDay < 20) {
+            return "Capricorn";
+        }
+
+        // Compare the month and day values
+        if (
+          (birthdayMonth > startMonth || (birthdayMonth === startMonth && birthdayDay >= startDay)) &&
+          (birthdayMonth < endMonth || (birthdayMonth === endMonth && birthdayDay <= endDay))
+        ) {
+          return true;
+        } else {
+          return false;
+        }
+    }
     
       // Other methods can be added here for further functionality
-}
+      getElementalAffinity(elementalSelection) {
 
+        // if elemental selection is a birthday provided:
+        if (elementalSelection instanceof Date) {
+          for (let index in zodiacSigns) {
+            // Alias the start and end dates of the zodiac Signs date range property
+            let dateChecker = (zodiacSigns[index].convertDateRange(zodiacSigns[index]._dateRange));
+            let birthDayRangeCheck = this.isBirthdayInRange(elementalSelection, dateChecker.startDate, dateChecker.endDate)
 
-export class elementalPower {
-    constructor(name, dateRange, baseElement, uniqueElement, godGoddess) {
-      this.name = name;
-      this.dateRange = dateRange;
-      this.baseElement = baseElement;
-      this.uniqueElement = uniqueElement;
-      this.godGoddess = godGoddess;
-    }
+              if (birthDayRangeCheck == 'Capricorn') {
+                return (zodiacSigns[9]);
+              } else if (birthDayRangeCheck) {
+                return (zodiacSigns[index]);
+              }  
+          }
+        } else {
+          for (let index in zodiacSigns) {
+            if (elementalSelection == zodiacSigns[index]._uniqueElement) {
+              return (zodiacSigns[index]);
+            }
+          }
+        }
+        return null;
+      }
   }
+      
+
+    export class ElementalPower {
+        constructor(name, dateRange, baseElement, uniqueElement, deity) {
+          this._name = name;
+          this._dateRange = dateRange;
+          this._baseElement = baseElement;
+          this._uniqueElement = uniqueElement;
+          this._deity = deity;
+        }
+      }
+
