@@ -1,5 +1,5 @@
 import './styles.css';
-import { Quest, Currency, Weapon, PlayerCharacter, PlayerStats } from "./classes.js";
+import { Quest, Currency, Weapon, Armour, PlayerCharacter, PlayerStats } from "./classes.js";
 import { getNewQuest, createAndDisplayQuestCards, addQuest} from "./questFunctions.js";
 import { displayFormModal, closeFormModal } from "./modalfunctions.js";
 import dueDate from "./dueDate.js";
@@ -35,15 +35,18 @@ formSubmitButton.addEventListener("click", function (e) {
 })
 
 // Weapon Creation Test
-let fireSword = new Weapon("fire sword", "sword", "rare", {strength: 30});
+let KratosChains = new Weapon("Kratos Chains", "Chains", "Legendary", {strength: 500});
+let cheapWoodenArmour = new Armour("Wooden Armour", "Chest", "Normal", {strength: 5});
 // console.log(fireSword);
 
-let birthday = new Date("1996-01-21");
+let heroSelection = ("warrior");
+let birthday = new Date("1997-09-28");
 let birthday2 = new Date("1998-12-22");
 let currentPlayerStats = new PlayerStats("warrior");
-let currentPlayer = new PlayerCharacter(null, currentPlayerStats, playerEquippedItems, birthday);
+let currentPlayer = new PlayerCharacter(null, heroSelection, playerEquippedItems, birthday);
 
-currentPlayer.equipItem(fireSword);
+currentPlayer.equipItem(KratosChains);
+currentPlayer.equipItem(cheapWoodenArmour);
 currentPlayer.stats.levelUp();
 currentPlayer.stats.allocateSkillPoint("strength");
 console.log(currentPlayer);

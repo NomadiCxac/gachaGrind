@@ -27,11 +27,13 @@ export class Equipment {
 }
 
 export class Weapon {
-    constructor(name, type, rarity, stats) {
+    constructor(name, type, classRestriction, rarity, stats, id) {
       this._name = name;
       this._type = type;
+      this._classRestriction = classRestriction;
       this._rarity = rarity;
       this._stats = stats;
+      this._id = id;
     }
   
     get name() {
@@ -41,17 +43,21 @@ export class Weapon {
     get type() {
       return this._type;
     }
+
+    get classRestriction() {
+      return this._classRestriction;
+    }
   
     get rarity() {
       return this._rarity;
     }
   
-    get elementalValue() {
-      return this._elementalValue;
-    }
-  
     get stats() {
       return this._stats;
+    }
+
+    get id() {
+      return this._id;
     }
   }
   
@@ -81,9 +87,9 @@ export class Weapon {
   }
 
 export class PlayerStats {
-    constructor(classType) {
-      this._classType = classType;
-      this._baseStats = this.getInitialBaseStats(classType);
+    constructor(heroType) {
+      this._heroType = heroType;
+      this._baseStats = this.getInitialBaseStats(heroType);
       this._equippedStats = {};
       this._skillPoints = 0;
     }
@@ -129,8 +135,8 @@ export class PlayerStats {
       }
     }
   
-    getInitialBaseStats(classType) {
-      switch (classType) {
+    getInitialBaseStats(heroType) {
+      switch (heroType) {
         case "sorcerer":
           return {
             strength: 4,
@@ -183,14 +189,16 @@ export class PlayerStats {
   }
   
 
-    export class PlayerCharacter {
-        constructor(spriteImage, stats, equippedItems, elementalSelection) {
-            this._spriteImage = spriteImage;
-            this._stats = stats;
-            this._equippedItems = equippedItems;
-            this._elementalSelection = elementalSelection;
-            this._elementalAffinity = this.getElementalAffinity(elementalSelection);
+  export class PlayerCharacter {
+    constructor(spriteImage, heroType, equippedItems, elementalSelection) {
+      this._spriteImage = spriteImage;
+      this._heroType = heroType;
+      this._stats = new PlayerStats(heroType);
+      this._equippedItems = equippedItems;
+      this._elementalSelection = elementalSelection;
+      this._elementalAffinity = this.getElementalAffinity(elementalSelection);
     }
+  
   
     get spriteImage() {
         return this._spriteImage;
@@ -198,6 +206,15 @@ export class PlayerStats {
     
     set spriteImage(spriteImage) {
         this._spriteImage = spriteImage;
+    }
+
+    get heroType() {
+      return this._heroType;
+    }
+
+    set heroType(heroType) {
+      this._heroType = heroType;
+      this._stats = new PlayerStats(heroType);
     }
     
     get stats() {

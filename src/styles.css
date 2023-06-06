@@ -13,10 +13,18 @@
 }
 
 .pixelProfile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     grid-column: 1;
     grid-row: 1 / 4;
     background-color: white;
     border: 2px solid black;
+}
+
+.pixelProfile > img {
+    height: 200px;
+    width: 200px;
 }
 
 .topNav {
@@ -55,6 +63,11 @@
 .questContainer {
     height: 90%;
     width: 65%;
+}
+
+.pixelSpriteContainer {
+    width: 500px;
+    height: 500px;
 }
 
 .addQuestButtonContainer {
