@@ -1,5 +1,5 @@
 // Assuming the code for the Weapon class, HeroTypeWeaponList class, and weaponLists for each class is already defined.
-
+import { rogueWeaponList, warriorWeaponList, priestWeaponList, sorcererWeaponList } from "./weaponList.js"
 // Simulating an item being pulled from a chest based on player's class and rarity probabilities
 export default function pullItemFromChest(playerClass, pity) {
     let weaponList;
@@ -9,7 +9,7 @@ export default function pullItemFromChest(playerClass, pity) {
             weaponList = rogueWeaponList;
             break;
         case "Priest":
-            weaponList = priestWeaponList;
+            weaponList = priestWeaponList; 
             break;
         case "Warrior":
             weaponList = warriorWeaponList;
@@ -22,6 +22,7 @@ export default function pullItemFromChest(playerClass, pity) {
             return null;
     }
 
+    // Consider constant rarity object for scaling purposes
     const rarityProbabilities = [
         { rarity: "Normal", chance: 40 },
         { rarity: "Uncommon", chance: 30 },

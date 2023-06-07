@@ -9,12 +9,12 @@ class Weapon {
     }
 }
 
-class HeroTypeWeaponList {
-    constructor(heroType, arrayOfWeapons) {
-        this._heroType = heroType;
-        this.arrayOfWeapons = arrayOfWeapons;
-    }
-}
+// class HeroTypeWeaponList {
+//     constructor(heroType, arrayOfWeapons) {
+//         this._heroType = heroType;
+//         this.arrayOfWeapons = arrayOfWeapons;
+//     }
+// }
 
 const rogueWeaponList = [
     new Weapon("Dagger", "Dagger", "Rogue", null, null, null),
@@ -68,9 +68,9 @@ const sorcererWeaponList = [
     new Weapon("Graviton Staff", "Graviton Staff", "Sorcerer", null, null, null)
 ];
 
-const rogueWeaponArray = new HeroTypeWeaponList("Rogue", rogueWeaponList);
-const warriorWeaponArray = new HeroTypeWeaponList("Warrior", warriorWeaponList);
-const priestWeaponArray = new HeroTypeWeaponList("Priest", priestWeaponList);
-const sorcererWeaponArray = new HeroTypeWeaponList("Sorcerer", sorcererWeaponList);
+// const rogueWeaponArray = new HeroTypeWeaponList("Rogue", rogueWeaponList);
+// const warriorWeaponArray = new HeroTypeWeaponList("Warrior", warriorWeaponList);
+// const priestWeaponArray = new HeroTypeWeaponList("Priest", priestWeaponList);
+// const sorcererWeaponArray = new HeroTypeWeaponList("Sorcerer", sorcererWeaponList);
 
-export { rogueWeaponArray, warriorWeaponArray, priestWeaponArray, sorcererWeaponArray };
+export { rogueWeaponList, warriorWeaponList, priestWeaponList, sorcererWeaponList };

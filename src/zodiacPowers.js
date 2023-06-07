@@ -65,8 +65,8 @@ const zodiacSigns = [
       "Virgo",
       "August 23 - September 22",
       "Earth",
-      "Gaia",
-      "Isis, the Goddess of Magic and Life (Egyptian)"
+      "Terra",
+      "Osiris, the God of the Underworld (Egyptian)"
     ),
     new ZodiacSign(
       "Libra",
@@ -79,8 +79,8 @@ const zodiacSigns = [
       "Scorpio",
       "October 23 - November 21",
       "Water",
-      "Abyss",
-      "Osiris, the God of the Underworld (Egyptian)"
+      "Corrode",
+      "Poseidon, the God of the Sea (Egyptian)"
     ),
     new ZodiacSign(
       "Sagittarius",

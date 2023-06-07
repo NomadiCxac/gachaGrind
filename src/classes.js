@@ -137,28 +137,28 @@ export class PlayerStats {
   
     getInitialBaseStats(heroType) {
       switch (heroType) {
-        case "sorcerer":
+        case "Sorcerer":
           return {
             strength: 4,
             agility: 6,
             intelligence: 8,
             constitution: 4,
           };
-        case "priest":
+        case "Priest":
           return {
             strength: 4,
             agility: 4,
             intelligence: 6,
             constitution: 8,
           };
-        case "warrior":
+        case "Warrior":
           return {
             strength: 8,
             agility: 4,
             intelligence: 4,
             constitution: 6,
           };
-        case "rogue":
+        case "Rogue":
           return {
             strength: 6,
             agility: 8,

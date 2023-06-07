@@ -6,6 +6,9 @@ import dueDate from "./dueDate.js";
 import getObjective from "./getObjective.js";
 import userInterfaceManager from './eventManager';
 import { getDataFromLocalStorage, saveDataToLocalStorage } from './localStorageFunctions';
+import pullItemFromChest from './shopFunction';
+import { itemPossibleRarity } from './itemStats';
+
 
 
 // Globally Scoped Variables
@@ -35,21 +38,27 @@ formSubmitButton.addEventListener("click", function (e) {
 })
 
 // Weapon Creation Test
-let KratosChains = new Weapon("Kratos Chains", "Chains", "Legendary", {strength: 500});
-let cheapWoodenArmour = new Armour("Wooden Armour", "Chest", "Normal", {strength: 5});
+let KratosChains = new Weapon("Kratos Chains", "Chains", "Warrior", "Legendary", {strength: 500});
+let cheapWoodenArmour = new Armour("Wooden Armour", "Chest", "None", "Normal", {strength: 5});
+let shadowBlade = new Weapon("Shadow Blade", "Blade", "Rogue", "Legendary", {dexterity: 1000})
 // console.log(fireSword);
 
 let heroSelection = ("warrior");
-let birthday = new Date("1997-09-28");
+let birthday = new Date("1996-09-17");
 let birthday2 = new Date("1998-12-22");
 let currentPlayerStats = new PlayerStats("warrior");
 let currentPlayer = new PlayerCharacter(null, heroSelection, playerEquippedItems, birthday);
 
+console.log(itemPossibleRarity.normal.rarity);
+console.log(pullItemFromChest("Rogue", 0));
+
 currentPlayer.equipItem(KratosChains);
 currentPlayer.equipItem(cheapWoodenArmour);
+currentPlayer.equipItem(shadowBlade);
 currentPlayer.stats.levelUp();
 currentPlayer.stats.allocateSkillPoint("strength");
 console.log(currentPlayer);
+console.log(currentPlayer.stats)
 console.log(birthday)
 console.log(currentPlayer._elementalAffinity);
 
