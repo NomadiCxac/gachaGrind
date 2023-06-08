@@ -6,8 +6,9 @@ import dueDate from "./dueDate.js";
 import getObjective from "./getObjective.js";
 import userInterfaceManager from './eventManager';
 import { getDataFromLocalStorage, saveDataToLocalStorage } from './localStorageFunctions';
-import pullItemFromChest from './shopFunction';
-import { itemPossibleRarity } from './itemStats';
+import { pullItemFromChest, getItemRarity, getItemStats, getItemType, getItemElement, getItemPrefix, getItemSuffix, generateRandomWeapon} from './shopFunction';
+import { itemPossibleElements, itemPossibleRarity, itemPossibleStats, itemPossiblePrefix, itemPossibleSuffix } from './itemStats';
+
 
 
 
@@ -43,24 +44,32 @@ let cheapWoodenArmour = new Armour("Wooden Armour", "Chest", "None", "Normal", {
 let shadowBlade = new Weapon("Shadow Blade", "Blade", "Rogue", "Legendary", {dexterity: 1000})
 // console.log(fireSword);
 
-let heroSelection = ("warrior");
+let heroSelection = ("Warrior");
 let birthday = new Date("1996-09-17");
 let birthday2 = new Date("1998-12-22");
-let currentPlayerStats = new PlayerStats("warrior");
+let currentPlayerStats = new PlayerStats("Warrior");
 let currentPlayer = new PlayerCharacter(null, heroSelection, playerEquippedItems, birthday);
 
-console.log(itemPossibleRarity.normal.rarity);
-console.log(pullItemFromChest("Rogue", 0));
+// console.log(pullItemFromChest("Rogue", 0));
 
-currentPlayer.equipItem(KratosChains);
-currentPlayer.equipItem(cheapWoodenArmour);
-currentPlayer.equipItem(shadowBlade);
-currentPlayer.stats.levelUp();
-currentPlayer.stats.allocateSkillPoint("strength");
+let testEquip = (generateRandomWeapon("Rogue"));
+
+
+// console.log(getItemRarity(itemPossibleRarity));
+// console.log(getItemStats(itemPossibleStats, "legendary"));
+// console.log(getItemType("Warrior"));
+// console.log(getItemPrefix(itemPossiblePrefix, "legendary"));
+// console.log(getItemSuffix(itemPossibleSuffix, "Zephyr"));
+// console.log(getItemElement(itemPossibleElements));
+currentPlayer.equipItem(testEquip);
+// currentPlayer.equipItem(cheapWoodenArmour);
+// currentPlayer.equipItem(shadowBlade);
+// currentPlayer.stats.levelUp();
+// currentPlayer.stats.allocateSkillPoint("strength");
 console.log(currentPlayer);
-console.log(currentPlayer.stats)
-console.log(birthday)
-console.log(currentPlayer._elementalAffinity);
+// console.log(currentPlayer.stats)
+// console.log(birthday)
+// console.log(currentPlayer._elementalAffinity);
 
 // // var currentDate = new Date();
 // // var year = currentDate.getFullYear();

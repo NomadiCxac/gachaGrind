@@ -13,13 +13,13 @@ export const itemPossibleElements = [
     "Mist",
 ]
 
-export const itemPossibleRarity = {
-    normal: {rarity: "Normal", chance: 40},
-    uncommon: { rarity: "Uncommon", chance: 30 },
-    rare: { rarity: "Rare", chance: 15 },
-    epic: { rarity: "Epic", chance: 10 },
-    legendary:  { rarity: "Legendary", chance: 5 },
-}
+export const itemPossibleRarity = [
+    { rarity: "normal", chance: 40},
+    { rarity: "uncommon", chance: 30 },
+    { rarity: "rare", chance: 15 },
+    { rarity: "epic", chance: 10 },
+    { rarity: "legendary", chance: 5 },
+]
 
 
 export const itemPossibleStats = {
@@ -70,7 +70,7 @@ export const itemPossibleStats = {
     }
   };
 
-  export const itemPrefixNames = {
+  export const itemPossiblePrefix = {
     normal: [
       "Ordinary", "Common", "Plain", "Regular", "Basic"
     ],

@@ -1,26 +1,144 @@
 // Assuming the code for the Weapon class, HeroTypeWeaponList class, and weaponLists for each class is already defined.
 import { rogueWeaponList, warriorWeaponList, priestWeaponList, sorcererWeaponList } from "./weaponList.js"
-// Simulating an item being pulled from a chest based on player's class and rarity probabilities
-export default function pullItemFromChest(playerClass, pity) {
-    let weaponList;
+import { itemPossibleElements, itemPossibleRarity, itemPossibleStats, itemPossiblePrefix, itemPossibleSuffix } from "./itemStats.js";
 
-    switch (playerClass) {
-        case "Rogue":
-            weaponList = rogueWeaponList;
-            break;
-        case "Priest":
-            weaponList = priestWeaponList; 
-            break;
-        case "Warrior":
-            weaponList = warriorWeaponList;
-            break;
-        case "Sorcerer":
-            weaponList = sorcererWeaponList;
-            break;
-        default:
+class Weapon {
+    constructor(name, type, classRestriction, rarity, stats, element, id) {
+        this._name = name;
+        this._type = type;
+        this._classRestriction = classRestriction;
+        this._rarity = rarity;
+        this._stats = stats;
+        this._element = element;
+        this._id = id;
+    }
+}
+
+export function getItemType(playerClass) {
+
+    function getWeaponList(playerClass) {
+        switch (playerClass) {
+          case "Rogue":
+            return rogueWeaponList;
+          case "Priest":
+            return priestWeaponList;
+          case "Warrior":
+            return warriorWeaponList;
+          case "Sorcerer":
+            return sorcererWeaponList;
+          default:
             console.log("Invalid player class.");
             return null;
+        }
+      }
+
+    const weaponList = getWeaponList(playerClass);
+  
+    if (weaponList) {
+        let randomIndex = Math.floor(Math.random() * weaponList.length);
+        return weaponList[randomIndex]._type;
+        
+    } else {
+      // Handle the case of an invalid player class
+      console.log("Failed to retrieve weapon list.");
     }
+}
+
+export function getItemRarity (itemPossibleRarity) {
+
+    // Initialize total chance to 0
+    let totalChance = 0;
+
+    // Add the chance values of all rarity object chances
+    // This should add up to 100
+    for (let rarityObject of itemPossibleRarity) {
+        totalChance += rarityObject.chance;
+    }
+
+    // Generate a random whole integer between 0 - 100
+    let randomChance = Math.round(Math.random() * totalChance);
+
+    // Set rarity value to null
+    let rarity = null;
+
+    // Return the rarity based on your randomChance roll. 
+    // For example if Random Chance was 94:
+    // 94 - 40 (Normal Rarity) = 54 <-- number used in next calc
+    // 54 - 30 (Uncommon Rarity) = 24 <-- number used in next calc
+    // 24 - 15 (Rare Rarity) = 9 <-- number used in next calc
+    // 9 - 10 (Epic Rarity) = -1 <-- Therefore rarity of item is Epic as (9 - 10) < (0)
+    for (let rarityObject of itemPossibleRarity) {
+        randomChance -= rarityObject.chance;
+        // The value is (-0.01 to acount for rounding errors)
+        if (randomChance <= -0.01) {
+            rarity = rarityObject.rarity;
+            return rarity;
+        }
+    }
+}
+
+export function getItemStats(itemPossibleStats, itemRarity) {
+
+    function generateRandomNumber(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+      }
+
+    // Using the square bracket notation to access the property at runtime
+    const rarityStats = itemPossibleStats[itemRarity];
+    const itemStats = {};
+
+    for (const stat in rarityStats) {
+        const { min, max } = rarityStats[stat];
+    itemStats[stat] = generateRandomNumber(min, max);
+    }
+
+    return itemStats;
+
+}
+
+
+
+export function getItemPrefix(itemPossiblePrefix, itemRarity) {
+    let randomIndex = Math.floor(Math.random() * itemPossiblePrefix[itemRarity].length)
+    return itemPossiblePrefix[itemRarity][randomIndex];
+}
+
+
+export function getItemElement(itemPossibleElements) {
+    let randomIndex = Math.floor(Math.random() * itemPossibleElements.length);
+    return itemPossibleElements[randomIndex]
+}
+
+export function getItemSuffix(itemPossibleSuffix, element) {
+    return itemPossibleSuffix[element];
+}
+
+
+
+export function generateRandomWeapon (playerClass) {
+
+    let weaponType = getItemType(playerClass);
+    let weaponElement = getItemElement(itemPossibleElements);
+    let weaponRarity = getItemRarity(itemPossibleRarity);
+    let weaponStats = getItemStats(itemPossibleStats, weaponRarity);
+    let weaponPrefix = getItemPrefix(itemPossiblePrefix, weaponRarity);
+    let weaponSuffix = getItemSuffix(itemPossibleSuffix, weaponElement);
+
+    return new Weapon(
+        (weaponPrefix + " " + weaponType + " " + weaponSuffix), 
+        weaponType,
+        playerClass,
+        weaponRarity,
+        weaponStats,
+        weaponElement,
+        null,
+    )
+
+ 
+}
+// Simulating an item being pulled from a chest based on player's class and rarity probabilities
+export function pullItemFromChest(playerClass, pity) {
+   
 
     // Consider constant rarity object for scaling purposes
     const rarityProbabilities = [
@@ -37,13 +155,14 @@ export default function pullItemFromChest(playerClass, pity) {
     }
 
     let randomChance = Math.random() * totalChance;
+    console.log(randomChance);
     let rarity = null;
 
     for (const rarityData of rarityProbabilities) {
         randomChance -= rarityData.chance;
         if (randomChance <= 0) {
             rarity = rarityData.rarity;
-            break;
+            return rarit
         }
     }
 
