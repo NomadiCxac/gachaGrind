@@ -16,9 +16,9 @@ export const itemPossibleElements = [
 export const itemPossibleRarity = [
     { rarity: "normal", chance: 40},
     { rarity: "uncommon", chance: 30 },
-    { rarity: "rare", chance: 15 },
-    { rarity: "epic", chance: 10 },
-    { rarity: "legendary", chance: 5 },
+    { rarity: "rare", chance: 18 },
+    { rarity: "epic", chance: 9 },
+    { rarity: "legendary", chance: 3 },
 ]
 
 
@@ -75,7 +75,7 @@ export const itemPossibleStats = {
       "Ordinary", "Common", "Plain", "Regular", "Basic"
     ],
     uncommon: [
-      "Uncommon", "Rare", "Special", "Distinctive", "Exceptional"
+      "Uncommon", "Strange", "Special", "Distinctive", "Abnormal"
     ],
     rare: [
       "Rare", "Precious", "Exquisite", "Magnificent", "Elite"

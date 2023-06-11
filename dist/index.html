@@ -4,9 +4,12 @@
         <meta charset="utf-8" />
         <title>gachaGrind.com</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <!-- <link rel="stylesheet" type="text/css" href="styles.css"> -->
     <script defer src="main.bundle.js"></script><link href="main.bundle.css" rel="stylesheet"></head>
     <body>
         <div class="appContainer">
+
+            
 
             <div id="modal-form" style="display: none">
 
@@ -51,10 +54,37 @@
             </div>
 
                 <div class="pixelProfile">
-                    <img src="images/zeusSprite.png">
+                    <img id="testImage" >
                 </div>
 
                 <div class="topNav">
+
+                    <button id="weaponGenerator">Roll for Weapon Here</button>
+
+                        <div id="slotMachineModal" class="slotModal">
+                        <div class="modal-content">
+                            <span id="closeSlot"> &times;</span>
+                            <div class="slot-machine">
+                            <div class="reel">
+                                <div class="symbol"></div>
+                                <div class="symbol"></div>
+                                <div class="symbol"></div>
+                            </div>
+                            <div class="reel">
+                                <div class="symbol"></div>
+                                <div class="symbol"></div>
+                                <div class="symbol"></div>
+                            </div>
+                            <div class="reel">
+                                <div class="symbol"></div>
+                                <div class="symbol"></div>
+                                <div class="symbol"></div>
+                            </div>
+                            </div>
+                            <button id="spinSlotButton">Spin</button>
+                        </div>
+                        </div>
+                    <div class="weaponRollContainer"></div>
                     <div class="playerCurrencyContainer">
                         <div class="playerCurrency" id="GGTokensContainer">
                             <img class="topNavCurrencyImage" src ="images/GGToken.png">
@@ -87,6 +117,7 @@
 
             
         </div>
+        <!-- <script src="index.js" type="module"></script> -->
     </body>
     
 </html>

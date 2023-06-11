@@ -1,72 +1,50 @@
-// Generated using webpack-cli https://github.com/webpack/webpack-cli
-
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
-const isProduction = process.env.NODE_ENV == "production";
-
-const config = {
+module.exports = {
+  mode: "development",
   entry: "./src/index.js",
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "[name].bundle.js",
-    publicPath: "", // Set the public path to the root directory
+    publicPath: "",
   },
   devtool: "inline-source-map",
   devServer: {
     open: true,
     host: "localhost",
   },
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: "index.html",
-    }),
-
-    new MiniCssExtractPlugin({
-      filename: "[name].bundle.css",
-    }),
-  ],
   module: {
-    rules: [ 
+    rules: [
       {
         test: /\.css$/i,
-        use: [
-          {
-            loader: MiniCssExtractPlugin.loader, 
-            options: {
-              esModule: false,
-            },
-          },
-          "css-loader", 
-          "sass-loader"
-        ],
+        use: [MiniCssExtractPlugin.loader, "css-loader"],
       },
       {
-        test: /\.(png|svg|jpg|jpeg|gif)$/i,  // Image file types you want to handle
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              name: '[name].[ext]',
-              outputPath: 'images/',  // Output directory for images
-              publicPath: './images/',  // Public path for images
-            },
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        type: "asset/resource",
+        generator: {
+          filename: (pathData) => {
+            const folderPath = path.dirname(pathData.filename).replace(/^src\//, "");
+            return `${folderPath}/[name][ext]`;
           },
-        ],
+        },
       },
-
-      // Add your rules for custom modules here
-      // Learn more about loaders from https://webpack.js.org/loaders/
+      {
+        test: /\.html$/i,
+        loader: "html-loader",
+      },
     ],
   },
-};
-
-module.exports = () => {
-  if (isProduction) {
-    config.mode = "production";
-  } else {
-    config.mode = "development";
-  }
-  return config;
+  plugins: [
+    new HtmlWebpackPlugin({
+      title: "gachaGrind.com",
+      template: "./src/index.html",
+      filename: "index.html",
+    }),
+    new MiniCssExtractPlugin({
+      filename: "main.bundle.css",
+    }),
+  ],
 };

@@ -1,16 +1,29 @@
 import './styles.css';
 import { Quest, Currency, Weapon, Armour, PlayerCharacter, PlayerStats } from "./classes.js";
 import { getNewQuest, createAndDisplayQuestCards, addQuest} from "./questFunctions.js";
-import { displayFormModal, closeFormModal } from "./modalfunctions.js";
+import { displayFormModal, closeFormModal } from "./modalFunctions.js";
 import dueDate from "./dueDate.js";
 import getObjective from "./getObjective.js";
 import userInterfaceManager from './eventManager';
 import { getDataFromLocalStorage, saveDataToLocalStorage } from './localStorageFunctions';
 import { pullItemFromChest, getItemRarity, getItemStats, getItemType, getItemElement, getItemPrefix, getItemSuffix, generateRandomWeapon} from './shopFunction';
 import { itemPossibleElements, itemPossibleRarity, itemPossibleStats, itemPossiblePrefix, itemPossibleSuffix } from './itemStats';
+import importAllImages from './imageHandler';
+
+const weaponImages = importAllImages(
+  require.context('./images/weapons', false, /\.(png)$/)
+);
+
+const armourImages = importAllImages(
+  require.context('./images/armour', false, /\.(png)$/)
+);
+
+const elementImages = importAllImages(
+  require.context('./images/elements', false, /\.(png)$/)
+);
 
 
-
+console.log(weaponImages);
 
 // Globally Scoped Variables
 let currentQuestList = getDataFromLocalStorage('currentQuestList') || []; // Load from local storage
@@ -38,51 +51,75 @@ formSubmitButton.addEventListener("click", function (e) {
     userInterfaceManager(currentQuestList, currencyContainer);
 })
 
-// Weapon Creation Test
-let KratosChains = new Weapon("Kratos Chains", "Chains", "Warrior", "Legendary", {strength: 500});
-let cheapWoodenArmour = new Armour("Wooden Armour", "Chest", "None", "Normal", {strength: 5});
-let shadowBlade = new Weapon("Shadow Blade", "Blade", "Rogue", "Legendary", {dexterity: 1000})
-// console.log(fireSword);
+function openSlotMachine() {
+    document.getElementById('slotMachineModal').style.display = 'block';
+  }
+  
+  function closeSlotMachineModal() {
+    document.getElementById('slotMachineModal').style.display = 'none';
+  }
 
 let heroSelection = ("Warrior");
 let birthday = new Date("1996-09-17");
 let birthday2 = new Date("1998-12-22");
 let currentPlayerStats = new PlayerStats("Warrior");
 let currentPlayer = new PlayerCharacter(null, heroSelection, playerEquippedItems, birthday);
-
+getRandomSymbol(); 
 // console.log(pullItemFromChest("Rogue", 0));
 
-let testEquip = (generateRandomWeapon("Rogue"));
+let symbolImage = `${weaponImages[Math.floor(Math.random() * weaponImages.length)]}`
+console.log(symbolImage)
+let testSource = document.getElementById('testImage');
+console.log(testSource);
+testSource.src = symbolImage;
 
+function getRandomSymbol() {
+    const symbols = ['symbol1', 'symbol2', 'symbol3']; // Add more symbols if desired
+   
+    let chosenSymbol = symbols[Math.floor(Math.random() * symbols.length)];
+    // console.log(chosenSymbol);
+    // chosenSymbol.style.backgroundImage = symbolImage
+    // // console.log(chosenSymbol);
+    return chosenSymbol;
+  }
+  
+  function spin() {
+    const reels = document.getElementsByClassName('reel');
+    for (let i = 0; i < reels.length; i++) {
+      const symbols = reels[i].getElementsByClassName('symbol');
+      symbols[i].classList.add('spin'); // Add the 'spin' class
+      for (let j = 0; j < symbols.length; j++) {
+          symbols[j].classList.add('spin'); // Add the 'spin' class
+          symbols[j].className = 'symbol ' + getRandomSymbol();
+          symbols[j].style.backgroundImage = `url('${weaponImages[Math.floor(Math.random() * weaponImages.length)]}')`
 
-// console.log(getItemRarity(itemPossibleRarity));
-// console.log(getItemStats(itemPossibleStats, "legendary"));
-// console.log(getItemType("Warrior"));
-// console.log(getItemPrefix(itemPossiblePrefix, "legendary"));
-// console.log(getItemSuffix(itemPossibleSuffix, "Zephyr"));
-// console.log(getItemElement(itemPossibleElements));
-currentPlayer.equipItem(testEquip);
-// currentPlayer.equipItem(cheapWoodenArmour);
-// currentPlayer.equipItem(shadowBlade);
-// currentPlayer.stats.levelUp();
-// currentPlayer.stats.allocateSkillPoint("strength");
-console.log(currentPlayer);
-// console.log(currentPlayer.stats)
-// console.log(birthday)
-// console.log(currentPlayer._elementalAffinity);
+      }
+    }
 
-// // var currentDate = new Date();
-// // var year = currentDate.getFullYear();
-// // var month = String(currentDate.getMonth() + 1).padStart(2, '0');
-// // var day = String(currentDate.getDate()).padStart(2, '0');
-// // var formattedDate = year + '-' + month + '-' + day;
-// // let questForm = document.getElementById("formDate");
-// // questForm.setAttribute("min", formattedDate);
-// // questForm.setAttribute("value", formattedDate);
+    setTimeout(() => {
+      for (let i = 0; i < reels.length; i++) {
+        symbols[i].classList.remove('spin'); // Remove the 'spin' class
+      }
+    }, 2000); // Adjust the duration as desired
+  }
 
+  
 
-// // test cases
-// addQuest(currentQuestList, gymTask);
-// addQuest(currentQuestList, waterTask);
-// createAndDisplayQuestCards(currentQuestList, currencyContainer);
+const weaponRollButton = document.querySelector("#weaponGenerator");
+weaponRollButton.addEventListener("click", function () {
+    openSlotMachine();
+    let newItem = (generateRandomWeapon(heroSelection));
+    currentPlayer.equipItem(newItem);
+    console.log(currentPlayer);
+})
+
+const spinSlot = document.querySelector("#spinSlotButton");
+console.log(spinSlot);
+spinSlot.addEventListener("click", function (){
+    spin();
+});
+
+const closeSlotModal = document.querySelector("#closeSlot");
+closeSlotModal.addEventListener("click", closeSlotMachineModal())
+    
 
