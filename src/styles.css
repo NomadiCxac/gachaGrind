@@ -264,13 +264,17 @@
     overflow: hidden;
   }
 
-  .symbol {
+
+  .equipmentSymbol, .raritySymbol, .elementSymbol {
     width: 80px;
     height: 80px;
-    background-color: yellow;
+    background-color: rgb(178, 179, 180);
     margin: 5px;
-
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-color:  #82e9ff;
   }
+  
 
   .symbol.spin {
     animation: spin 1s infinite linear;
@@ -299,28 +303,3 @@
       transform: rotate(360deg);
     }
   } */
-
-  .symbol.symbol1 {
-    /* background-image: url('./images/weapons/MythrilShortsword-2.png'); */
-    background-repeat: no-repeat;
-    background-position: center center;
-
-    /* Add any additional styling */
-  }
-  
-  .symbol.symbol2 {
-    /* background-image: url('./images/weapons/RuneShortSword.png'); */
-    background-repeat: no-repeat;
-    background-position: center center;
-
-    /* Add any additional styling */
-  }
-  
-  .symbol.symbol3 {
-    /* background-image: url('./images/armour/Red Demon Helm.png'); */
-    background-repeat: no-repeat;
-    background-position: center center;
-
-    /* Add any additional styling */
-  }
-  

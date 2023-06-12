@@ -9,12 +9,6 @@ class Weapon {
     }
 }
 
-// class HeroTypeWeaponList {
-//     constructor(heroType, arrayOfWeapons) {
-//         this._heroType = heroType;
-//         this.arrayOfWeapons = arrayOfWeapons;
-//     }
-// }
 
 const rogueWeaponList = [
     new Weapon("Dagger", "Dagger", "Rogue", null, null, null),
@@ -68,9 +62,17 @@ const sorcererWeaponList = [
     new Weapon("Graviton Staff", "Graviton Staff", "Sorcerer", null, null, null)
 ];
 
-// const rogueWeaponArray = new HeroTypeWeaponList("Rogue", rogueWeaponList);
-// const warriorWeaponArray = new HeroTypeWeaponList("Warrior", warriorWeaponList);
-// const priestWeaponArray = new HeroTypeWeaponList("Priest", priestWeaponList);
-// const sorcererWeaponArray = new HeroTypeWeaponList("Sorcerer", sorcererWeaponList);
+const testWeaponList = [
+    new Weapon("Abyss Short Sword", "Abyss Short Sword", "Rogue", null, null, null),
+    new Weapon("Corrosion Short Sword", "Corrosion Short Sword", "Rogue", null, null, null),
+    new Weapon("Gaia Short Sword", "Gaia Short Sword", "Rogue", null, null, null),
+    new Weapon("Inferno Short Sword", "Inferno Short Sword", "Rogue", null, null, null),
+    new Weapon("Lunar Short Sword", "Lunar Short Sword", "Rogue", null, null, null),
+    new Weapon("Mist Short Sword", "Mist Short Sword", "Rogue", null, null, null),
+    new Weapon("Rune Short Sword", "Rune Short Sword", "Rogue", null, null, null),
+    new Weapon("Solar Short Sword", "Solar Short Sword", "Rogue", null, null, null),
+    new Weapon("Volt Short Sword", "Volt Short Sword", "Rogue", null, null, null),
+    new Weapon("Zephyr Short Sword", "Zephyr Short Sword", "Rogue", null, null, null)
+];
 
-export { rogueWeaponList, warriorWeaponList, priestWeaponList, sorcererWeaponList };
+export { rogueWeaponList, warriorWeaponList, priestWeaponList, sorcererWeaponList, testWeaponList };

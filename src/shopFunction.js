@@ -1,6 +1,25 @@
 // Assuming the code for the Weapon class, HeroTypeWeaponList class, and weaponLists for each class is already defined.
-import { rogueWeaponList, warriorWeaponList, priestWeaponList, sorcererWeaponList } from "./weaponList.js"
+import { rogueWeaponList, warriorWeaponList, priestWeaponList, sorcererWeaponList, testWeaponList } from "./weaponList.js"
 import { itemPossibleElements, itemPossibleRarity, itemPossibleStats, itemPossiblePrefix, itemPossibleSuffix } from "./itemStats.js";
+import importAllImages from './imageHandler';
+
+const weaponImages = importAllImages(
+  require.context('./images/weapons', false, /\.(png)$/)
+);
+
+const armourImages = importAllImages(
+  require.context('./images/armour', false, /\.(png)$/)
+);
+
+const elementImages = importAllImages(
+  require.context('./images/elements', false, /\.(png)$/)
+);
+
+const rarityImages = importAllImages(
+  require.context('./images/rarities', false, /\.(png)$/)
+)
+
+
 
 class Weapon {
     constructor(name, type, classRestriction, rarity, stats, element, id) {
@@ -26,6 +45,8 @@ export function getItemType(playerClass) {
             return warriorWeaponList;
           case "Sorcerer":
             return sorcererWeaponList;
+          case "test":
+            return testWeaponList;
           default:
             console.log("Invalid player class.");
             return null;
