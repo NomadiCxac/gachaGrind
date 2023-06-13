@@ -18,7 +18,7 @@ const weaponImages = importAllImages(
   )
   
 
-export default function spin(heroSelection) {
+export  function spin (heroSelection) {
 
     // Generate the weapon the player receives using the generateRandomWeapon function
     let generatedWeapon = generateRandomWeapon(heroSelection);
@@ -84,3 +84,12 @@ export default function spin(heroSelection) {
     
     return generatedWeapon;
   }
+
+  export function openSlotMachineModal() {
+    document.getElementById('slotMachineModal').style.display = 'block';
+  }
+  
+  export function closeSlotMachineModal() {
+    document.getElementById('slotMachineModal').style.display = 'none';
+  }
+

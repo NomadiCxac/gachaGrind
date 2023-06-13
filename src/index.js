@@ -8,24 +8,8 @@ import userInterfaceManager from './eventManager';
 import { getDataFromLocalStorage, saveDataToLocalStorage } from './localStorageFunctions';
 import { pullItemFromChest, getItemRarity, getItemStats, getItemType, getItemElement, getItemPrefix, getItemSuffix, generateRandomWeapon} from './shopFunction';
 import { itemPossibleElements, itemPossibleRarity, itemPossibleStats, itemPossiblePrefix, itemPossibleSuffix } from './itemStats';
-import importAllImages from './imageHandler';
-import spin from './gachaSpinFunctions';
-
-const weaponImages = importAllImages(
-  require.context('./images/weapons', false, /\.(png)$/)
-);
-
-const armourImages = importAllImages(
-  require.context('./images/armour', false, /\.(png)$/)
-);
-
-const elementImages = importAllImages(
-  require.context('./images/elements', false, /\.(png)$/)
-);
-
-const rarityImages = importAllImages(
-  require.context('./images/rarities', false, /\.(png)$/)
-)
+import { spin, openSlotMachineModal, closeSlotMachineModal} from './gachaSpinFunctions';
+import { calcHeroScore } from './playerCharacterFunctions';
 
 
 // Globally Scoped Variables
@@ -33,8 +17,15 @@ let currentQuestList = getDataFromLocalStorage('currentQuestList') || []; // Loa
 let currencyContainer = (getDataFromLocalStorage('currencyContainer') || [new Currency("GGTokens", 0), new Currency("ChestKeys", 0)]); // Load from local storage
 let playerInventory = getDataFromLocalStorage('playerInventory') || [];
 let playerEquippedItems = getDataFromLocalStorage('playerEquippedItems') || [];
-
-console.log(weaponImages);
+let playerBirthday = new Date ("02-03-1996");
+let heroSelection = ("Sorcerer");
+let player = new PlayerCharacter("images/zeusSprite.png", heroSelection, playerEquippedItems, playerBirthday);
+let pixelImageContainer = document.querySelector("#testImage");
+pixelImageContainer.src = (player.spriteImage);
+console.log(player._stats.getStat("strength"));
+let getHeroScoreContainer = document.querySelector("#heroScoreContainer");
+let heroScore = calcHeroScore(player);
+getHeroScoreContainer.textContent = (`Hero Score: ${heroScore}`)
 
 userInterfaceManager(currentQuestList, currencyContainer);
 
@@ -54,32 +45,21 @@ formSubmitButton.addEventListener("click", function (e) {
     userInterfaceManager(currentQuestList, currencyContainer);
 })
 
-function openSlotMachine() {
-    document.getElementById('slotMachineModal').style.display = 'block';
-  }
-  
-  function closeSlotMachineModal() {
-    document.getElementById('slotMachineModal').style.display = 'none';
-  }
-
-let heroSelection = ("test");
-
-
-let symbolImage = `${weaponImages[Math.floor(Math.random() * weaponImages.length)]}`
-let testSource = document.getElementById('testImage');
-testSource.src = symbolImage;
-
-  
 
 const weaponRollButton = document.querySelector("#weaponGenerator");
 weaponRollButton.addEventListener("click", function () {
-    openSlotMachine();
+    openSlotMachineModal();
 })
 
+let testWeaponList = ("test")
 const spinSlot = document.querySelector("#spinSlotButton");
 spinSlot.addEventListener("click", function (){
-    spin(heroSelection);
-    console.log(spin(heroSelection));
+    let newItem = spin(testWeaponList);
+    player.equipItem(newItem);
+    let heroScore = calcHeroScore(player);
+    getHeroScoreContainer.textContent = (`Hero Score: ${heroScore}`);
+    console.log(player);
+    console.log(heroScore);
 });
 
 const closeSlotModal = document.querySelector("#closeSlot");

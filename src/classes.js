@@ -140,28 +140,28 @@ export class PlayerStats {
         case "Sorcerer":
           return {
             strength: 4,
-            agility: 6,
+            dexterity: 6,
             intelligence: 8,
             constitution: 4,
           };
         case "Priest":
           return {
             strength: 4,
-            agility: 4,
+            dexterity: 4,
             intelligence: 6,
             constitution: 8,
           };
         case "Warrior":
           return {
             strength: 8,
-            agility: 4,
+            dexterity: 4,
             intelligence: 4,
             constitution: 6,
           };
         case "Rogue":
           return {
             strength: 6,
-            agility: 8,
+            dexterity: 8,
             intelligence: 4,
             constitution: 4,
           };
