@@ -101,8 +101,10 @@ export function getItemRarity (itemPossibleRarity) {
 export function getItemStats(itemPossibleStats, itemRarity) {
 
     function generateRandomNumber(min, max) {
-        return Math.floor(Math.random() * (max - min + 1)) + min;
-      }
+    const decimalPlaces = 2; // Number of decimal places
+    const randomNumber = Math.random() * (max - min) + min;
+    return Number(randomNumber.toFixed(decimalPlaces));
+  }
 
     // Using the square bracket notation to access the property at runtime
     const rarityStats = itemPossibleStats[itemRarity];
@@ -111,6 +113,7 @@ export function getItemStats(itemPossibleStats, itemRarity) {
     for (const stat in rarityStats) {
         const { min, max } = rarityStats[stat];
     itemStats[stat] = generateRandomNumber(min, max);
+    console.log(stat, itemStats[stat]);
     }
 
     return itemStats;

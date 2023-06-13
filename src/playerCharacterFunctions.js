@@ -12,18 +12,22 @@ export function calcHeroScore (playerCharacter) {
     let weaponIntelligence = 0;
     let weaponDexterity = 0;
     let weaponConstitution = 0;
+    let equipmentStat = 0;
+   
     for (let weaponIndex = 0; weaponIndex < playerCharacter._equippedItems.length; weaponIndex++) {
         weaponStrength += playerCharacter._equippedItems[weaponIndex]._stats.strength;
         weaponIntelligence += playerCharacter._equippedItems[weaponIndex]._stats.intelligence;
         weaponDexterity += playerCharacter._equippedItems[weaponIndex]._stats.dexterity;
         weaponConstitution += playerCharacter._equippedItems[weaponIndex]._stats.constitution;
+        let weaponCritChance = playerCharacter._equippedItems[weaponIndex]._stats.critChance;
+        let weaponCritDamage = playerCharacter._equippedItems[weaponIndex]._stats.critDamage;
+        let weaponDamage = playerCharacter._equippedItems[weaponIndex]._stats.damage;
+        equipmentStat += (weaponDamage + (weaponDamage * weaponCritChance * weaponCritDamage));
     }
-    // let weaponStrength = playerCharacter._equippedItems[0]._stats.strength;
-    // let weaponIntelligence = playerCharacter._equippedItems[0]._stats.intelligence;
-    // let weaponDexterity = playerCharacter._equippedItems[0]._stats.dexterity;
-    // let weaponConstitution = playerCharacter._equippedItems[0]._stats.constitution;
+    
+    
 
-        // Weapon Stats Calc
+
 
 
     // Total Stats
@@ -44,9 +48,9 @@ export function calcHeroScore (playerCharacter) {
             totalConstitution *= 2;
     }
 
-    heroScore += (totalStrength + totalIntelligence + totalDexterity + totalConstitution)
+    heroScore += (totalStrength + totalIntelligence + totalDexterity + totalConstitution + equipmentStat)
 
 
 
-    return heroScore;
+    return heroScore.toFixed(2);
 }

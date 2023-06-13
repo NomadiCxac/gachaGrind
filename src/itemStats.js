@@ -23,52 +23,52 @@ export const itemPossibleRarity = [
 
 
 export const itemPossibleStats = {
-    normal: {
-      damage: { min: 5, max: 10 },
-      strength: { min: 1, max: 5 },
-      dexterity: { min: 1, max: 5 },
-      intelligence: { min: 1, max: 5 },
-      constitution: { min: 1, max: 5 },
-      critDamage: { min: 10, max: 20 },
-      critChance: { min: 0.005, max: 0.02 }
-    },
-    uncommon: {
-      damage: { min: 7.5, max: 15 },
-      strength: { min: 1.5, max: 7.5 },
-      dexterity: { min: 1.5, max: 7.5 },
-      intelligence: { min: 1.5, max: 7.5 },
-      constitution: { min: 1.5, max: 7.5 },
-      critDamage: { min: 15, max: 30 },
-      critChance: { min: 0.0075, max: 0.03 }
-    },
-    rare: {
-      damage: { min: 15, max: 30 },
-      strength: { min: 3, max: 15 },
-      dexterity: { min: 3, max: 15 },
-      intelligence: { min: 3, max: 15 },
-      constitution: { min: 3, max: 15 },
-      critDamage: { min: 30, max: 60 },
-      critChance: { min: 0.015, max: 0.06 }
-    },
-    epic: {
-      damage: { min: 25, max: 50 },
-      strength: { min: 5, max: 25 },
-      dexterity: { min: 5, max: 25 },
-      intelligence: { min: 5, max: 25 },
-      constitution: { min: 5, max: 25 },
-      critDamage: { min: 50, max: 100 },
-      critChance: { min: 0.025, max: 0.1 }
-    },
-    legendary: {
-      damage: { min: 50, max: 100 },
-      strength: { min: 10, max: 50 },
-      dexterity: { min: 10, max: 50 },
-      intelligence: { min: 10, max: 50 },
-      constitution: { min: 10, max: 50 },
-      critDamage: { min: 100, max: 200 },
-      critChance: { min: 0.05, max: 0.2 }
-    }
-  };
+  normal: {
+    damage: { min: 5, max: 10 },
+    strength: { min: 1, max: 5 },
+    dexterity: { min: 1, max: 5 },
+    intelligence: { min: 1, max: 5 },
+    constitution: { min: 1, max: 5 },
+    critDamage: { min: 10, max: 20 },
+    critChance: { min: 0.005, max: 0.02 }
+  },
+  uncommon: {
+    damage: { min: 7.5, max: 15 },
+    strength: { min: 1.5, max: 7.5 },
+    dexterity: { min: 1.5, max: 7.5 },
+    intelligence: { min: 1.5, max: 7.5 },
+    constitution: { min: 1.5, max: 7.5 },
+    critDamage: { min: 15, max: 30 },
+    critChance: { min: 0.02, max: 0.06 } // Updated min and max
+  },
+  rare: {
+    damage: { min: 15, max: 30 },
+    strength: { min: 3, max: 15 },
+    dexterity: { min: 3, max: 15 },
+    intelligence: { min: 3, max: 15 },
+    constitution: { min: 3, max: 15 },
+    critDamage: { min: 30, max: 60 },
+    critChance: { min: 0.06, max: 0.12 } // Updated min and max
+  },
+  epic: {
+    damage: { min: 25, max: 50 },
+    strength: { min: 5, max: 25 },
+    dexterity: { min: 5, max: 25 },
+    intelligence: { min: 5, max: 25 },
+    constitution: { min: 5, max: 25 },
+    critDamage: { min: 50, max: 100 },
+    critChance: { min: 0.12, max: 0.24 } // Updated min and max
+  },
+  legendary: {
+    damage: { min: 50, max: 100 },
+    strength: { min: 10, max: 50 },
+    dexterity: { min: 10, max: 50 },
+    intelligence: { min: 10, max: 50 },
+    constitution: { min: 10, max: 50 },
+    critDamage: { min: 100, max: 200 },
+    critChance: { min: 0.24, max: 0.3 } // Updated max
+  }
+};
 
   export const itemPossiblePrefix = {
     normal: [
