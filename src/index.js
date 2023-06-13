@@ -8,7 +8,7 @@ import userInterfaceManager from './eventManager';
 import { getDataFromLocalStorage, saveDataToLocalStorage } from './localStorageFunctions';
 import { pullItemFromChest, getItemRarity, getItemStats, getItemType, getItemElement, getItemPrefix, getItemSuffix, generateRandomWeapon} from './shopFunction';
 import { itemPossibleElements, itemPossibleRarity, itemPossibleStats, itemPossiblePrefix, itemPossibleSuffix } from './itemStats';
-import { spin, openSlotMachineModal, closeSlotMachineModal} from './gachaSpinFunctions';
+import { spin, openSlotMachineModal, closeSlotMachineModal, resetSlotMachineImages} from './gachaSpinFunctions';
 import { calcHeroScore } from './playerCharacterFunctions';
 
 
@@ -26,6 +26,8 @@ console.log(player._stats.getStat("strength"));
 let getHeroScoreContainer = document.querySelector("#heroScoreContainer");
 let heroScore = calcHeroScore(player);
 getHeroScoreContainer.textContent = (`Hero Score: ${heroScore}`)
+
+console.log(currencyContainer);
 
 userInterfaceManager(currentQuestList, currencyContainer);
 
@@ -54,12 +56,18 @@ weaponRollButton.addEventListener("click", function () {
 let testWeaponList = ("test")
 const spinSlot = document.querySelector("#spinSlotButton");
 spinSlot.addEventListener("click", function (){
-    let newItem = spin(testWeaponList);
-    player.equipItem(newItem);
-    let heroScore = calcHeroScore(player);
-    getHeroScoreContainer.textContent = (`Hero Score: ${heroScore}`);
-    console.log(player);
-    console.log(heroScore);
+    userInterfaceManager(currentQuestList, currencyContainer);
+    let newItem = spin(testWeaponList, currencyContainer);
+    console.log(newItem);
+
+    if (newItem != false) {
+      player.equipItem(newItem);
+      let heroScore = calcHeroScore(player);
+      getHeroScoreContainer.textContent = (`Hero Score: ${heroScore}`);
+      console.log(player);
+      console.log(heroScore);
+    }
+    
 });
 
 const closeSlotModal = document.querySelector("#closeSlot");
@@ -68,3 +76,4 @@ closeSlotModal.addEventListener("click", function() {
 })
     
 
+resetSlotMachineImages();
