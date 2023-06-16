@@ -31,7 +31,7 @@ function generateInventoryItemElements () {
             });
 
             inventoryItem.addEventListener("mouseout", function() {
-                inventoryItem.style.border = "none";
+                inventoryItem.style.border = "2px solid white";
             });
             inventoryItemRow.appendChild(inventoryItem)
          }
@@ -58,6 +58,9 @@ export function createInventoryModal() {
   const inventoryModalContent = document.createElement("div");
   inventoryModalContent.classList.add("inventory-modal-content");
 
+  const inventoryModalItemImage = document.createElement("div");
+  inventoryModalItemImage.classList.add("inventory-modal-item-image")
+
   const closeBtn = document.createElement("button");
   closeBtn.classList.add("inventory-close");
   closeBtn.innerText = "X";
@@ -73,6 +76,7 @@ export function createInventoryModal() {
 
   inventoryModalContent.appendChild(closeBtn);
   inventoryModalContent.appendChild(inventoryModalTitle);
+  inventoryModalContent.appendChild(inventoryModalItemImage);
   inventoryModalContent.appendChild(inventoryModalContentText);
 
   inventoryModal.appendChild(inventoryModalContent);
