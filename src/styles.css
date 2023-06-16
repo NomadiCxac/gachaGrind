@@ -58,23 +58,58 @@
     border: 2px solid black;
 }
 
+.gameContent {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 /* Main Container CSS stops here */
 
 
 .questContainer {
-    height: 90%;
-    width: 65%;
+    height: 75vh;
+    width: 55%;
+    margin-bottom: 2em;
 }
 
-.pixelSpriteContainer {
-    width: 500px;
-    height: 500px;
+.inventoryPage {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  border: 1px solid black;
+
+  max-width: 40vw;
+  width: 40vw;
+  max-height: 75vh; /* Set the maximum height */
+  height: 75vh;
+
+  margin-right: 2em;
+  margin-bottom: 2em;
+
+}
+
+.inventoryItemRow {
+  display: flex;
+  height: 100%;
+  width: 100%;
+}
+
+.inventoryItem {
+  width: 20%;
+  height: 80%;
+  background-color: #f0f0f0; /* Adjust the background color as needed */
+  margin: 1em;
+  border: 1px solid white;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 70%;
 }
 
 .addQuestButtonContainer {
-    display: flex;
-    align-items: center;
-    height: 10%;
+  height: 20%;
 }
 
 #addQuestButton {
@@ -103,7 +138,7 @@
     justify-content: space-evenly;
     margin-left: 2em;
     margin-right: 3em;
-    margin-top: 1.5em;
+    margin-bottom: 1.5em;
 }
 
 .questCardObjective {
@@ -304,3 +339,41 @@
       transform: rotate(360deg);
     }
   } */
+
+
+  .inventory-modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+  
+  .inventory-modal-content {
+    background-color: #fefefe;
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    border-radius: 4px;
+    max-width: 400px;
+    text-align: center;
+  }
+  
+  .inventory-close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .inventory-close:hover,
+  .inventory-close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }

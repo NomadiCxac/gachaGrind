@@ -1,5 +1,6 @@
 import { generateRandomWeapon } from "./shopFunction";
 import importAllImages from "./imageHandler";
+import { getElementImage, getRarityImage, getWeaponImage } from "./getItemImage";
 
 const weaponImages = importAllImages(
     require.context('./images/weapons', false, /\.(png)$/)
@@ -38,9 +39,9 @@ function generateSlotMachineItem (heroSelection) {
 
    // Pass the data to a find function that locates the checks each image (string) URL to see if it includes the parsed data   
    // If data matches, return the appropriate image link as variable 
-   let selectedTypeImage = weaponImages.find(image => image.includes(resultingType));
-   let selectedRarityImage = rarityImages.find(image => image.includes(resultingRarity));
-   let selectedElementImage = elementImages.find(image => image.includes(resultingElement));
+   let selectedTypeImage = getWeaponImage(resultingType);
+   let selectedRarityImage = getRarityImage(resultingRarity);
+   let selectedElementImage = getElementImage(resultingElement);
    
    // Images for the equipment reel
    const equipmentReel = document.querySelector('#equipmentReel');

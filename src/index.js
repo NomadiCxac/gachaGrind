@@ -10,6 +10,7 @@ import { pullItemFromChest, getItemRarity, getItemStats, getItemType, getItemEle
 import { itemPossibleElements, itemPossibleRarity, itemPossibleStats, itemPossiblePrefix, itemPossibleSuffix } from './itemStats';
 import { spin, openSlotMachineModal, closeSlotMachineModal, resetSlotMachineImages} from './gachaSpinFunctions';
 import { calcHeroScore } from './playerCharacterFunctions';
+import { appendItemImage, createInventoryModal, createInventoryPage}  from './inventoryFunctions';
 
 
 // Globally Scoped Variables
@@ -26,6 +27,7 @@ console.log(player._stats.getStat("strength"));
 let getHeroScoreContainer = document.querySelector("#heroScoreContainer");
 let heroScore = calcHeroScore(player);
 getHeroScoreContainer.textContent = (`Hero Score: ${heroScore}`)
+let inventory = [];
 
 console.log(currencyContainer);
 
@@ -62,10 +64,10 @@ spinSlot.addEventListener("click", function (){
 
     if (newItem != false) {
       player.equipItem(newItem);
+      inventory.push(newItem)
       let heroScore = calcHeroScore(player);
       getHeroScoreContainer.textContent = (`Hero Score: ${heroScore}`);
-      console.log(player);
-      console.log(heroScore);
+      appendItemImage(inventory);
     }
     
 });
@@ -77,3 +79,4 @@ closeSlotModal.addEventListener("click", function() {
     
 
 resetSlotMachineImages();
+createInventoryPage();
