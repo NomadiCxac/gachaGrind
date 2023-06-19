@@ -354,6 +354,8 @@
   }
   
   .inventory-modal-content {
+    display: flex;
+    flex-direction: column;
     background-color: rgba(0, 0, 0, 0.8);
     margin: 10% auto;
     padding: 20px;
@@ -365,15 +367,27 @@
     margin-bottom: 5vh;
   }
 
+  .itemCardTopHalf {
+    display: flex;
+    height: 40%;
+    width: 100%;
+  }
+
   .inventory-modal-item-image{
-    background-image: url('images/armour/Red Demon Helm.png');
+    /* background-image: url('images/armour/Red Demon Helm.png'); */
     background-position: center;
     background-repeat: no-repeat;
     background-size: 80%;
-    height: 40%;
-    width: 40%;
+    height: 100%;
+    width: 55%;
     background-color: rgba(255, 255, 255, 0.8);
   }
+
+  .inventory-modal-item-stats {
+    height: 100%;
+    width: 100%;
+    background-color: grey
+  } 
   
   .inventory-close {
     color: #aaa;
