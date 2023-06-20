@@ -73,13 +73,50 @@ console.log(inventory._stats);
 console.log(inventory._rarity);
 console.log(inventory._element);
 
-let damage = (inventory._stats.damage)
-let critChance = (inventory._stats.critChance);
-let critDamage = (inventory._stats.critDamage);
-let constitution = (inventory._stats.constitution);
-let dexterity = (inventory._stats.dexterity);
-let intelligence = (inventory._stats.intelligence);
-let strength = (inventory._stats.strength);
+const itemStatsObject = [
+    {
+      name: "Item Type",
+      id: "itemType",
+      value: inventory._type
+    },
+    {
+      name: "Damage",
+      id: "damage",
+      value: inventory._stats.damage
+    },
+    {
+      name: "Critical Chance",
+      id: "critChance",
+      value: inventory._stats.critChance
+    },
+    {
+      name: "Critical Damage",
+      id: "critDamage",
+      value: inventory._stats.critDamage
+    },
+    {
+      name: "Constitution",
+      id: "constitution",
+      value: inventory._stats.constitution
+    },
+    {
+      name: "Dexterity",
+      id: "dexterity",
+      value: inventory._stats.dexterity
+    },
+    {
+      name: "Intelligence",
+      id: "intelligence",
+      value: inventory._stats.intelligence
+    },
+    {
+      name: "Strength",
+      id: "strength",
+      value: inventory._stats.strength
+    }
+  ];
+
+
 
 
 let element = getElementImage((inventory._element).toLowerCase());
@@ -94,10 +131,25 @@ console.log(rarity);
   const inventoryModalContent = document.createElement("div");
   inventoryModalContent.classList.add("inventory-modal-content");
 
+  const itemCardContent = document.createElement("div");
+  itemCardContent.classList.add("itemCardContent");
+
   const itemCardTopHalf = document.createElement("div");
   itemCardTopHalf.classList.add("itemCardTopHalf");
   const itemCardBottomHalf = document.createElement("div");
   itemCardBottomHalf.classList.add("itemCardBottomHalf");
+
+  const itemCardStatContainer = document.createElement("div");
+  itemCardStatContainer.classList.add("itemCardStatContainer");
+
+  for (const stat of itemStatsObject) {
+    const itemCardStatContainer = document.createElement("div");
+    itemCardStatContainer.classList.add("itemCardStatContainer");
+    itemCardStatContainer.id = stat.id;
+    itemCardStatContainer.innerText = stat.name + ": " + stat.value;
+    
+    itemCardBottomHalf.appendChild(itemCardStatContainer)
+  }
 
   const inventoryModalItemImage = document.createElement("div");
   inventoryModalItemImage.classList.add("inventory-modal-item-image");
@@ -107,8 +159,11 @@ console.log(rarity);
   const inventoryModalItemStats = document.createElement("div");
   inventoryModalItemStats.classList.add("inventory-modal-item-stats");
 
+  const elementContainer = document.createElement("div");
+  elementContainer.style.backgroundImage = `url('${element}')`
+  elementContainer.classList.add("itemCardContainer");
+ 
   const elementDescription = document.createElement("p");
-//   let itemElement = inventoryItem.weapon.element;
   elementDescription.innerText = "Element: Volt";
 
   const rarityDescription = document.createElement("p");
@@ -133,11 +188,14 @@ console.log(rarity);
 
   inventoryModalContent.appendChild(closeBtn);
   inventoryModalContent.appendChild(inventoryModalTitle);
-  inventoryModalContent.appendChild(itemCardTopHalf);
-  inventoryModalContent.appendChild(itemCardBottomHalf);
+  inventoryModalContent.appendChild(itemCardContent);
+
+  itemCardContent.appendChild(itemCardTopHalf);
+  itemCardContent.appendChild(itemCardBottomHalf);
   itemCardTopHalf.appendChild(inventoryModalItemImage);
   itemCardTopHalf.appendChild(inventoryModalItemStats);
 
+  inventoryModalItemStats.appendChild(elementContainer);
   inventoryModalItemStats.appendChild(elementDescription);
   inventoryModalItemStats.appendChild(rarityDescription);
   inventoryModalItemStats.appendChild(damageDescription);
