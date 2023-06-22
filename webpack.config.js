@@ -4,7 +4,11 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
   mode: "development",
-  entry: "./src/index.js",
+  entry: {
+    index: "./src/index.js",
+    inventory: "./src/inventory.js",
+    shop: "./src/shop.js"
+  },
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "[name].bundle.js",
@@ -52,6 +56,19 @@ module.exports = {
       title: "gachaGrind.com",
       template: "./src/index.html",
       filename: "index.html",
+      chunks: ["index"],
+    }),
+    new HtmlWebpackPlugin({
+      title: "Inventory - gachaGrind.com",
+      template: "./src/inventory.html",
+      filename: "inventory.html",
+      chunks: ["inventory"],
+    }),
+    new HtmlWebpackPlugin({
+      title: "Shop - gachaGrind.com",
+      template: "./src/shop.html",
+      filename: "shop.html",
+      chunks: ["shop"],
     }),
     new MiniCssExtractPlugin({
       filename: "main.bundle.css",

@@ -12,13 +12,11 @@ import { spin, openSlotMachineModal, closeSlotMachineModal, resetSlotMachineImag
 import { calcHeroScore } from './playerCharacterFunctions';
 import { appendItemImage, createInventoryModal, createInventoryPage, generateInventoryItemImage, generateInventoryItems, updateInventoryPage, inventoryEventHandler}  from './inventoryFunctions';
 import { getItemImage } from './helperFunctions/getItemImage';
+import { currentQuestList, currencyContainer, playerInventory, playerEquippedItems } from './data.js';
 
 
 // Globally Scoped Variables
-let currentQuestList = getDataFromLocalStorage('currentQuestList') || []; // Load from local storage
-let currencyContainer = (getDataFromLocalStorage('currencyContainer') || [new Currency("GGTokens", 0), new Currency("ChestKeys", 0)]); // Load from local storage
-let playerInventory = getDataFromLocalStorage('playerInventory') || [];
-let playerEquippedItems = getDataFromLocalStorage('playerEquippedItems') || [];
+
 let playerBirthday = new Date ("02-03-1996");
 let heroSelection = ("Sorcerer");
 let player = new PlayerCharacter("images/zeusSprite.png", heroSelection, playerEquippedItems, playerBirthday);
