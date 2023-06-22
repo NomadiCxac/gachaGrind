@@ -1,7 +1,7 @@
 // Assuming the code for the Weapon class, HeroTypeWeaponList class, and weaponLists for each class is already defined.
 import { rogueWeaponList, warriorWeaponList, priestWeaponList, sorcererWeaponList, testWeaponList } from "./weaponList.js"
-import { itemPossibleElements, itemPossibleRarity, itemPossibleStats, itemPossiblePrefix, itemPossibleSuffix } from "./itemStats.js";
-import importAllImages from './imageHandler';
+import { itemPossibleElements, itemPossibleRarity, itemPossibleStats, itemPossiblePrefix, itemPossibleSuffix } from "./classes/itemStats.js";
+import importAllImages from './helperFunctions/imageHandler.js';
 
 const weaponImages = importAllImages(
   require.context('./images/weapons', false, /\.(png)$/)

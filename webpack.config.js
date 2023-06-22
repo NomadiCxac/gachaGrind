@@ -22,6 +22,16 @@ module.exports = {
         use: [MiniCssExtractPlugin.loader, "css-loader"],
       },
       {
+        test: /\.(woff|woff2|eot|ttf|otf)$/i,
+        type: "asset/resource",
+        generator: {
+          filename: (pathData) => {
+            const folderPath = path.dirname(pathData.filename).replace(/^src\//, "");
+            return `${folderPath}/[name][ext]`;
+          },
+        },
+      },
+      {
         test: /\.(png|svg|jpg|jpeg|gif)$/i,
         type: "asset/resource",
         generator: {

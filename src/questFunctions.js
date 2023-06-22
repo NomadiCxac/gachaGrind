@@ -1,4 +1,4 @@
-import { Quest, Currency } from './classes.js'
+import { Quest, Currency } from './classes/classes.js'
 import { rewardUtilities, currencyAggregator } from './currencyFunctions.js';
 import userInterfaceManager from './eventManager.js';
 import { saveDataToLocalStorage } from './localStorageFunctions.js';

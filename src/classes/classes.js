@@ -1,4 +1,4 @@
-import zodiacSigns from "./zodiacPowers";
+import zodiacSigns from "../zodiacPowers";
 
 export class Quest {
     constructor(objective, dateToComplete, questComplete, reward, id) {

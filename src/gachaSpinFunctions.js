@@ -1,6 +1,6 @@
 import { generateRandomWeapon } from "./shopFunction";
-import importAllImages from "./imageHandler";
-import { getElementImage, getRarityImage, getWeaponImage } from "./getItemImage";
+import importAllImages from "./helperFunctions/imageHandler";
+import { getElementImage, getRarityImage, getWeaponImage } from "./helperFunctions/getItemImage";
 
 const weaponImages = importAllImages(
     require.context('./images/weapons', false, /\.(png)$/)
@@ -33,9 +33,9 @@ function generateSlotMachineItem (heroSelection) {
    let generatedWeapon = generateRandomWeapon(heroSelection);
 
    // Parse the weapon Class data to be used for front end images
-   let resultingType = generatedWeapon._type.replace(/\s/g, '');
-   let resultingRarity = generatedWeapon._rarity + "Rarity";
-   let resultingElement = generatedWeapon._element.toLowerCase();
+   let resultingType = generatedWeapon._type;
+   let resultingRarity = generatedWeapon._rarity;
+   let resultingElement = generatedWeapon._element;
 
    // Pass the data to a find function that locates the checks each image (string) URL to see if it includes the parsed data   
    // If data matches, return the appropriate image link as variable 

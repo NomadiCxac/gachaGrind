@@ -54,3 +54,30 @@ export function calcHeroScore (playerCharacter) {
 
     return heroScore.toFixed(2);
 }
+
+export function calcWeaponScore (weapon) {
+    
+    let totalWeaponScore = 0; 
+
+    let weaponStrength = 0;
+    let weaponIntelligence = 0;
+    let weaponDexterity = 0;
+    let weaponConstitution = 0;
+    let equipmentStat = 0;
+
+    
+    weaponStrength += weapon._stats.strength;
+    weaponIntelligence += weapon._stats.intelligence;
+    weaponDexterity += weapon._stats.dexterity;
+    weaponConstitution += weapon._stats.constitution;
+    let weaponCritChance = weapon._stats.critChance;
+    let weaponCritDamage = weapon._stats.critDamage;
+    let weaponDamage = weapon._stats.damage;
+    equipmentStat += (weaponDamage + (weaponDamage * weaponCritChance * weaponCritDamage));
+
+    totalWeaponScore = (weaponStrength + weaponIntelligence + weaponDexterity + weaponConstitution + equipmentStat)
+
+    return totalWeaponScore.toFixed(2);
+
+}
+    

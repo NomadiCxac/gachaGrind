@@ -1,5 +1,5 @@
 import './styles.css';
-import { Quest, Currency, Weapon, Armour, PlayerCharacter, PlayerStats } from "./classes.js";
+import { Quest, Currency, Weapon, Armour, PlayerCharacter, PlayerStats } from "./classes/classes.js";
 import { getNewQuest, createAndDisplayQuestCards, addQuest} from "./questFunctions.js";
 import { displayFormModal, closeFormModal } from "./modalFunctions.js";
 import dueDate from "./dueDate.js";
@@ -7,10 +7,11 @@ import getObjective from "./getObjective.js";
 import userInterfaceManager from './eventManager';
 import { getDataFromLocalStorage, saveDataToLocalStorage } from './localStorageFunctions';
 import { pullItemFromChest, getItemRarity, getItemStats, getItemType, getItemElement, getItemPrefix, getItemSuffix, generateRandomWeapon} from './shopFunction';
-import { itemPossibleElements, itemPossibleRarity, itemPossibleStats, itemPossiblePrefix, itemPossibleSuffix } from './itemStats';
+import { itemPossibleElements, itemPossibleRarity, itemPossibleStats, itemPossiblePrefix, itemPossibleSuffix } from './classes/itemStats';
 import { spin, openSlotMachineModal, closeSlotMachineModal, resetSlotMachineImages} from './gachaSpinFunctions';
 import { calcHeroScore } from './playerCharacterFunctions';
 import { appendItemImage, createInventoryModal, createInventoryPage, generateInventoryItemImage, generateInventoryItems, updateInventoryPage, inventoryEventHandler}  from './inventoryFunctions';
+import { getItemImage } from './helperFunctions/getItemImage';
 
 
 // Globally Scoped Variables
@@ -64,6 +65,7 @@ spinSlot.addEventListener("click", function (){
     userInterfaceManager(currentQuestList, currencyContainer);
     let newItem = spin(testWeaponList, currencyContainer);
     console.log(newItem);
+    console.log(getItemImage(newItem._rarity));
 
     if (newItem != false) {
       player.equipItem(newItem);
