@@ -20,12 +20,49 @@
       <div class="topNav">
         <button id="weaponGenerator" style="color: red;">Roll for Weapon Here</button>
         <div id="slotMachineModal" class="slotModal">
-          <!-- Slot machine modal content -->
-        </div>
+          <div class="modal-content">
+              <div class="slot-machine-modal-close-container">
+                <span id="closeSlot"> &times;</span>
+              </div>
+              <div class="slot-machine-modal-main-container">
+                <div class="slot-machine">
+                  <div class="reel" id="equipmentReel">
+                      <div class="top symbol equipmentSymbol"></div>
+                      <div class="selected symbol equipmentSymbol"></div>
+                      <div class="bottom symbol equipmentSymbol"></div>                                 
+                  </div>
+                  <div class="reel" id="rarityReel">
+                      <div class="top symbol raritySymbol"></div>
+                      <div class="selected symbol raritySymbol"></div>
+                      <div class="bottom symbol raritySymbol"></div>
+                  </div>
+                  <div class="reel" id="elementReel">
+                      <div class="top symbol elementSymbol"></div>
+                      <div class="selected symbol elementSymbol"></div>
+                      <div class="bottom symbol elementSymbol"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="slot-machine-modal-spinButton-container">
+                <button id="spinSlotButton">SPIN</button>
+              </div>
+          </div>
+      </div>
         <div class="weaponRollContainer"></div>
         <div class="playerCurrencyContainer">
-          <!-- Player currency content -->
-        </div>
+          <div class="playerCurrency" id="GGTokensContainer">
+              <img class="topNavCurrencyImage" src ="images/GGToken.png">
+              <div class="currencyAmountUserInterface" id="GGTokensUserInterface"> 
+               <!-- Handled by displayCurrentCurrency Function -->
+              </div>
+          </div>
+          <div class="playerCurrency" id="ChestKeysContainer">
+              <img class="topNavCurrencyImage" src="images/ChestKey.png">
+              <div class="currencyAmountUserInterface" id="ChestKeysUserInterface">
+                  <!-- Handled by displayCurrentCurrency Function -->
+              </div>
+          </div>
+      </div>
       </div>
       <div class="sideNav">
         <ul>
@@ -41,17 +78,6 @@
         </div>
         <div class="gameContent">
           <div class="questContainer"></div>
-        </div>
-        <div class="inventory">
-          <!-- Item placements for inventory -->
-          <div class="itemPlacement helmet"></div>
-          <div class="itemPlacement armor"></div>
-          <div class="itemPlacement boots"></div>
-          <div class="itemPlacement belt"></div>
-          <div class="itemPlacement earrings"></div>
-          <div class="itemPlacement amulet"></div>
-          <div class="itemPlacement rings"></div>
-          <div class="itemPlacement weapon"></div>
         </div>
       </div>
     </div>

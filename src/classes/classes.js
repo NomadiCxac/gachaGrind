@@ -1,15 +1,57 @@
 import zodiacSigns from "../zodiacPowers";
 
 export class Quest {
-    constructor(objective, dateToComplete, questComplete, reward, id) {
-        this.objective = objective;
-        this.dateToComplete = dateToComplete;
-        this.questComplete = questComplete;
-        this.reward = reward;
-        this.id = id;
-    }
-
+  constructor(objective, dateToComplete, questComplete, reward, id, oneOffBool, goalId) {
+    this.objective = objective;
+    this.dateToComplete = dateToComplete;
+    this.questComplete = questComplete;
+    this.reward = reward;
+    this.id = id;
+    this.oneOffBool = oneOffBool;
+    this.goalId = goalId;
+  }
 }
+
+export class Goal {
+  constructor(name, reward, frequency, frequencyValue, timeRequired, timeSpentUnit) {
+    this.name = name;
+    this.reward = reward;
+    this.frequency = frequency;
+    this.frequencyValue = frequencyValue;
+    this.timeRequired = timeRequired;
+    this.timeSpentUnit = timeSpentUnit;
+    this.quests = [];
+    this.completed = false;
+    this.totalTimeSpent = 0;
+  }
+
+  generateQuest() {
+    const remainingTime = this.timeRequired - this.totalTimeSpent;
+    const questDuration = Math.min(this.timeSpentUnit === 'hours' ? 60 : 1, remainingTime);
+    const description = `Study ${this.name} for ${questDuration} ${this.timeSpentUnit}`;
+
+    const quest = new Quest(description, questDuration, false, this.reward, generateUniqueId(), false, this);
+    this.quests.push(quest);
+    this.totalTimeSpent += questDuration;
+
+    return quest;
+  }
+
+  linkQuestToGoal(quest) {
+    this.quests.push(quest);
+    this.totalTimeSpent += quest.questComplete ? quest.duration : 0;
+  }
+ 
+  isGoalComplete() {
+    return this.totalTimeSpent >= this.timeRequired;
+  }
+}
+
+function generateUniqueId() {
+  // Generate a unique ID for the quest
+  // You can use a library or a custom implementation to generate unique IDs
+}
+
 export class Currency {
     constructor(type, amount) {
         this.type = type;
@@ -17,14 +59,6 @@ export class Currency {
     }
 }
 
-export class Equipment {
-    constructor(object, isEquipped, inPlayerInventory, id) {
-        this._object = object;
-        this._isEquipped = isEquipped;
-        this._inPlayerInventory = inPlayerInventory;
-        this._id = id;
-    }
-}
 
 export class Weapon {
     constructor(name, type, classRestriction, rarity, stats, id) {

@@ -18,14 +18,20 @@
         </div>
       </div>
       <div class="topNav">
-        <button id="weaponGenerator" style="color: red;">Roll for Weapon Here</button>
-        <div id="slotMachineModal" class="slotModal">
-          <!-- Slot machine modal content -->
-        </div>
-        <div class="weaponRollContainer"></div>
         <div class="playerCurrencyContainer">
-          <!-- Player currency content -->
-        </div>
+          <div class="playerCurrency" id="GGTokensContainer">
+              <img class="topNavCurrencyImage" src ="images/GGToken.png">
+              <div class="currencyAmountUserInterface" id="GGTokensUserInterface"> 
+               <!-- Handled by displayCurrentCurrency Function -->
+              </div>
+          </div>
+          <div class="playerCurrency" id="ChestKeysContainer">
+              <img class="topNavCurrencyImage" src="images/ChestKey.png">
+              <div class="currencyAmountUserInterface" id="ChestKeysUserInterface">
+                  <!-- Handled by displayCurrentCurrency Function -->
+              </div>
+          </div>
+      </div>
       </div>
       <div class="sideNav">
         <ul>
@@ -36,22 +42,19 @@
         </ul>
       </div>
       <div class="appContent">
-        <div class="addQuestButtonContainer">
-          <button id="addQuestButton">Add Quest</button>
-        </div>
         <div class="gameContent">
-          <div class="questContainer"></div>
-        </div>
-        <div class="inventory">
-          <!-- Item placements for inventory -->
-          <div class="itemPlacement helmet"></div>
-          <div class="itemPlacement armor"></div>
-          <div class="itemPlacement boots"></div>
-          <div class="itemPlacement belt"></div>
-          <div class="itemPlacement earrings"></div>
-          <div class="itemPlacement amulet"></div>
-          <div class="itemPlacement rings"></div>
-          <div class="itemPlacement weapon"></div>
+          <div class="equippedInventory">
+            <!-- Item placements for inventory -->
+            <div class="itemPlacement helmet">Helmet</div>
+            <div class="itemPlacement amulet">Amulet</div>
+            <div class="itemPlacement weapon-mh">Weapon-MH</div>
+            <div class="itemPlacement chest">Chest</div>
+            <div class="itemPlacement weapon-oh">Weapon-OH</div>
+            <div class="itemPlacement belt">Belt</div>
+            <div class="itemPlacement left-ring">Left-Ring</div>
+            <div class="itemPlacement right-ring">Right-Ring</div>
+            <div class="itemPlacement boots">Boots</div>
+          </div>
         </div>
       </div>
     </div>

@@ -64,6 +64,16 @@
     border: 2px solid black;
 }
 
+.gameContentHeader {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    height: 2em;
+    margin-bottom: 1em;
+    margin-left: 2em;
+    margin-right: 2em;
+    border: 1px solid black;
+}
+
 .gameContent {
     display: flex;
     justify-content: space-between;
@@ -79,6 +89,17 @@
     margin-bottom: 2em;
 }
 
+.emptyQuestList {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  border: 1px solid black;
+  margin-bottom: 2em;
+  margin-right: 2em;
+}
+
 .inventoryPage {
   display: flex;
   flex-direction: column;
@@ -89,11 +110,12 @@
 
   max-width: 40vw;
   width: 40vw;
-  max-height: 75vh; /* Set the maximum height */
-  height: 75vh;
+  max-height: 85vh; /* Set the maximum height */
+  height: 85vh;
 
   margin-right: 2em;
-  margin-bottom: 2em;
+  margin-top: 2em;
+
 
 }
 
@@ -104,6 +126,7 @@
 }
 
 .inventoryItem {
+  display: flex;
   width: 20%;
   height: 80%;
   background-color: #f0f0f0; /* Adjust the background color as needed */
@@ -112,22 +135,44 @@
   background-repeat: no-repeat;
   background-position: center;
   background-size: 70%;
+  align-items: center;
+  justify-content: center;
 }
 
-.addQuestButtonContainer {
+.inventoryItemSprite {
+  width: 70%;
+  height: 70%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 70%;
+  border: 2px solid black;
+}
+
+.taskAndGoalContainer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
   height: 20%;
 }
 
-#addQuestButton {
+#addQuestButton, #addGoalButton {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 100px;
-    height: 20px;
+    width: 10em;
+    height: 2em;
     margin-left: 1%;
+    margin-right: 2em;
     background-color: green;
     color: white;
     font-weight: 800;
+    font-size: medium;
+    box-shadow: 0px 6px 5px rgba(0, 0, 0, 1);
+}
+
+#addQuestButton:active, #addGoalButton:active {
+  transform: translateY(2px);
+  box-shadow: 0px 0px 0px;
 }
 
 /* Quest Card CSS */
@@ -266,11 +311,15 @@
   }
   
   .modal-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     background-color: white;
-    margin: 15% auto;
+    margin: 10% auto;
     padding: 20px;
     border: 1px solid #888;
-    width: 200px;
+    height: 50vh;
+    width: 420px;
     text-align: center;
   }
   
@@ -292,12 +341,15 @@
   .slot-machine {
     display: flex;
     justify-content: center;
+
+    height: 100%;
+    width: 100%;
   }
   
   .reel {
     border: 1px solid black;
-    height: 200px;
-    width: 100px;
+    height: 100%;
+    width: 100%;
     margin: 10px;
     display: flex;
     flex-direction: column;
@@ -462,3 +514,103 @@
     color: #82e9ff;
     margin-left: 1em;
   }
+
+  .equippedInventory {
+    max-width: 40vw;
+    width: 30vw;
+    max-height: 85vh; /* Set the maximum height */
+    height: 85vh;
+  
+    margin-left: 2em;
+    margin-top: 2em;
+  
+    border: 1px solid black;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    grid-gap: 1em;
+    grid-area: inventory;
+    grid-template-areas: 
+    ". helmet amulet"
+    "mainhand chest offhand"
+    ". belt ."
+    "leftring pants rightring"
+    ". boots .";
+}
+
+.itemPlacement {
+  border: 1px solid black;
+  margin: 1.1em;
+}
+
+.helmet {
+  grid-area: helmet;
+}
+
+.amulet {
+  grid-area: amulet;
+}
+
+.weapon-mh {
+  grid-area: mainhand;
+}
+
+.chest {
+  grid-area: chest;
+}
+
+.weapon-oh {
+  grid-area: offhand;
+}
+
+.belt {
+  grid-area: belt;
+}
+
+.left-ring {
+  grid-area: leftring;
+}
+
+.pants {
+  grid-area: pants;
+}
+
+.right-ring {
+  grid-area: rightring;
+}
+
+.boots {
+  grid-area: boots;
+}
+
+.slot-machine-modal-close-container {
+  max-height: 0%;
+  height: 0%;
+}
+
+.slot-machine-modal-main-container {
+  margin-bottom: 1em;
+}
+
+.slot-machine-modal-spinButton-container {
+  margin-bottom: 5em;
+}
+
+#spinSlotButton {
+  color: white;
+  width: 60%;
+  height: 100%;
+  background-color: green;
+  border-radius: 6px;
+  box-shadow: 0px 5px 5px rgba(0, 0, 0, 1);
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s;
+  font-size: x-large;
+}
+
+
+#spinSlotButton:active {
+  transform: scale(0.95);
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 1);
+}

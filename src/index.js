@@ -1,5 +1,5 @@
 import './styles.css';
-import { Quest, Currency, Weapon, Armour, PlayerCharacter, PlayerStats } from "./classes/classes.js";
+import { Quest, Currency, Weapon, Armour, PlayerCharacter, PlayerStats, Goal } from "./classes/classes.js";
 import { getNewQuest, createAndDisplayQuestCards, addQuest} from "./questFunctions.js";
 import { displayFormModal, closeFormModal } from "./modalFunctions.js";
 import dueDate from "./dueDate.js";
@@ -12,7 +12,7 @@ import { spin, openSlotMachineModal, closeSlotMachineModal, resetSlotMachineImag
 import { calcHeroScore } from './playerCharacterFunctions';
 import { appendItemImage, createInventoryModal, createInventoryPage, generateInventoryItemImage, generateInventoryItems, updateInventoryPage, inventoryEventHandler}  from './inventoryFunctions';
 import { getItemImage } from './helperFunctions/getItemImage';
-import { currentQuestList, currencyContainer, playerInventory, playerEquippedItems } from './data.js';
+import { currentQuestList, currencyContainer, playerInventory, playerEquippedItems, currentGoalList } from './data.js';
 
 
 // Globally Scoped Variables
@@ -27,12 +27,12 @@ let getHeroScoreContainer = document.querySelector("#heroScoreContainer");
 let heroScore = calcHeroScore(player);
 getHeroScoreContainer.textContent = (`Hero Score: ${heroScore}`)
 
-let testWeaponList = ("test")
-let testItem = spin(testWeaponList, currencyContainer);
-let inventory = [testItem];
+let testGoal = new Goal ("Become Fluent in Spanish", null, null, 4, 30)
 
+console.log(currentGoalList);
 
-console.log(currencyContainer);
+testGoal.linkQuestToGoal(currentQuestList[0]);
+console.log(testGoal.timeRequired)
 
 userInterfaceManager(currentQuestList, currencyContainer);
 
@@ -53,33 +53,34 @@ formSubmitButton.addEventListener("click", function (e) {
 })
 
 
-const weaponRollButton = document.querySelector("#weaponGenerator");
-weaponRollButton.addEventListener("click", function () {
-    openSlotMachineModal();
-})
 
-const spinSlot = document.querySelector("#spinSlotButton");
-spinSlot.addEventListener("click", function (){
-    userInterfaceManager(currentQuestList, currencyContainer);
-    let newItem = spin(testWeaponList, currencyContainer);
-    console.log(newItem);
-    console.log(getItemImage(newItem._rarity));
+// const weaponRollButton = document.querySelector("#weaponGenerator");
+// weaponRollButton.addEventListener("click", function () {
+//     openSlotMachineModal();
+// })
 
-    if (newItem != false) {
-      player.equipItem(newItem);
-      inventory.push(newItem)
-      let heroScore = calcHeroScore(player);
-      getHeroScoreContainer.textContent = (`Hero Score: ${heroScore}`);
-      updateInventoryPage(inventory);
-    }
+// const spinSlot = document.querySelector("#spinSlotButton");
+// spinSlot.addEventListener("click", function (){
+//     userInterfaceManager(currentQuestList, currencyContainer);
+//     let newItem = spin(testWeaponList, currencyContainer);
+//     console.log(newItem);
+//     console.log(getItemImage(newItem._rarity));
+
+//     if (newItem != false) {
+//       player.equipItem(newItem);
+//       inventory.push(newItem)
+//       let heroScore = calcHeroScore(player);
+//       getHeroScoreContainer.textContent = (`Hero Score: ${heroScore}`);
+//       updateInventoryPage(inventory);
+//     }
     
-});
+// });
 
-const closeSlotModal = document.querySelector("#closeSlot");
-closeSlotModal.addEventListener("click", function() {
-  closeSlotMachineModal();
-})
+// const closeSlotModal = document.querySelector("#closeSlot");
+// closeSlotModal.addEventListener("click", function() {
+//   closeSlotMachineModal();
+// })
     
 
-resetSlotMachineImages();
-inventoryEventHandler(inventory);
+// resetSlotMachineImages();
+// inventoryEventHandler(inventory);

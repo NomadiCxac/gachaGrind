@@ -1,9 +1,18 @@
 import { getWeaponImage, getArmourImage, getElementImage, getRarityImage } from "./helperFunctions/getItemImage";
+import { saveDataToLocalStorage } from "./localStorageFunctions";
 import generateItemCardModal from "./modalElements/itemCardModal";
 
 const inventoryPageParent = document.querySelector(".gameContent");
 const inventoryPage = document.createElement("div");
 inventoryPage.classList.add("inventoryPage")
+
+const rarityColors = {
+    normal: "rgb(211, 211, 211, 0.8)",
+    uncommon: "rgb(0, 128, 0, 0.8)",
+    rare: "rgb(30, 30, 255, 0.8)",
+    epic: "rgb(160, 32, 240, 0.8)",
+    legendary: "rgb(255, 165, 0.8)",
+    };  
 
 export function createInventoryPage (inventory) {
 
@@ -49,9 +58,13 @@ export function updateInventoryPage (inventory) {
     for (let item = 0; item < inventory.length; item++) {
         console.log(inventory[item]);
         let itemContainer = document.querySelectorAll('.inventoryItem')[item];
+        let itemSprite = document.createElement("div");
+        itemSprite.classList.add("inventoryItemSprite");
+        itemContainer.appendChild(itemSprite);
         let itemImage = getWeaponImage(inventory[item]._type.replace(/\s/g, ''));
         console.log(itemImage)
-        itemContainer.style.backgroundImage = `url('${itemImage}')`
+        itemSprite.style.backgroundImage = `url('${itemImage}')`
+        itemSprite.style.backgroundColor = rarityColors[inventory[item]._rarity];
         itemContainer.addEventListener("mouseover", function() {
             return inventory[item];
         }
@@ -67,4 +80,3 @@ export function inventoryEventHandler(inventory) {
         createInventoryPage(inventory);
     }
   }
-
