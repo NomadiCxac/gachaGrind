@@ -4,5 +4,10 @@ export function saveDataToLocalStorage(key, data) {
   
   export function getDataFromLocalStorage(key) {
     const data = localStorage.getItem(key);
-    return data ? JSON.parse(data) : null;
+    try {
+      return data ? JSON.parse(data) : null;
+    } catch (error) {
+      console.error(`Error parsing JSON data from localStorage for key '${key}':`, error);
+      return null;
+    }
   }

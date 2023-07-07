@@ -12,10 +12,10 @@ import { spin, openSlotMachineModal, closeSlotMachineModal, resetSlotMachineImag
 import { calcHeroScore } from './playerCharacterFunctions';
 import { appendItemImage, createInventoryModal, createInventoryPage, generateInventoryItemImage, generateInventoryItems, updateInventoryPage, inventoryEventHandler}  from './inventoryFunctions';
 import { getItemImage } from './helperFunctions/getItemImage';
-import { currentQuestList, currencyContainer, playerInventory, playerEquippedItems, currentGoalList } from './data.js';
+import { currentQuestList, playerInventory, currencyContainer, playerEquippedItems, currentGoalList } from './data.js';
 import { removeEmptyTaskGoalPrompt, createTaskContainer, questController, goalController } from './indexViewFunctions';
 
-
+console.log(currencyContainer)
 // Globally Scoped Variables
 
 let playerBirthday = new Date ("02-03-1996");
@@ -23,20 +23,20 @@ let heroSelection = ("Sorcerer");
 let player = new PlayerCharacter("images/zeusSprite.png", heroSelection, playerEquippedItems, playerBirthday);
 let pixelImageContainer = document.querySelector("#testImage");
 pixelImageContainer.src = (player.spriteImage);
-console.log(player._stats.getStat("strength"));
 let getHeroScoreContainer = document.querySelector("#heroScoreContainer");
 let heroScore = calcHeroScore(player);
 getHeroScoreContainer.textContent = (`Hero Score: ${heroScore}`)
 
 let testGoal = new Goal ("Become Fluent in Spanish", null, null, 4, 30)
 
+userInterfaceManager(currentQuestList, currencyContainer);
+
 console.log(currentGoalList);
 console.log(currentQuestList);
 
-testGoal.linkQuestToGoal(currentQuestList[0]);
+// testGoal.linkQuestToGoal(currentQuestList[0]);
 console.log(testGoal.timeRequired)
 
-userInterfaceManager(currentQuestList, currencyContainer);
 
 // Event Listener to Open Quest Creation Modal
 let addQuestButtonClicked = document.querySelector("button#addQuestButton")

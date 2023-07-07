@@ -2,17 +2,17 @@ import { removeCompletedQuest, createAndDisplayQuestCards } from "./questFunctio
 import { displayPlayerCurrentCurrency } from "./currencyFunctions";
 import { getDataFromLocalStorage, saveDataToLocalStorage } from "./localStorageFunctions";
 import { taskAndGoalController, removeEmptyTaskGoalPrompt, createTaskContainer, showEmptyQuestAndGoalsEmptyQuestAndGoals } from "./indexViewFunctions";
-import { currentGoalList, currentQuestList } from "./data";
+// import { currentGoalList, currentQuestList } from "./data";
 
-export default function userInterfaceManager (currentQuestList, currentGoalList, currencyContainer) {
+export default function userInterfaceManager (currentQuestList, currencyContainer) {
 
     // Default and Persisting Events:
     // 1. Render Currency Values
     displayPlayerCurrentCurrency(currencyContainer);
 
-    if (currentQuestList.length <= 0 && currentGoalList.length <= 0) {
-        showEmptyQuestAndGoals();
-    }
+    // if (currentQuestList.length <= 0 && currentGoalList.length <= 0) {
+    //     showEmptyQuestAndGoals();
+    // }
     
     removeCompletedQuest(currentQuestList, currencyContainer);
     saveDataToLocalStorage("currentQuestList", currentQuestList);
