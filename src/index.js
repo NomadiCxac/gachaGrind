@@ -1,6 +1,6 @@
 import './styles.css';
 import { Quest, Currency, Weapon, Armour, PlayerCharacter, PlayerStats, Goal } from "./classes/classes.js";
-import { getNewQuest, createAndDisplayQuestCards, addQuest} from "./questFunctions.js";
+import { getNewQuest, createAndDisplayQuestCards, addQuest, generateTaskContainer} from "./questFunctions.js";
 import { displayFormModal, closeFormModal } from "./modalFunctions.js";
 import dueDate from "./dueDate.js";
 import getObjective from "./getObjective.js";
@@ -13,6 +13,7 @@ import { calcHeroScore } from './playerCharacterFunctions';
 import { appendItemImage, createInventoryModal, createInventoryPage, generateInventoryItemImage, generateInventoryItems, updateInventoryPage, inventoryEventHandler}  from './inventoryFunctions';
 import { getItemImage } from './helperFunctions/getItemImage';
 import { currentQuestList, currencyContainer, playerInventory, playerEquippedItems, currentGoalList } from './data.js';
+import { removeEmptyTaskGoalPrompt, createTaskContainer, questController, goalController } from './indexViewFunctions';
 
 
 // Globally Scoped Variables
@@ -30,6 +31,7 @@ getHeroScoreContainer.textContent = (`Hero Score: ${heroScore}`)
 let testGoal = new Goal ("Become Fluent in Spanish", null, null, 4, 30)
 
 console.log(currentGoalList);
+console.log(currentQuestList);
 
 testGoal.linkQuestToGoal(currentQuestList[0]);
 console.log(testGoal.timeRequired)
@@ -40,6 +42,16 @@ userInterfaceManager(currentQuestList, currencyContainer);
 let addQuestButtonClicked = document.querySelector("button#addQuestButton")
 addQuestButtonClicked.addEventListener("click", function () {
     displayFormModal();
+    removeEmptyTaskGoalPrompt();
+    createTaskContainer();
+    questController();
+})
+
+let addGoalButtonClicked = document.querySelector("button#addGoalButton")
+addGoalButtonClicked.addEventListener("click", function () {
+    removeEmptyTaskGoalPrompt();
+    createTaskContainer();
+    goalController();
 })
 
 
@@ -47,6 +59,7 @@ addQuestButtonClicked.addEventListener("click", function () {
 let formSubmitButton = document.querySelector("#formSubmitButton");
 formSubmitButton.addEventListener("click", function (e) {
     closeFormModal(e);
+    removeEmptyTaskGoalPrompt();
     let newlyGeneratedQuest = getNewQuest();
     addQuest(currentQuestList, newlyGeneratedQuest);
     userInterfaceManager(currentQuestList, currencyContainer);

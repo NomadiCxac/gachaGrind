@@ -78,13 +78,15 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    height: 100%;
+    margin-bottom: 2em;
 }
 
 /* Main Container CSS stops here */
 
 
 .questContainer {
-    height: 75vh;
+    height: 100%;
     width: 55%;
     margin-bottom: 2em;
 }
@@ -96,8 +98,7 @@
   height: 100%;
   width: 100%;
   border: 1px solid black;
-  margin-bottom: 2em;
-  margin-right: 2em;
+  margin: 2em;
 }
 
 .inventoryPage {
@@ -148,7 +149,7 @@
   border: 2px solid black;
 }
 
-.taskAndGoalContainer {
+.taskAndGoalButtonContainer {
   display: flex;
   align-items: center;
   justify-content: flex-end;

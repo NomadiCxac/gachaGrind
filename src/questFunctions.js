@@ -25,11 +25,9 @@ export function getNewQuest () {
 }
 
 
-
 export function createAndDisplayQuestCards (currentQuestList, currencyContainer) {
 
     let taskContainer = document.querySelector(".questContainer");
-    taskContainer.textContent = "";
 
     for (let questIndex in currentQuestList) {
 
@@ -62,6 +60,7 @@ export function createAndDisplayQuestCards (currentQuestList, currencyContainer)
 
                 if (this.checked) {
                     currentQuestList[questIndex].questComplete = true;
+                    console.log(currentQuestList)
                     currencyAggregator(currencyContainer, currentQuestList[questIndex]);
                     userInterfaceManager(currentQuestList, currencyContainer);
                 } 

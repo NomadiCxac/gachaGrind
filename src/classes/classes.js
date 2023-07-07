@@ -37,7 +37,12 @@ export class Goal {
     return quest;
   }
 
+
   linkQuestToGoal(quest) {
+    if (this.quests.length <= 0) {
+      return;
+    }
+    console.log(quests);
     this.quests.push(quest);
     this.totalTimeSpent += quest.questComplete ? quest.duration : 0;
   }

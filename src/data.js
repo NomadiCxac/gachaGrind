@@ -1,4 +1,5 @@
 import { getDataFromLocalStorage } from "./localStorageFunctions";
+import { Currency } from "./classes/classes";
 
 export let currentQuestList = getDataFromLocalStorage('currentQuestList') || [];
 export let currentGoalList = getDataFromLocalStorage('currentGoalList') || [];
