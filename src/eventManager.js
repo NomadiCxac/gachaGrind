@@ -17,5 +17,5 @@ export default function userInterfaceManager (currentQuestList, currencyContaine
     removeCompletedQuest(currentQuestList, currencyContainer);
     saveDataToLocalStorage("currentQuestList", currentQuestList);
     saveDataToLocalStorage("currencyContainer", currencyContainer);
-    createAndDisplayQuestCards(currentQuestList, currencyContainer);
+    // createAndDisplayQuestCards(currentQuestList, currencyContainer);
 }

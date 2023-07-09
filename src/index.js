@@ -1,6 +1,6 @@
 import './styles.css';
 import { Quest, Currency, Weapon, Armour, PlayerCharacter, PlayerStats, Goal } from "./classes/classes.js";
-import { getNewQuest, createAndDisplayQuestCards, addQuest, generateTaskContainer} from "./questFunctions.js";
+import { getNewQuest, createAndDisplayQuestCards, addQuest, generateTaskContainer, createQuestCardTemplate, displayQuestCardContent, renderQuestList, createCardTemplate, displayGoalCardContent} from "./questFunctions.js";
 import { displayFormModal, closeFormModal } from "./modalFunctions.js";
 import dueDate from "./dueDate.js";
 import getObjective from "./getObjective.js";
@@ -13,7 +13,7 @@ import { calcHeroScore } from './playerCharacterFunctions';
 import { appendItemImage, createInventoryModal, createInventoryPage, generateInventoryItemImage, generateInventoryItems, updateInventoryPage, inventoryEventHandler}  from './inventoryFunctions';
 import { getItemImage } from './helperFunctions/getItemImage';
 import { currentQuestList, playerInventory, currencyContainer, playerEquippedItems, currentGoalList } from './data.js';
-import { removeEmptyTaskGoalPrompt, createTaskContainer, questController, goalController } from './indexViewFunctions';
+import { removeEmptyTaskGoalPrompt, createTaskContainer, questController, goalController, showEmptyQuestAndGoals, createGoalContainer } from './indexViewFunctions';
 
 console.log(currencyContainer)
 // Globally Scoped Variables
@@ -27,30 +27,78 @@ let getHeroScoreContainer = document.querySelector("#heroScoreContainer");
 let heroScore = calcHeroScore(player);
 getHeroScoreContainer.textContent = (`Hero Score: ${heroScore}`)
 
-let testGoal = new Goal ("Become Fluent in Spanish", null, null, 4, 30)
+let testQuest = new Quest ("Finish Fn", "Today", false, new Currency("GGTokens", 12), null, false, null);
 
-userInterfaceManager(currentQuestList, currencyContainer);
-
-console.log(currentGoalList);
+// currentQuestList.push(testQuest);
 console.log(currentQuestList);
 
+let testGoal = new Goal ("Become Fluent in Spanish", new Currency("GGTokens", 12), null, 4, 30)
+
+// testGoal.quests.push(testQuest);
+// console.log(testGoal.quests);
+
+// let testClick = document.querySelector(".gameContentHeader")
+// testClick.addEventListener("click", function () {
+//   testQuest.questComplete = true;
+//   console.log(testGoal.quests);
+// })
+
+
+
+
+// let x = document.querySelector(".gameContent");
+const formContainer = document.getElementById('formContainer');
+
+// Create form element
+const form = document.createElement('form');
+formContainer.appendChild(form);
+
+// Create input elements
+const input1 = document.createElement('input');
+input1.setAttribute('type', 'text');
+input1.setAttribute('name', 'name');
+form.appendChild(input1);
+
+const input2 = document.createElement('input');
+input2.setAttribute('type', 'email');
+input2.setAttribute('name', 'email');
+form.appendChild(input2);
+
+// Create a submit button
+const submitButton = document.createElement('input');
+submitButton.setAttribute('type', 'submit');
+submitButton.setAttribute('value', 'Submit');
+form.appendChild(submitButton);
+// let goalCard = createCardTemplate("goal");
+// x.appendChild(goalCard);
+// displayGoalCardContent(testGoal, goalCard, currencyContainer);
+
+
+
+// userInterfaceManager(currentQuestList, currencyContainer);
+
+// console.log(currentGoalList);
+// console.log(currentQuestList);
+
 // testGoal.linkQuestToGoal(currentQuestList[0]);
-console.log(testGoal.timeRequired)
+// console.log(testGoal.timeRequired)
 
 
 // Event Listener to Open Quest Creation Modal
 let addQuestButtonClicked = document.querySelector("button#addQuestButton")
 addQuestButtonClicked.addEventListener("click", function () {
-    displayFormModal();
-    removeEmptyTaskGoalPrompt();
-    createTaskContainer();
-    questController();
+    // displayFormModal();
+    currentQuestList.push(testQuest);
+    renderQuestList(currentQuestList, currencyContainer);
 })
 
 let addGoalButtonClicked = document.querySelector("button#addGoalButton")
 addGoalButtonClicked.addEventListener("click", function () {
-    removeEmptyTaskGoalPrompt();
-    createTaskContainer();
+    // removeEmptyTaskGoalPrompt();
+    // createTaskContainer();
+    // goalController();
+    currentGoalList.push(testGoal);
+    createGoalContainer();
     goalController();
 })
 
@@ -65,6 +113,13 @@ formSubmitButton.addEventListener("click", function (e) {
     userInterfaceManager(currentQuestList, currencyContainer);
 })
 
+// showEmptyQuestAndGoals();
+
+// let y = createQuestCardTemplate();
+// x.appendChild(y);
+// console.log(y);
+
+// displayQuestCardContent(testQuest, y, currencyContainer);
 
 
 // const weaponRollButton = document.querySelector("#weaponGenerator");

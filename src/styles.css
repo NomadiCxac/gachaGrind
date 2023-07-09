@@ -87,8 +87,26 @@
 
 .questContainer {
     height: 100%;
-    width: 55%;
-    margin-bottom: 2em;
+    width: 100%;
+    border: 1px solid black;
+    position: relative;
+    overflow: hidden;
+}
+
+.questParallax {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: scroll;
+  transform: translateZ(0); /* Enable GPU acceleration for smoother scrolling */
+}
+
+.goalContainer {
+  height: 100%;
+  width: 100%;
+  border: 1px solid black;
 }
 
 .emptyQuestList {
@@ -191,6 +209,23 @@
     margin-left: 2em;
     margin-right: 3em;
     margin-bottom: 1.5em;
+    margin-top: 1.5em;
+}
+
+.goalCard {
+  display: flex;
+  flex-direction: row;
+  height: 20em;
+  background: #fff;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 1);
+  border-radius: 8px;
+  position: relative;
+  align-items: center;
+  justify-content: space-evenly;
+  margin-left: 2em;
+  margin-right: 3em;
+  margin-bottom: 1.5em;
+  margin-top: 1.5em;
 }
 
 .questCardObjective {
@@ -252,13 +287,13 @@
     height: 4em;
 }
 
-.questRewardImage {
+.questRewardImage, .goalRewardImage {
     max-width: 5em;
     max-height: 5em;
     margin-top: 0.5em;
 }
 
-.questRewardAmount {
+.questRewardAmount, .goalRewardAmount {
     max-width: 100%;
     font-weight: 800;
     font-style: italic;

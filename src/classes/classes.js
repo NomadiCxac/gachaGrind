@@ -13,8 +13,8 @@ export class Quest {
 }
 
 export class Goal {
-  constructor(name, reward, frequency, frequencyValue, timeRequired, timeSpentUnit) {
-    this.name = name;
+  constructor(objective, reward, frequency, frequencyValue, timeRequired, timeSpentUnit) {
+    this.objective = objective;
     this.reward = reward;
     this.frequency = frequency;
     this.frequencyValue = frequencyValue;

@@ -23,16 +23,13 @@ export function showEmptyQuestAndGoals () {
     }
 }
 
+let taskHeader;
+
 export function questController () {
-    if (header.hasChildNodes()) {
-        while (header.firstChild) {
-          header.removeChild(header.firstChild);
-        }
-      }
 
     // Case: User creates a task but no goals
-    if (currentQuestList.length > 0) {
-        let taskHeader = document.createElement("div");
+    if (currentQuestList.length > 0 && !taskHeader) {
+        taskHeader = document.createElement("div");
         taskHeader.style.gridColumn = "1";
         taskHeader.textContent = "Tasks";
         header.appendChild(taskHeader);
@@ -53,21 +50,69 @@ export function goalController () {
 }
 
 export function removeEmptyTaskGoalPrompt () {
-    console.log("Empty is working")
     const emptyQuestList = document.querySelector(".emptyQuestList")
-    console.log(emptyQuestList)
     if (emptyQuestList) {
-        console.log("true");
         emptyQuestList.remove();
+    } else {
+      return;
     }
 }
 
-export function createTaskContainer () {
-    console.log("Create is working")
+
+
+let taskContainer;
+
+export function createTaskContainer() {
+
+  if (!taskContainer) {
     let gameContainer = document.querySelector(".gameContent");
-    let createTaskContainer = document.createElement("div");
-    createTaskContainer.classList.add("questContainer"); 
-    gameContainer.appendChild(createTaskContainer);
-    let taskContainer = document.querySelector(".questContainer");
-    taskContainer.textContent = "";
+    taskContainer = document.createElement("div");
+    taskContainer.classList.add("questContainer");
+    gameContainer.appendChild(taskContainer);
+
+  }
+  // taskContainer.textContent = "";
 }
+
+let questParallax;
+
+export function createQuestParallax() {
+
+  if (!questParallax) {
+    let questContainer = document.querySelector(".questContainer");
+    questParallax = document.createElement("div");
+    questParallax.classList.add("questParallax");
+    questContainer.appendChild(questParallax);
+
+  }
+  questParallax.textContent = "";
+}
+
+
+let goalContainer;
+
+export function createGoalContainer() {
+
+  if (!goalContainer) {
+    let gameContainer = document.querySelector(".gameContent");
+    goalContainer = document.createElement("div");
+    goalContainer.classList.add("goalContainer");
+    gameContainer.appendChild(goalContainer);
+  }
+  goalContainer.textContent = "";
+}
+
+let goalParallax;
+
+export function createGoalParallax() {
+
+  if (!goalParallax) {
+    let goalContainer = document.querySelector(".goalContainer");
+    goalParallax = document.createElement("div");
+    goalParallax.classList.add("goalParallax");
+    goalContainer.appendChild(goalParallax);
+
+  }
+  goalParallax.textContent = "";
+}
+
