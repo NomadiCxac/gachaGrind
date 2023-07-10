@@ -13,7 +13,7 @@ import { calcHeroScore } from './playerCharacterFunctions';
 import { appendItemImage, createInventoryModal, createInventoryPage, generateInventoryItemImage, generateInventoryItems, updateInventoryPage, inventoryEventHandler}  from './inventoryFunctions';
 import { getItemImage } from './helperFunctions/getItemImage';
 import { currentQuestList, playerInventory, currencyContainer, playerEquippedItems, currentGoalList } from './data.js';
-import { removeEmptyTaskGoalPrompt, createTaskContainer, questController, goalController, showEmptyQuestAndGoals, createGoalContainer, showEmptyState } from './indexViewFunctions';
+import { removeEmptyTaskGoalPrompt, createTaskContainer, questController, goalController, showEmptyQuestAndGoals, showEmptyState } from './indexViewFunctions';
 import { createGetDataForm } from './generateForm';
 
 console.log(currencyContainer)
@@ -28,13 +28,13 @@ let getHeroScoreContainer = document.querySelector("#heroScoreContainer");
 let heroScore = calcHeroScore(player);
 getHeroScoreContainer.textContent = (`Hero Score: ${heroScore}`)
 
-let testQuest = new Quest ("Finish Fn", "Today", false, new Currency("GGTokens", 12), null, false, null);
+let testQuest = new Quest ("Finish Fn", "4:30pm - 8:00pm", false, new Currency("GGTokens", 12), null, false, null);
 
 // currentQuestList.push(testQuest);
 console.log(currentQuestList);
 console.log(currentGoalList);
 
-let testGoal = new Goal ("Become Fluent in Spanish", new Currency("GGTokens", 12), null, 4, 30)
+// let testGoal = new Goal ("Become Fluent in Spanish", new Currency("GGTokens", 12), null, 4, 30)
 
 // testGoal.quests.push(testQuest);
 // console.log(testGoal.quests);
@@ -48,7 +48,6 @@ let testGoal = new Goal ("Become Fluent in Spanish", new Currency("GGTokens", 12
 showEmptyState();
 
 
-// let x = document.querySelector(".gameContent");
 
 // let goalCard = createCardTemplate("goal");
 // x.appendChild(goalCard);
@@ -71,7 +70,9 @@ addQuestButtonClicked.addEventListener("click", function () {
     // displayFormModal();
     currentQuestList.push(testQuest);
     renderQuestList(currentQuestList, currencyContainer);
-    createGetDataForm("quest");
+    let x = document.querySelector(".questParallax");
+    x.appendChild(createCardTemplate("emptyQuest"));
+    console.log(currentGoalList);
 })
 
 let addGoalButtonClicked = document.querySelector("button.addGoalButton")
@@ -81,7 +82,6 @@ addGoalButtonClicked.addEventListener("click", function () {
     // goalController();
     
     currentGoalList.push(testGoal);
-    createGoalContainer();
     createGetDataForm("goal");
 })
 

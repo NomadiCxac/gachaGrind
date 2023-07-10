@@ -6,15 +6,12 @@ import { createQuestParallax, createQuestContainer, questController, removeEmpty
 import { saveDataToLocalStorage } from './localStorageFunctions.js';
 
 
-
-
-
 export function getNewQuest () {
     let questObject = new Quest(null, null, null, new Currency(null, null), null)
-    let getQuestFormObjective = document.querySelector("#formObjective").value;
-    let getQuestFormDate = document.querySelector("#formDate").value;
-    let getQuestCurrencyType = document.querySelector("#formCurrencyType").value;
-    let getQuestCurrencyAmount = document.querySelector("#formCurrencyAmount").value;
+    let getQuestFormObjective = document.querySelector("objectiveInput").value;
+    let getQuestFormDate = document.querySelector("#objectiveTimeFrameInput").value;
+    let getQuestCurrencyType = document.querySelector("#currencyTypeInput").value;
+    let getQuestCurrencyAmount = document.querySelector("#currencyAmountInput").value;
 
     questObject.objective = getQuestFormObjective;
     questObject.dateToComplete = getQuestFormDate;
@@ -35,34 +32,26 @@ export function createCardTemplate (type) {
 
     //Quest Objective Content
     let objective = document.createElement("div");
+    let objectiveContent = document.createElement("div");
+    objectiveContent.classList.add("objectiveContent")
 
-    let objectiveText = document.createElement("span");
-
-    // Complete Checkbox Nested in  Objective Content Div 
-    let completeContainer = document.createElement("div");
-
-    //  Label
-    let completeLabel = document.createElement("label");
-    completeLabel.textContent = "Mark  Complete";
+    let objectiveText = document.createElement("div");
+    objectiveText.classList.add("objectiveText");
+    let objectiveTimeFrame = document.createElement("div");
+    objectiveTimeFrame.classList.add("objectiveTimeFrame");
 
     //  Check Box
     let completeCheckbox = document.createElement("input");
     completeCheckbox.setAttribute("type", "checkbox");
 
-
-    objective.appendChild(objectiveText);
-    completeContainer.appendChild(completeCheckbox);
-    completeContainer.appendChild(completeLabel);
-    objective.appendChild(completeContainer);
-
-
-    //Date to Complete Content
-    let dateToCompleteBox = document.createElement("div");
-    dateToCompleteBox.classList.add("dateToCompleteBox");
-
+    objective.appendChild(completeCheckbox);
+    objective.appendChild(objectiveContent);
+    objectiveContent.appendChild(objectiveText)
+    objectiveContent.appendChild(objectiveTimeFrame)
+   
 
     //Reward Box Content
-    let rewardBox =  document.createElement("div");
+    let rewardBox = document.createElement("div");
     rewardBox.classList.add("rewardBox");
 
     // Reward Box Image
@@ -74,18 +63,13 @@ export function createCardTemplate (type) {
     rewardBox.appendChild(rewardBoxCurrencyAmount);
 
     card.appendChild(objective);
-    card.appendChild(dateToCompleteBox);
-    card.appendChild(rewardBox);
+    objective.appendChild(rewardBox);
 
     if (type == "quest") {
         card.classList.add("questCard")
-        objective.classList.add("questCardObjective");
-        objectiveText.classList.add("questCardText");
-        completeContainer.classList.add("questCompleteContainer");
-        completeLabel.textContent = "Mark Quest Complete";
+        objective.classList.add("cardContent");
         completeCheckbox.classList.add("questCompleteCheckbox");
-        completeCheckbox.setAttribute("type", "checkbox");
-        dateToCompleteBox.classList.add("dateToCompleteBox");       
+        completeCheckbox.setAttribute("type", "checkbox");       
         rewardBoxCurrencyTypeImage.classList.add("questRewardImage");
         rewardBoxCurrencyAmount.classList.add("questRewardAmount");
     }
@@ -93,14 +77,77 @@ export function createCardTemplate (type) {
     if (type == "goal") {
         card.classList.add("goalCard")
         objective.classList.add("goalObjective");
-        objectiveText.classList.add("goalCardText");
         completeContainer.classList.add("goalCompleteContainer");
         completeLabel.textContent = "Mark Goal Complete";
         completeCheckbox.classList.add("goalCompleteCheckbox");
         completeCheckbox.setAttribute("type", "checkbox");
-        dateToCompleteBox.classList.add("dateToCompleteBox");       
+        objectiveTime.classList.add("objectiveTimeFrame");       
         rewardBoxCurrencyTypeImage.classList.add("goalRewardImage");
         rewardBoxCurrencyAmount.classList.add("goalRewardAmount");
+    }
+
+    if (type == "emptyQuest") {
+
+        card.classList.add("questCard");
+
+        objective.removeChild(completeCheckbox);
+        let sumbitNewQuestButton = document.createElement("button");
+        sumbitNewQuestButton.innerText = "Submit";
+        objective.insertBefore(sumbitNewQuestButton, objective.firstChild);
+      
+        let objectiveTextInput = document.createElement("input");
+        objectiveTextInput.setAttribute("type", "text");
+        objectiveTextInput.setAttribute("placeholder", "Define your quest here...");
+        objectiveTextInput.setAttribute("maxlength", "70"); // Set character limit to 70
+        objectiveTextInput.classList.add("input");
+        objectiveTextInput.setAttribute("id", "objectiveInput"); 
+
+        let objectiveTimeFrameInput = document.createElement("input");
+        objectiveTimeFrameInput.setAttribute("type", "text");
+        objectiveTimeFrameInput.setAttribute("placeholder", "Time to complete quest...");
+        objectiveTimeFrameInput.setAttribute("maxlength", "70"); // Set character limit to 70
+        objectiveTimeFrameInput.classList.add("input");
+        objectiveTimeFrameInput.setAttribute("id", "objectiveTimeFrameInput"); 
+
+        let rewardTypeInput = document.createElement("select")
+        rewardTypeInput.setAttribute("name", "rewardTypeInput")
+        rewardTypeInput.classList.add("inputRewardForm");
+        rewardTypeInput.setAttribute("id", "currencyTypeInput")
+
+        for (let i = 0; i < rewardUtilities.validCurrencies.length; i++) {
+            console.log(rewardUtilities.validCurrencies[i])
+            let option = document.createElement("option");
+            option.setAttribute("value", rewardUtilities.validCurrencies[i]);
+            option.textContent = `${rewardUtilities.validCurrencies[i]}`;
+            rewardTypeInput.appendChild(option);
+        }
+
+        let rewardAmountInput = document.createElement("input")
+        rewardAmountInput.classList.add("inputRewardForm");
+        rewardAmountInput.setAttribute("type", "number")
+        rewardAmountInput.setAttribute("name", "rewardAmountInput")
+        rewardAmountInput.setAttribute("min", "0")
+        rewardAmountInput.setAttribute("max", "1000")
+        rewardAmountInput.setAttribute("placeholder", "0");
+        rewardAmountInput.setAttribute("id", "currencyAmountInput")
+        
+
+        rewardAmountInput.addEventListener("input", function() {
+            if (this.value > 1000) {
+                alert("This value cannot exceed the maximum of: 1000")
+              this.value = 1000;
+            }
+          });
+
+        rewardBox.appendChild(rewardTypeInput);
+        rewardBox.appendChild(rewardAmountInput);
+
+        objectiveText.appendChild(objectiveTextInput);
+        objectiveTimeFrame.appendChild(objectiveTimeFrameInput);
+
+        objective.classList.add("cardContent");
+        completeCheckbox.classList.add("questCompleteCheckbox");
+        completeCheckbox.setAttribute("type", "checkbox");
     }
 
     if (type == null || type == undefined) {
@@ -111,10 +158,10 @@ export function createCardTemplate (type) {
     return card;
 }
 
-export function displayQuestCardContent (quest, cardElement, currencyContainer) {
+export function displaycardContent (quest, cardElement, currencyContainer) {
 
         //Quest Objective Content
-        let questObjective = cardElement.querySelector(".questCardText");
+        let questObjective = cardElement.querySelector(".objectiveText");
         questObjective.innerText = quest.objective;
         questObjective.setAttribute("id", `${quest.objective}`)
     
@@ -130,7 +177,7 @@ export function displayQuestCardContent (quest, cardElement, currencyContainer) 
         }
         
         //Date to Complete Content
-        let dateToCompleteBox = cardElement.querySelector(".dateToCompleteBox");
+        let dateToCompleteBox = cardElement.querySelector(".objectiveTimeFrame");
         dateToCompleteBox.setAttribute("id", `questCard-${quest.dateToComplete}`)
         dateToCompleteBox.textContent = (`${quest.dateToComplete}`);
 
@@ -206,7 +253,7 @@ export function renderQuestList (currentQuestList, currencyContainer) {
         for (let i = 0; i < currentQuestList.length; i++) {
             let card = createCardTemplate("quest");
             card.setAttribute("id", `quest-${i}`);
-            displayQuestCardContent(currentQuestList[i], card, currencyContainer);
+            displaycardContent(currentQuestList[i], card, currencyContainer);
             questList.appendChild(card);
         }
     }

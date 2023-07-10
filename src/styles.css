@@ -257,10 +257,9 @@
 
 .questCard {
     display: flex;
-    flex-direction: row;
     height: 10em;
     background: #fff;
-    box-shadow: 0px 10px 20px rgba(0, 0, 0, 1);
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 1);
     border-radius: 8px;
     position: relative;
     align-items: center;
@@ -287,12 +286,11 @@
   margin-top: 1.5em;
 }
 
-.questCardObjective {
+.cardContent {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    width: 60%;
-    height: 70%;
+    width: 95%;
+    height: 75%;
     border: black 2px solid;
     border-radius: 8px;
     padding: 0.5em;
@@ -300,50 +298,69 @@
     background-color: #ffab92;
 }
 
-.dateToCompleteBox {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 12.5%;
-    height: 70%;
-    border: black 2px solid;
-    border-radius: 8px;
-    padding: 0.5em;
-    color: red;
-    background-color: #ffffcc;
-    font-weight: 800;
-    /* margin-right: 7em; */
+.questCardObjective > div {
+    margin-left: 0.5em;
+}
+
+.objectiveContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  width: 100%;
+  margin-bottom: 1em;
+}
+
+.objectiveContent > .objectiveText {
+  font-size: larger;
+  margin-bottom: 0.5em;
+}
+
+.objectiveTimeFrame {
+  font-size: small;
+  margin-left: 0.3em;
+}
+
+.input {
+  border: none;
+  border-bottom: 1px solid #ccc;
+  padding: 5px;
+  transition: border-color 0.3s;
+  background-color: transparent; /* Set the background color to transparent */
+  width: 90%;
+  margin-left: 1em;
+  margin-right: 1em;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #007bff;
+  background-color: yellow;
 }
 
 .rewardBox {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
-    width: 15%;
-    height: 70%;
+    justify-content: center;
+    width: 23%;
+    height: 80%;
     border: black 2px solid;
     border-radius: 8px;
     padding: 0.5em;
     background-color: #c8e6c9;
 }
 
-.questCompleteContainer {
-    display: flex;
-    border: 2px solid black;
-    width: 10em;
-    height: 6em;
-    background-color: #f3fcff;
-    align-items: center;
-    justify-content: center;
-    border-radius: 8px;
+.inputRewardForm {
+  width: 100%;
+  margin-bottom: 1em;
 }
 
 .questCompleteCheckbox {
     margin-left: 1em;
     margin-right: 0.5em;
-    width: 4em;
-    height: 4em;
+    margin-bottom: 2em;
+    width: 3em;
+    height: 3em;
 }
 
 .questRewardImage, .goalRewardImage {

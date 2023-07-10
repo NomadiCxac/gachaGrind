@@ -10,6 +10,7 @@ export function showEmptyState () {
         
         let questContainer = document.querySelector(".questContainer");
         emptyStateContainer.classList.add("emptyStateContainer");
+        emptyStateContainer.setAttribute("id", "emptyQuestContainer");
         questContainer.appendChild(emptyStateContainer);
 
         emptyStateContainer.textContent = "Create a Quest to get started and check them here:"
@@ -26,6 +27,7 @@ export function showEmptyState () {
         
         let goalContainer = document.querySelector(".goalContainer");
         emptyStateContainer.classList.add("emptyStateContainer");
+        emptyStateContainer.setAttribute("id", "emptyGoalContainer");
         goalContainer.appendChild(emptyStateContainer);
 
         emptyStateContainer.textContent = "Set Goals and track your progress here:"
@@ -39,28 +41,25 @@ export function showEmptyState () {
 
 
 export function removeEmptyState () {
-    const emptyQuestList = document.querySelector(".emptyStateContainer")
-    if (emptyQuestList) {
-        emptyQuestList.remove();
-    } else {
-      return;
-    }
+
+    if (currentQuestList.length > 0) {
+        const emptyQuestList = document.querySelector(".emptyStateContainer#emptyQuestContainer")
+        if (emptyQuestList) {
+                    emptyQuestList.remove();
+                } else {
+                  return;
+                }
+        } 
+
+    if (currentGoalList.length > 0) {
+        const emptyQuestList = document.querySelector(".emptyStateContainer#emptyGoalContainer")
+        if (emptyQuestList) {
+            emptyQuestList.remove();
+        } else {
+          return;
+        }
+    } 
 }
-
-
-
-// let questContainer;
-
-// export function createQuestContainer() {
-
-//   if (!questContainer) {
-//     let gameContainer = document.querySelector(".gameContent");
-//     questContainer = document.createElement("div");
-//     questContainer.classList.add("questContainer");
-//     gameContainer.appendChild(questContainer);
-
-//   }
-// }
 
 let questParallax;
 
@@ -74,20 +73,6 @@ export function createQuestParallax() {
 
   }
   questParallax.textContent = "";
-}
-
-
-let goalContainer;
-
-export function createGoalContainer() {
-
-  if (!goalContainer) {
-    let gameContainer = document.querySelector(".gameContent");
-    goalContainer = document.createElement("div");
-    goalContainer.classList.add("goalContainer");
-    gameContainer.appendChild(goalContainer);
-  }
-  goalContainer.textContent = "";
 }
 
 let goalParallax;
