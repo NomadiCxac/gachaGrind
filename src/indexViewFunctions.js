@@ -2,55 +2,44 @@ import { currentQuestList, currentGoalList } from "./data";
 
 let header = document.querySelector(".gameContentHeader");
 
-export function showEmptyQuestAndGoals () {
+export function showEmptyState () {
    
-      if (currentQuestList.length <= 0 && currentGoalList.length <= 0) {
-        if (header.hasChildNodes()) {
-            while (header.firstChild) {
-              header.removeChild(header.firstChild);
-            }
-          }
-        let gameContainer = document.querySelector(".gameContent");
-        if (gameContainer.hasChildNodes()) {
-            while (gameContainer.firstChild) {
-              gameContainer.removeChild(gameContainer.firstChild);
-            }
-          }
-        let emptyContainer = document.createElement("div");
-        emptyContainer.classList.add("emptyQuestList");
-        emptyContainer.textContent = "Create a Goal or Task to Get Started"
-        gameContainer.appendChild(emptyContainer);
+    if (currentQuestList.length <= 0) {
+
+        let emptyStateContainer = document.createElement('div');
+        
+        let questContainer = document.querySelector(".questContainer");
+        emptyStateContainer.classList.add("emptyStateContainer");
+        questContainer.appendChild(emptyStateContainer);
+
+        emptyStateContainer.textContent = "Create a Quest to get started and check them here:"
+        let questButton = document.createElement("button");
+        questButton.classList.add("addQuestButton")
+        questButton.textContent = "Add Quest +"
+        emptyStateContainer.appendChild(questButton);
+    
+    }
+
+    if (currentGoalList.length <= 0) {
+
+        let emptyStateContainer = document.createElement('div');
+        
+        let goalContainer = document.querySelector(".goalContainer");
+        emptyStateContainer.classList.add("emptyStateContainer");
+        goalContainer.appendChild(emptyStateContainer);
+
+        emptyStateContainer.textContent = "Set Goals and track your progress here:"
+        let goalButton = document.createElement("button");
+        goalButton.classList.add("addGoalButton")
+        goalButton.textContent = "Add Goal +"
+        emptyStateContainer.appendChild(goalButton);
+    
     }
 }
 
-let taskHeader;
 
-export function questController () {
-
-    // Case: User creates a task but no goals
-    if (currentQuestList.length > 0 && !taskHeader) {
-        taskHeader = document.createElement("div");
-        taskHeader.style.gridColumn = "1";
-        taskHeader.textContent = "Tasks";
-        header.appendChild(taskHeader);
-    }
-
-   
-}
-
-export function goalController () {
-     // Case: User creates a goal
-     if (currentGoalList.length > 0) {
-        let goalHeader = document.createElement("div");
-        goalHeader.style.gridColumn = "2";
-        goalHeader.textContent = "Goals";
-        header.appendChild(goalHeader);
-      }
-      
-}
-
-export function removeEmptyTaskGoalPrompt () {
-    const emptyQuestList = document.querySelector(".emptyQuestList")
+export function removeEmptyState () {
+    const emptyQuestList = document.querySelector(".emptyStateContainer")
     if (emptyQuestList) {
         emptyQuestList.remove();
     } else {
@@ -60,19 +49,18 @@ export function removeEmptyTaskGoalPrompt () {
 
 
 
-let taskContainer;
+// let questContainer;
 
-export function createTaskContainer() {
+// export function createQuestContainer() {
 
-  if (!taskContainer) {
-    let gameContainer = document.querySelector(".gameContent");
-    taskContainer = document.createElement("div");
-    taskContainer.classList.add("questContainer");
-    gameContainer.appendChild(taskContainer);
+//   if (!questContainer) {
+//     let gameContainer = document.querySelector(".gameContent");
+//     questContainer = document.createElement("div");
+//     questContainer.classList.add("questContainer");
+//     gameContainer.appendChild(questContainer);
 
-  }
-  // taskContainer.textContent = "";
-}
+//   }
+// }
 
 let questParallax;
 

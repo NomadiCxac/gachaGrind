@@ -13,7 +13,8 @@ import { calcHeroScore } from './playerCharacterFunctions';
 import { appendItemImage, createInventoryModal, createInventoryPage, generateInventoryItemImage, generateInventoryItems, updateInventoryPage, inventoryEventHandler}  from './inventoryFunctions';
 import { getItemImage } from './helperFunctions/getItemImage';
 import { currentQuestList, playerInventory, currencyContainer, playerEquippedItems, currentGoalList } from './data.js';
-import { removeEmptyTaskGoalPrompt, createTaskContainer, questController, goalController, showEmptyQuestAndGoals, createGoalContainer } from './indexViewFunctions';
+import { removeEmptyTaskGoalPrompt, createTaskContainer, questController, goalController, showEmptyQuestAndGoals, createGoalContainer, showEmptyState } from './indexViewFunctions';
+import { createGetDataForm } from './generateForm';
 
 console.log(currencyContainer)
 // Globally Scoped Variables
@@ -31,6 +32,7 @@ let testQuest = new Quest ("Finish Fn", "Today", false, new Currency("GGTokens",
 
 // currentQuestList.push(testQuest);
 console.log(currentQuestList);
+console.log(currentGoalList);
 
 let testGoal = new Goal ("Become Fluent in Spanish", new Currency("GGTokens", 12), null, 4, 30)
 
@@ -43,39 +45,18 @@ let testGoal = new Goal ("Become Fluent in Spanish", new Currency("GGTokens", 12
 //   console.log(testGoal.quests);
 // })
 
-
+showEmptyState();
 
 
 // let x = document.querySelector(".gameContent");
-const formContainer = document.getElementById('formContainer');
 
-// Create form element
-const form = document.createElement('form');
-formContainer.appendChild(form);
-
-// Create input elements
-const input1 = document.createElement('input');
-input1.setAttribute('type', 'text');
-input1.setAttribute('name', 'name');
-form.appendChild(input1);
-
-const input2 = document.createElement('input');
-input2.setAttribute('type', 'email');
-input2.setAttribute('name', 'email');
-form.appendChild(input2);
-
-// Create a submit button
-const submitButton = document.createElement('input');
-submitButton.setAttribute('type', 'submit');
-submitButton.setAttribute('value', 'Submit');
-form.appendChild(submitButton);
 // let goalCard = createCardTemplate("goal");
 // x.appendChild(goalCard);
 // displayGoalCardContent(testGoal, goalCard, currencyContainer);
 
 
 
-// userInterfaceManager(currentQuestList, currencyContainer);
+userInterfaceManager(currentQuestList, currencyContainer);
 
 // console.log(currentGoalList);
 // console.log(currentQuestList);
@@ -85,21 +66,23 @@ form.appendChild(submitButton);
 
 
 // Event Listener to Open Quest Creation Modal
-let addQuestButtonClicked = document.querySelector("button#addQuestButton")
+let addQuestButtonClicked = document.querySelector("button.addQuestButton")
 addQuestButtonClicked.addEventListener("click", function () {
     // displayFormModal();
     currentQuestList.push(testQuest);
     renderQuestList(currentQuestList, currencyContainer);
+    createGetDataForm("quest");
 })
 
-let addGoalButtonClicked = document.querySelector("button#addGoalButton")
+let addGoalButtonClicked = document.querySelector("button.addGoalButton")
 addGoalButtonClicked.addEventListener("click", function () {
     // removeEmptyTaskGoalPrompt();
     // createTaskContainer();
     // goalController();
+    
     currentGoalList.push(testGoal);
     createGoalContainer();
-    goalController();
+    createGetDataForm("goal");
 })
 
 
@@ -107,7 +90,7 @@ addGoalButtonClicked.addEventListener("click", function () {
 let formSubmitButton = document.querySelector("#formSubmitButton");
 formSubmitButton.addEventListener("click", function (e) {
     closeFormModal(e);
-    removeEmptyTaskGoalPrompt();
+    removeEmptyQuestGoalPrompt();
     let newlyGeneratedQuest = getNewQuest();
     addQuest(currentQuestList, newlyGeneratedQuest);
     userInterfaceManager(currentQuestList, currencyContainer);

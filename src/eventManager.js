@@ -4,7 +4,7 @@ import { getDataFromLocalStorage, saveDataToLocalStorage } from "./localStorageF
 import { taskAndGoalController, removeEmptyTaskGoalPrompt, createTaskContainer, showEmptyQuestAndGoalsEmptyQuestAndGoals } from "./indexViewFunctions";
 // import { currentGoalList, currentQuestList } from "./data";
 
-export default function userInterfaceManager (currentQuestList, currencyContainer) {
+export default function userInterfaceManager (currentQuestList, currencyContainer, currentGoalList) {
 
     // Default and Persisting Events:
     // 1. Render Currency Values
@@ -19,3 +19,5 @@ export default function userInterfaceManager (currentQuestList, currencyContaine
     saveDataToLocalStorage("currencyContainer", currencyContainer);
     // createAndDisplayQuestCards(currentQuestList, currencyContainer);
 }
+
+

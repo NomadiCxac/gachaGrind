@@ -2,7 +2,7 @@ import { Quest, Currency } from './classes/classes.js'
 import { rewardUtilities, currencyAggregator, displayPlayerCurrentCurrency } from './currencyFunctions.js';
 import { currentQuestList } from './data.js';
 import userInterfaceManager from './eventManager.js';
-import { createQuestParallax, createTaskContainer, questController, removeEmptyTaskGoalPrompt } from './indexViewFunctions.js';
+import { createQuestParallax, createQuestContainer, questController, removeEmptyState } from './indexViewFunctions.js';
 import { saveDataToLocalStorage } from './localStorageFunctions.js';
 
 
@@ -27,103 +27,19 @@ export function getNewQuest () {
 }
 
 
-// export function createAndDisplayQuestCards (currentQuestList, currencyContainer) {
-
-//     let taskContainer = document.querySelector(".questContainer");
-
-//     for (let questIndex in currentQuestList) {
-
-//         // Initialize Card (Container) Creation and Content
-//         let card = document.createElement("div"); 
-//         card.classList.add("questCard")
-//         card.setAttribute("id", `${[questIndex]}`);
-
-
-//         //Quest Objective Content
-//         let questObjective = document.createElement("div");
-//         questObjective.classList.add("questCardObjective");
-//         questObjective.setAttribute("id", `questCard-${currentQuestList[questIndex].objective}`)
-//         questObjective.textContent = (`${currentQuestList[questIndex].objective}`);
-
-//         //Quest Complete Checkbox Nested in Quest Objective Content Div 
-//         let questCompleteContainer = document.createElement("div");
-//         questCompleteContainer.classList.add("questCompleteContainer");
-
-    //     let questCompleteLabel = document.createElement("label");
-    //     questCompleteLabel.textContent = "Mark Quest Complete";
-    //     questCompleteLabel.htmlFor = `isQuestComplete-${questIndex}`;
-       
-
-    //     let questCompleteCheckbox = document.createElement("input");
-    //     questCompleteCheckbox.classList.add("questCompleteCheckbox");
-    //     questCompleteCheckbox.setAttribute("type", "checkbox");
-    //     questCompleteCheckbox.setAttribute("id", `isQuestComplete-${questIndex}`);
-    //     questCompleteCheckbox.addEventListener("change", function() {
-
-    //             if (this.checked) {
-    //                 currentQuestList[questIndex].questComplete = true;
-    //                 console.log(currentQuestList)
-    //                 currencyAggregator(currencyContainer, currentQuestList[questIndex]);
-    //                 userInterfaceManager(currentQuestList, currencyContainer);
-    //             } 
-    //         });
-
-
-    //     questCompleteContainer.appendChild(questCompleteCheckbox);
-    //     questCompleteContainer.appendChild(questCompleteLabel);
-    //     questObjective.appendChild(questCompleteContainer);
-        
-
-
-    //     //Date to Complete Content
-    //     let dateToCompleteBox = document.createElement("div");
-    //     dateToCompleteBox.classList.add("dateToCompleteBox");
-    //     dateToCompleteBox.setAttribute("id", `questCard-${currentQuestList[questIndex].dateToComplete}`)
-    //     dateToCompleteBox.textContent = (`${currentQuestList[questIndex].dateToComplete}`);
-
-    //     //Reward Box Content
-    //     let rewardBox =  document.createElement("div");
-    //     rewardBox.classList.add("rewardBox");
-    //     rewardBox.setAttribute("id", `questCard-${[questIndex]}-reward`);
-
-    //         // Reward Box Image
-    //         let rewardBoxCurrencyTypeImage = document.createElement("img");
-    //         rewardBoxCurrencyTypeImage.setAttribute("src", rewardUtilities.getRewardImage(currentQuestList[questIndex]));            
-    //         rewardBoxCurrencyTypeImage.classList.add("questRewardImage");
-    //         rewardBox.appendChild(rewardBoxCurrencyTypeImage)
-           
-    //         // Reward Box Currency Amount
-    //         let rewardBoxCurrencyAmount = document.createElement("div");
-    //         rewardBoxCurrencyAmount.classList.add("questRewardAmount");
-    //         rewardBoxCurrencyAmount.textContent = (`${currentQuestList[questIndex].reward.amount} ${currentQuestList[questIndex].reward.type}`);
-    //         rewardBox.appendChild(rewardBoxCurrencyAmount);
-
-    //     card.appendChild(questObjective);
-    //     card.appendChild(dateToCompleteBox);
-    //     card.appendChild(rewardBox);
-
-    //     taskContainer.appendChild(card);
-    // }
-    
-// }
-
 export function createCardTemplate (type) {
 
     
     // Initialize Card (Container) Creation and Content
     let card = document.createElement("div"); 
-    // card.classList.add("questCard")
 
     //Quest Objective Content
     let objective = document.createElement("div");
-    // Objective.classList.add("CardObjective");
 
     let objectiveText = document.createElement("span");
-    // ObjectiveText.classList.add("CardText");
 
     // Complete Checkbox Nested in  Objective Content Div 
     let completeContainer = document.createElement("div");
-    // CompleteContainer.classList.add("CompleteContainer");
 
     //  Label
     let completeLabel = document.createElement("label");
@@ -131,7 +47,6 @@ export function createCardTemplate (type) {
 
     //  Check Box
     let completeCheckbox = document.createElement("input");
-    // CompleteCheckbox.classList.add("CompleteCheckbox");
     completeCheckbox.setAttribute("type", "checkbox");
 
 
@@ -152,12 +67,10 @@ export function createCardTemplate (type) {
 
     // Reward Box Image
     let rewardBoxCurrencyTypeImage = document.createElement("img");         
-    // rewardBoxCurrencyTypeImage.classList.add("RewardImage");
     rewardBox.appendChild(rewardBoxCurrencyTypeImage)
 
     // Reward Box Currency Amount
     let rewardBoxCurrencyAmount = document.createElement("div");
-    // rewardBoxCurrencyAmount.classList.add("RewardAmount");
     rewardBox.appendChild(rewardBoxCurrencyAmount);
 
     card.appendChild(objective);
@@ -285,9 +198,7 @@ export function renderQuestList (currentQuestList, currencyContainer) {
 
     else {
 
-        removeEmptyTaskGoalPrompt();
-        questController();
-        createTaskContainer();
+        removeEmptyState();
         createQuestParallax();
         let questList = document.querySelector(".questParallax");
         console.log(questList);

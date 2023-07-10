@@ -23,10 +23,14 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    grid-column: 1;
-    grid-row: 1 / 4;
+    /* grid-column: 1;
+    grid-row: 1 / 4; */
     background-color: white;
     border: 2px solid black;
+    width: 80%;
+    margin-left: 1.5em;
+    margin-top: 1.5em;
+
 }
 
 .pixelProfile > img {
@@ -36,7 +40,7 @@
 
 .topNav {
     display: flex;
-    align-items: flex-end;
+    align-items: center;
     justify-content: flex-end;
     font-weight: 800;
     grid-column: 2;
@@ -44,13 +48,29 @@
     background-color:  #82e9ff;
     color: white;
     border: 2px solid black;
+    margin-left: 2em;
+    margin-right: 2em;
+    margin-top: 1.5em;
 }
 
 .sideNav {
+    display: flex;
+    flex-direction: column;
     grid-column: 1;
-    grid-row: 4 / 13;
+    grid-row: 1 / 13;
     background-color: #82e9ff;
     border: 2px solid black;
+}
+
+.pageNavigation {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1em;
+  font-size: x-large;
+}
+
+.pageNavigation > li {
+  margin-top: 0.8em;
 }
 
 .appContent {
@@ -60,18 +80,52 @@
     /* component properties */
     display: flex;
     flex-direction: column;
-    background-color: #f5f5f5;
-    border: 2px solid black;
+    /* background-color: #f5f5f5; */
+    /* border: 2px solid black; */
+    margin-left: 2em;
+    margin-right: 2em;
+    margin-top: 1.5em;
 }
 
 .gameContentHeader {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    height: 2em;
+    display: flex;
     margin-bottom: 1em;
-    margin-left: 2em;
-    margin-right: 2em;
-    border: 1px solid black;
+    /* border: 1px solid black; */
+}
+
+#questHeader {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  font-size: xx-large;
+  margin-right: 1em;
+}
+
+#questHeader > .questTimeOptions {
+  display: flex;
+  width: 11%;
+  justify-content: space-between;
+  font-style: italic;
+  font-size: small;
+  margin-right: 1em;
+}
+
+#goalHeader > .goalCompleteOptions {
+  display: flex;
+  width: 17%;
+  justify-content: space-between;
+  font-style: italic;
+  font-size: small;
+  margin-right: 1em;
+}
+
+#goalHeader {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  font-size: xx-large;
 }
 
 .gameContent {
@@ -91,6 +145,7 @@
     border: 1px solid black;
     position: relative;
     overflow: hidden;
+    margin-right: 2em;
 }
 
 .questParallax {
@@ -109,14 +164,18 @@
   border: 1px solid black;
 }
 
-.emptyQuestList {
+.emptyStateContainer {
+  font-size: x-large;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   height: 100%;
   width: 100%;
-  border: 1px solid black;
-  margin: 2em;
+}
+
+.emptyStateContainer > button {
+  margin-top: 1em;
 }
 
 .inventoryPage {
@@ -170,17 +229,17 @@
 .taskAndGoalButtonContainer {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: flex-start;
   height: 20%;
 }
 
-#addQuestButton, #addGoalButton {
+.addQuestButton, .addGoalButton {
     display: flex;
     align-items: center;
     justify-content: center;
     width: 10em;
     height: 2em;
-    margin-left: 1%;
+    /* margin-left: 1%; */
     margin-right: 2em;
     background-color: green;
     color: white;
@@ -306,6 +365,7 @@
     width: 40%;
     align-items: center;
     justify-content: space-evenly;
+    margin-top: 0.5em;
 }
 
 .playerCurrency {
@@ -650,3 +710,38 @@
   transform: scale(0.95);
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 1);
 }
+
+.goal-form label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.goal-form input[type="text"],
+.goal-form input[type="number"] {
+  width: 100%;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+
+.goal-form input[type="submit"] {
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.goal-form input[type="submit"]:hover {
+  background-color: #45a049;
+}
+
+.goal-form br {
+  display: none;
+}
+
+.goal-form label.frequency-label {
+  display: inline-block;
+  margin-right: 10px;
+}
+

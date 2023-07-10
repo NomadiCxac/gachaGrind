@@ -53,12 +53,7 @@
                 </form>
             </div>
 
-                <div class="pixelProfile">
-                    <img id="testImage" src="images/zeusSprite.png">
-                    <div id="heroScoreContainer">
-                        Hero Score: 0
-                    </div>
-                </div>
+                
 
                 <div class="topNav">
                     <div class="playerCurrencyContainer">
@@ -78,7 +73,13 @@
                 </div>
 
                 <div class="sideNav">
-                    <ul>
+                    <div class="pixelProfile">
+                        <img id="testImage" src="images/zeusSprite.png">
+                        <div id="heroScoreContainer">
+                            Hero Score: 0
+                        </div>
+                    </div>
+                    <ul class="pageNavigation">
                         <li><a href="index.html">Home</a></li>
                         <li><a href="inventory.html">Inventory</a></li>
                         <li><a href="shop.html">Shop</a></li>
@@ -90,16 +91,30 @@
                 <div class="appContent">
 
                     <div class="taskAndGoalButtonContainer">
-                        <button id="addQuestButton">Add Quest</button>
-                        <button id="addGoalButton">Add Goal</button>
+                        <button class="addQuestButton">Add Quest +</button>
+                        <button class="addGoalButton">Add Goal +</button>
                     </div>
 
                     <div class="gameContentHeader">
-                        <!-- JS Adjusts This -->
+                        <div id="questHeader">
+                            My Quests
+                            <div class="questTimeOptions">
+                                <div id="todayQuests">Today</div>
+                                <div id="weeklyQUests">Weekly</div>
+                            </div>
+                        </div>
+                        <div id="goalHeader">
+                            My Goals
+                            <div class="goalCompleteOptions">
+                                <div id="inProgress">In Progress</div>
+                                <div id="completed">Completed</div>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="gameContent">
-                        <div id="formContainer"></div>
+                        <div class="questContainer"></div>
+                        <div class="goalContainer"></div>
                         <!-- JS Adjusts This -->
                     </div>
                     
