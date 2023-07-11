@@ -6,12 +6,12 @@ import { createQuestParallax, createQuestContainer, questController, removeEmpty
 import { saveDataToLocalStorage } from './localStorageFunctions.js';
 
 
-export function getNewQuest () {
-    let questObject = new Quest(null, null, null, new Currency(null, null), null)
-    let getQuestFormObjective = document.querySelector("objectiveInput").value;
-    let getQuestFormDate = document.querySelector("#objectiveTimeFrameInput").value;
-    let getQuestCurrencyType = document.querySelector("#currencyTypeInput").value;
-    let getQuestCurrencyAmount = document.querySelector("#currencyAmountInput").value;
+export function getNewQuest (form) {
+    let questObject = new Quest(null, null, null, new Currency(null, null), null, null, null)
+    let getQuestFormObjective = form.querySelector("#objectiveInput").value;
+    let getQuestFormDate = form.querySelector("#objectiveTimeFrameInput").value;
+    let getQuestCurrencyType = form.querySelector("#currencyTypeInput").value;
+    let getQuestCurrencyAmount = form.querySelector("#currencyAmountInput").value;
 
     questObject.objective = getQuestFormObjective;
     questObject.dateToComplete = getQuestFormDate;
@@ -19,14 +19,197 @@ export function getNewQuest () {
     questObject.reward.type = getQuestCurrencyType;
     questObject.reward.amount = parseInt(getQuestCurrencyAmount);
     questObject.id = null;
+    questObject.oneOffBool = false;
+    questObject.goalId = null;
 
     return questObject;
 }
 
+function validateQuestSubmission (form) {
+    let getQuestFormObjective = form.querySelector("#objectiveInput").value;
+    let getQuestFormDate = form.querySelector("#objectiveTimeFrameInput").value;
+    let getQuestCurrencyType = form.querySelector("#currencyTypeInput").value;
+    let getQuestCurrencyAmount = form.querySelector("#currencyAmountInput").value;
+}
+
+export function createEmptyCardTemplate () {
+
+    // Initialize Card (Container) Creation and Content
+    let card = document.createElement("div"); 
+    card.classList.add("emptyCard");
+
+    // Initialize Card Content
+    let cardContent = document.createElement("div");
+    cardContent.classList.add("emptyCardContent");
+    card.appendChild(cardContent);
+
+    // 1. Submit button CONTAINER content
+    let submitNewQuestButtonContainer = document.createElement("div");
+    submitNewQuestButtonContainer.classList.add("submitNewQuestButtonContainer");
+    cardContent.appendChild(submitNewQuestButtonContainer)
+
+        // 1a) Submit New Quest Button
+        const sumbitNewQuestButton = document.createElement("button");
+        sumbitNewQuestButton.classList.add("submitNewQuestButton");
+        sumbitNewQuestButton.addEventListener("click", function(){
+            let questFormCtx = this.parentNode;
+            let newQuest = getNewQuest(questFormCtx);
+            console.log(newQuest);
+        })
+        sumbitNewQuestButton.innerText = "Submit";
+        submitNewQuestButtonContainer.appendChild(sumbitNewQuestButton);
+
+
+    // 2. Objective CONTAINER content - includes user objective textual input and time inputs
+    let objectiveContentContainer = document.createElement("div");
+    objectiveContentContainer.classList.add("objectiveContentContainer");
+    cardContent.appendChild(objectiveContentContainer)
+
+        // 2a) Objective Text Input Container
+        let objectiveTextInputContainer = document.createElement("div");
+        objectiveTextInputContainer.classList.add("objectiveTextInputContainer");
+        objectiveContentContainer.appendChild(objectiveTextInputContainer)
+
+            // 2a) - Objective Text 
+            let objectiveTextInput = document.createElement("input");
+            objectiveTextInput.setAttribute("type", "text");
+            objectiveTextInput.setAttribute("placeholder", "Define your quest here...");
+            objectiveTextInput.setAttribute("maxlength", "70"); // Set character limit to 70
+            objectiveTextInput.classList.add("input");
+            objectiveTextInput.setAttribute("id", "objectiveTextInput"); 
+            objectiveTextInputContainer.appendChild(objectiveTextInput);
+    
+
+        // 2b) Objective Timeframe Elements Container
+        let objectiveTimeFrameElementsContainer = document.createElement("div");
+        objectiveTimeFrameElementsContainer.classList.add("objectiveTimeFrameElementsContainer");
+        objectiveContentContainer.appendChild(objectiveTimeFrameElementsContainer)
+
+            // 2b) i) Objective Timeframe Label Container
+            let objectiveTimeFrameLabelContainer = document.createElement("div");
+            objectiveTimeFrameLabelContainer.classList.add("objectiveTimeFrameLabelContainer");
+            objectiveTimeFrameElementsContainer.appendChild(objectiveTimeFrameLabelContainer);
+
+                // 2b) i) - Input Date label
+                let inputDateLabel = document.createElement('label');
+                // inputDateLabel.setAttribute('for', 'objectiveTimeFrameInput');
+                inputDateLabel.textContent = 'Date:';
+                objectiveTimeFrameLabelContainer.appendChild(inputDateLabel);
+
+                //  2b) i) - Input Start Time (Optional)
+                let inputStartTimeLabel = document.createElement('label');
+                inputStartTimeLabel.setAttribute('for', 'questStartTime');
+                inputStartTimeLabel.setAttribute('id', 'questStartTimeLabel');
+                inputStartTimeLabel.textContent = 'Start Time (Optional):';
+                objectiveTimeFrameLabelContainer.appendChild(inputStartTimeLabel);
+
+                //  2b) i) - Input End Time (Optional)
+                let inputEndTimeLabel = document.createElement('label');
+                // inputTimeLabel.setAttribute('for', 'objectiveTimeFrameInput');
+                inputEndTimeLabel.textContent = 'End Time (Optional):';
+                objectiveTimeFrameLabelContainer.appendChild(inputEndTimeLabel);
+
+
+            // 2b) ii) Objective Timeframe Input Container
+            let objectiveTimeFrameInputsContainer = document.createElement("div");
+            objectiveTimeFrameInputsContainer.classList.add("objectiveTimeFrameInputsContainer");
+            objectiveTimeFrameElementsContainer.appendChild(objectiveTimeFrameInputsContainer);
+
+                // 2b) ii) - Create objective time frame input
+
+                const dateInput = document.createElement('input');
+                dateInput.setAttribute('type', 'date');
+                dateInput.setAttribute('name', 'questDate');
+                dateInput.id = 'questDate';
+                dateInput.className = 'formInput';
+
+                    // Set the minimum date to today
+                    const today = new Date().toISOString().split('T')[0];
+                    dateInput.setAttribute('min', today);
+
+                objectiveTimeFrameInputsContainer.appendChild(dateInput);
+                
+                // 2b) ii) - Create start time input
+                const startTimeInput = document.createElement('input');
+                startTimeInput.setAttribute('type', 'time');
+                startTimeInput.setAttribute('name', 'questStartTime');
+                startTimeInput.id = 'questStartTime';
+                startTimeInput.className = 'formInput';
+                objectiveTimeFrameInputsContainer.appendChild(startTimeInput);
+
+                // 2b) ii) - Create end time input
+                const endTimeInput = document.createElement('input');
+                endTimeInput.setAttribute('type', 'time');
+                endTimeInput.setAttribute('name', 'questEndTime');
+                endTimeInput.id = 'questEndTime';
+                endTimeInput.className = 'formInput';
+                objectiveTimeFrameInputsContainer.appendChild(endTimeInput);
+                
+
+
+                // const objectiveTimeFrameInput = document.createElement('div');
+                // objectiveTimeFrameInput.id = 'objectiveTimeFrameInput';
+                // objectiveTimeFrameInput.className = 'time-frame-input';
+                // objectiveTimeFrame.appendChild(objectiveTimeFrameInput);
+
+    // 3. Reward CONTAINER content - includes user reward type input and reward amount input
+    let rewardSelectionContainer = document.createElement("div");
+    rewardSelectionContainer.classList.add("rewardSelectionContainer");
+    cardContent.appendChild(rewardSelectionContainer)
+
+        // 3a) Reward Box Parent Element
+        let rewardBox = document.createElement("div");
+        rewardBox.classList.add("rewardBoxInput");
+        rewardSelectionContainer.appendChild(rewardBox);
+
+            // 3a) - Reward Box Image
+            let rewardBoxCurrencyTypeImage = document.createElement("img");         
+            rewardBox.appendChild(rewardBoxCurrencyTypeImage)
+
+            // 3a) - Reward Box Currency Amount
+            let rewardBoxCurrencyAmount = document.createElement("div");
+            rewardBox.appendChild(rewardBoxCurrencyAmount);
+
+
+    let rewardTypeInput = document.createElement("select")
+    rewardTypeInput.setAttribute("name", "rewardTypeInput")
+    rewardTypeInput.classList.add("inputRewardForm");
+    rewardTypeInput.setAttribute("id", "currencyTypeInput")
+
+    for (let i = 0; i < rewardUtilities.validCurrencies.length; i++) {
+        console.log(rewardUtilities.validCurrencies[i])
+        let option = document.createElement("option");
+        option.setAttribute("value", rewardUtilities.validCurrencies[i]);
+        option.textContent = `${rewardUtilities.validCurrencies[i]}`;
+        rewardTypeInput.appendChild(option);
+    }
+
+    let rewardAmountInput = document.createElement("input")
+    rewardAmountInput.classList.add("inputRewardForm");
+    rewardAmountInput.setAttribute("type", "number")
+    rewardAmountInput.setAttribute("name", "rewardAmountInput")
+    rewardAmountInput.setAttribute("min", "0")
+    rewardAmountInput.setAttribute("max", "1000")
+    rewardAmountInput.setAttribute("placeholder", "0");
+    rewardAmountInput.setAttribute("id", "currencyAmountInput")
+
+
+    rewardAmountInput.addEventListener("input", function() {
+        if (this.value > 1000) {
+            alert("This value cannot exceed the maximum of: 1000")
+            this.value = 1000;
+        }
+        });
+
+    rewardBox.appendChild(rewardTypeInput);
+    rewardBox.appendChild(rewardAmountInput);
+
+    return card;
+
+}
 
 export function createCardTemplate (type) {
-
-    
+ 
     // Initialize Card (Container) Creation and Content
     let card = document.createElement("div"); 
 
@@ -84,70 +267,6 @@ export function createCardTemplate (type) {
         objectiveTime.classList.add("objectiveTimeFrame");       
         rewardBoxCurrencyTypeImage.classList.add("goalRewardImage");
         rewardBoxCurrencyAmount.classList.add("goalRewardAmount");
-    }
-
-    if (type == "emptyQuest") {
-
-        card.classList.add("questCard");
-
-        objective.removeChild(completeCheckbox);
-        let sumbitNewQuestButton = document.createElement("button");
-        sumbitNewQuestButton.innerText = "Submit";
-        objective.insertBefore(sumbitNewQuestButton, objective.firstChild);
-      
-        let objectiveTextInput = document.createElement("input");
-        objectiveTextInput.setAttribute("type", "text");
-        objectiveTextInput.setAttribute("placeholder", "Define your quest here...");
-        objectiveTextInput.setAttribute("maxlength", "70"); // Set character limit to 70
-        objectiveTextInput.classList.add("input");
-        objectiveTextInput.setAttribute("id", "objectiveInput"); 
-
-        let objectiveTimeFrameInput = document.createElement("input");
-        objectiveTimeFrameInput.setAttribute("type", "text");
-        objectiveTimeFrameInput.setAttribute("placeholder", "Time to complete quest...");
-        objectiveTimeFrameInput.setAttribute("maxlength", "70"); // Set character limit to 70
-        objectiveTimeFrameInput.classList.add("input");
-        objectiveTimeFrameInput.setAttribute("id", "objectiveTimeFrameInput"); 
-
-        let rewardTypeInput = document.createElement("select")
-        rewardTypeInput.setAttribute("name", "rewardTypeInput")
-        rewardTypeInput.classList.add("inputRewardForm");
-        rewardTypeInput.setAttribute("id", "currencyTypeInput")
-
-        for (let i = 0; i < rewardUtilities.validCurrencies.length; i++) {
-            console.log(rewardUtilities.validCurrencies[i])
-            let option = document.createElement("option");
-            option.setAttribute("value", rewardUtilities.validCurrencies[i]);
-            option.textContent = `${rewardUtilities.validCurrencies[i]}`;
-            rewardTypeInput.appendChild(option);
-        }
-
-        let rewardAmountInput = document.createElement("input")
-        rewardAmountInput.classList.add("inputRewardForm");
-        rewardAmountInput.setAttribute("type", "number")
-        rewardAmountInput.setAttribute("name", "rewardAmountInput")
-        rewardAmountInput.setAttribute("min", "0")
-        rewardAmountInput.setAttribute("max", "1000")
-        rewardAmountInput.setAttribute("placeholder", "0");
-        rewardAmountInput.setAttribute("id", "currencyAmountInput")
-        
-
-        rewardAmountInput.addEventListener("input", function() {
-            if (this.value > 1000) {
-                alert("This value cannot exceed the maximum of: 1000")
-              this.value = 1000;
-            }
-          });
-
-        rewardBox.appendChild(rewardTypeInput);
-        rewardBox.appendChild(rewardAmountInput);
-
-        objectiveText.appendChild(objectiveTextInput);
-        objectiveTimeFrame.appendChild(objectiveTimeFrameInput);
-
-        objective.classList.add("cardContent");
-        completeCheckbox.classList.add("questCompleteCheckbox");
-        completeCheckbox.setAttribute("type", "checkbox");
     }
 
     if (type == null || type == undefined) {

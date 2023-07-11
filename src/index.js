@@ -1,6 +1,6 @@
 import './styles.css';
 import { Quest, Currency, Weapon, Armour, PlayerCharacter, PlayerStats, Goal } from "./classes/classes.js";
-import { getNewQuest, createAndDisplayQuestCards, addQuest, generateTaskContainer, createQuestCardTemplate, displayQuestCardContent, renderQuestList, createCardTemplate, displayGoalCardContent} from "./questFunctions.js";
+import { getNewQuest, createAndDisplayQuestCards, addQuest, generateTaskContainer, createQuestCardTemplate, displayQuestCardContent, renderQuestList, createCardTemplate, displayGoalCardContent, createEmptyCardTemplate} from "./questFunctions.js";
 import { displayFormModal, closeFormModal } from "./modalFunctions.js";
 import dueDate from "./dueDate.js";
 import getObjective from "./getObjective.js";
@@ -71,7 +71,7 @@ addQuestButtonClicked.addEventListener("click", function () {
     currentQuestList.push(testQuest);
     renderQuestList(currentQuestList, currencyContainer);
     let x = document.querySelector(".questParallax");
-    x.appendChild(createCardTemplate("emptyQuest"));
+    x.appendChild(createEmptyCardTemplate());
     console.log(currentGoalList);
 })
 

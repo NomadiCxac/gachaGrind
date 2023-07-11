@@ -255,7 +255,7 @@
 
 /* Quest Card CSS */
 
-.questCard {
+.questCard, .emptyCard {
     display: flex;
     height: 10em;
     background: #fff;
@@ -298,6 +298,84 @@
     background-color: #ffab92;
 }
 
+.emptyCardContent {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 95%;
+  height: 75%;
+  border: black 2px solid;
+  border-radius: 8px;
+  padding: 0.5em;
+  /* margin-right: 7em; */
+  background-color: #b1a6a3;
+}
+
+
+.submitNewQuestButtonContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 0.2em;
+  width: 10%;
+  height: 100%;
+}
+
+.objectiveContentContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: space;
+  width: 100%;
+  height: 100%;
+}
+
+
+.objectiveTimeFrameElementsContainer {
+  margin-top: 1em;
+  margin-left: 1em;
+  margin-right: 1em;
+}
+
+.objectiveTimeFrameLabelContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+#questStartTimeLabel {
+  margin-left: 4.5em;
+}
+
+.objectiveTimeFrameInputsContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+
+.rewardSelectionContainer {
+  width: 25%;
+  height: 100%;
+  margin-left: 1em;
+}
+
+.rewardBoxInput {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: black 2px solid;
+  border-radius: 8px;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  background-color: #c8e6c9;
+  height: 100%;
+}
+
+
 .questCardObjective > div {
     margin-left: 0.5em;
 }
@@ -310,15 +388,29 @@
   margin-bottom: 1em;
 }
 
-.objectiveContent > .objectiveText {
+.objectiveText {
   font-size: larger;
   margin-bottom: 0.5em;
 }
 
 .objectiveTimeFrame {
   font-size: small;
-  margin-left: 0.3em;
+  margin-left: 0.5em;
 }
+
+.objectiveTextInput {
+  font-size: larger;
+  margin-bottom: 0.5em;
+  margin-top: 1em;
+}
+
+.objectiveTimeFrameInput {
+  font-size: small;
+  margin-left: 1.5em;
+  margin-top: 1em;
+}
+
+
 
 .input {
   border: none;
@@ -349,6 +441,7 @@
     padding: 0.5em;
     background-color: #c8e6c9;
 }
+
 
 .inputRewardForm {
   width: 100%;
