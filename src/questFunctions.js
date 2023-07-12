@@ -6,12 +6,12 @@ import { createQuestParallax, createQuestContainer, questController, removeEmpty
 import { saveDataToLocalStorage } from './localStorageFunctions.js';
 
 
-export function getNewQuest (form) {
+export function getNewQuest (card) {
     let questObject = new Quest(null, null, null, new Currency(null, null), null, null, null)
-    let getQuestFormObjective = form.querySelector("#objectiveInput").value;
-    let getQuestFormDate = form.querySelector("#objectiveTimeFrameInput").value;
-    let getQuestCurrencyType = form.querySelector("#currencyTypeInput").value;
-    let getQuestCurrencyAmount = form.querySelector("#currencyAmountInput").value;
+    let getQuestFormObjective = card.querySelector("#objectiveTextInput").value;
+    let getQuestFormDate = card.querySelector("#questDate").value;
+    let getQuestCurrencyType = card.querySelector("#currencyTypeInput").value;
+    let getQuestCurrencyAmount = card.querySelector("#currencyAmountInput").value;
 
     questObject.objective = getQuestFormObjective;
     questObject.dateToComplete = getQuestFormDate;
@@ -25,12 +25,47 @@ export function getNewQuest (form) {
     return questObject;
 }
 
-function validateQuestSubmission (form) {
-    let getQuestFormObjective = form.querySelector("#objectiveInput").value;
-    let getQuestFormDate = form.querySelector("#objectiveTimeFrameInput").value;
-    let getQuestCurrencyType = form.querySelector("#currencyTypeInput").value;
-    let getQuestCurrencyAmount = form.querySelector("#currencyAmountInput").value;
+function validateQuestSubmission (newQuest) {
+    
+    // Invalid Currency Amount:
+    if (!newQuest.reward.amount) {
+        alert("Currency Amount must be greater than 0!");
+        return false;
+    }
+    
+    return true;
 }
+
+export function createGhostCard() {
+    let card = document.createElement("div");
+    card.classList.add("ghostCard");
+    card.classList.add("hidden");
+
+    const createNewQuestButton = document.createElement("button");
+    createNewQuestButton.classList.add("addQuestButton");
+    createNewQuestButton.addEventListener("click", function () {
+        let questParallax = document.querySelector(".questParallax");
+        let ghostCard = this.parentNode;
+        console.log(questParallax);
+        let newQuestCard = createEmptyCardTemplate();
+        questParallax.insertBefore(newQuestCard, ghostCard);
+    });
+    createNewQuestButton.innerText = "Add Quest +";
+    card.appendChild(createNewQuestButton);
+
+    // Add hover event listeners to toggle opacity
+    card.addEventListener("mouseenter", function () {
+        this.classList.remove("hidden");
+        this.classList.add("visible");
+    });
+
+    card.addEventListener("mouseleave", function () {
+        this.classList.remove("visible");
+        this.classList.add("hidden");
+    });
+
+    return card;
+  }
 
 export function createEmptyCardTemplate () {
 
@@ -52,9 +87,11 @@ export function createEmptyCardTemplate () {
         const sumbitNewQuestButton = document.createElement("button");
         sumbitNewQuestButton.classList.add("submitNewQuestButton");
         sumbitNewQuestButton.addEventListener("click", function(){
-            let questFormCtx = this.parentNode;
-            let newQuest = getNewQuest(questFormCtx);
-            console.log(newQuest);
+            let x = getNewQuest(card);
+            if (validateQuestSubmission(x)) {
+                currentQuestList.push(x);
+            };
+            console.log(currentQuestList);
         })
         sumbitNewQuestButton.innerText = "Submit";
         submitNewQuestButtonContainer.appendChild(sumbitNewQuestButton);
@@ -146,12 +183,6 @@ export function createEmptyCardTemplate () {
                 objectiveTimeFrameInputsContainer.appendChild(endTimeInput);
                 
 
-
-                // const objectiveTimeFrameInput = document.createElement('div');
-                // objectiveTimeFrameInput.id = 'objectiveTimeFrameInput';
-                // objectiveTimeFrameInput.className = 'time-frame-input';
-                // objectiveTimeFrame.appendChild(objectiveTimeFrameInput);
-
     // 3. Reward CONTAINER content - includes user reward type input and reward amount input
     let rewardSelectionContainer = document.createElement("div");
     rewardSelectionContainer.classList.add("rewardSelectionContainer");
@@ -170,39 +201,51 @@ export function createEmptyCardTemplate () {
             let rewardBoxCurrencyAmount = document.createElement("div");
             rewardBox.appendChild(rewardBoxCurrencyAmount);
 
+        // Reward Inputs - Currency Type
+        let rewardTypeInputLabel = document.createElement("Label");
+        rewardTypeInputLabel.classList.add("inputRewardLabel");
+        rewardTypeInputLabel.textContent = 'Currency Type';
+        let rewardTypeInput = document.createElement("select")
+        rewardTypeInput.setAttribute("name", "rewardTypeInput")
+        rewardTypeInput.classList.add("inputRewardForm");
+        rewardTypeInput.setAttribute("id", "currencyTypeInput")
+        rewardBox.appendChild(rewardTypeInputLabel);
+        rewardBox.appendChild(rewardTypeInput);
+ 
 
-    let rewardTypeInput = document.createElement("select")
-    rewardTypeInput.setAttribute("name", "rewardTypeInput")
-    rewardTypeInput.classList.add("inputRewardForm");
-    rewardTypeInput.setAttribute("id", "currencyTypeInput")
+        // Reward Type - Options dynamically generated based on the reward utilities.validCurrencies object list
+        for (let i = 0; i < rewardUtilities.validCurrencies.length; i++) {
+            console.log(rewardUtilities.validCurrencies[i])
+            let option = document.createElement("option");
+            option.setAttribute("value", rewardUtilities.validCurrencies[i]);
+            option.textContent = `${rewardUtilities.validCurrencies[i]}`;
+            rewardTypeInput.appendChild(option);
+        }
 
-    for (let i = 0; i < rewardUtilities.validCurrencies.length; i++) {
-        console.log(rewardUtilities.validCurrencies[i])
-        let option = document.createElement("option");
-        option.setAttribute("value", rewardUtilities.validCurrencies[i]);
-        option.textContent = `${rewardUtilities.validCurrencies[i]}`;
-        rewardTypeInput.appendChild(option);
-    }
+        // Reward Inputs - Currency Amount
+        let rewardAmountInputLabel = document.createElement("Label");
+        rewardAmountInputLabel.classList.add("inputRewardLabel");
+        let rewardAmountInput = document.createElement("input")
+        rewardAmountInputLabel.textContent = 'Currency Amount';
+        rewardAmountInput.classList.add("inputRewardForm");
+        rewardAmountInput.setAttribute("type", "number")
+        rewardAmountInput.setAttribute("name", "rewardAmountInput")
+        rewardAmountInput.setAttribute("min", "0")
+        rewardAmountInput.setAttribute("max", "1000")
+        rewardAmountInput.setAttribute("placeholder", "0");
+        rewardAmountInput.setAttribute("id", "currencyAmountInput")
+        rewardBox.appendChild(rewardAmountInputLabel);
+        rewardBox.appendChild(rewardAmountInput);
 
-    let rewardAmountInput = document.createElement("input")
-    rewardAmountInput.classList.add("inputRewardForm");
-    rewardAmountInput.setAttribute("type", "number")
-    rewardAmountInput.setAttribute("name", "rewardAmountInput")
-    rewardAmountInput.setAttribute("min", "0")
-    rewardAmountInput.setAttribute("max", "1000")
-    rewardAmountInput.setAttribute("placeholder", "0");
-    rewardAmountInput.setAttribute("id", "currencyAmountInput")
-
-
-    rewardAmountInput.addEventListener("input", function() {
-        if (this.value > 1000) {
+        // Reward Amount - Constraint to fit available currency allocation
+        rewardAmountInput.addEventListener("input", function() {
+            if (this.value > 1000) {
             alert("This value cannot exceed the maximum of: 1000")
             this.value = 1000;
-        }
+            }
         });
 
-    rewardBox.appendChild(rewardTypeInput);
-    rewardBox.appendChild(rewardAmountInput);
+
 
     return card;
 
