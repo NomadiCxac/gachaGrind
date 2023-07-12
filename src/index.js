@@ -13,7 +13,7 @@ import { calcHeroScore } from './playerCharacterFunctions';
 import { appendItemImage, createInventoryModal, createInventoryPage, generateInventoryItemImage, generateInventoryItems, updateInventoryPage, inventoryEventHandler}  from './inventoryFunctions';
 import { getItemImage } from './helperFunctions/getItemImage';
 import { currentQuestList, playerInventory, currencyContainer, playerEquippedItems, currentGoalList } from './data.js';
-import { removeEmptyTaskGoalPrompt, createTaskContainer, questController, goalController, showEmptyQuestAndGoals, showEmptyState } from './indexViewFunctions';
+import { removeEmptyTaskGoalPrompt, createTaskContainer, questController, goalController, showEmptyQuestAndGoals, showEmptyQuestsState, showEmptyGoalsState, emptyStateEventHandler, removeEmptyState, createQuestParallax } from './indexViewFunctions';
 import { createGetDataForm } from './generateForm';
 
 console.log(currencyContainer)
@@ -45,7 +45,7 @@ console.log(currentGoalList);
 //   console.log(testGoal.quests);
 // })
 
-showEmptyState();
+showEmptyQuestsState();
 
 
 
@@ -67,13 +67,20 @@ userInterfaceManager(currentQuestList, currencyContainer);
 // Event Listener to Open Quest Creation Modal
 let addQuestButtonClicked = document.querySelector("button.addQuestButton")
 addQuestButtonClicked.addEventListener("click", function () {
-    // displayFormModal();
-    currentQuestList.push(testQuest);
+
+    if (!removeEmptyState()) {
+        removeEmptyState();
+    }
+    
+    if (!createQuestParallax()) {
+        createQuestParallax();
+    }
+
     renderQuestList(currentQuestList, currencyContainer);
     
     let x = document.querySelector(".questParallax");
-    x.appendChild(createGhostCard());
     x.appendChild(createEmptyCardTemplate());
+    x.appendChild(createGhostCard());
     console.log(currentGoalList);
 })
 
@@ -97,43 +104,3 @@ formSubmitButton.addEventListener("click", function (e) {
     addQuest(currentQuestList, newlyGeneratedQuest);
     userInterfaceManager(currentQuestList, currencyContainer);
 })
-
-// showEmptyQuestAndGoals();
-
-// let y = createQuestCardTemplate();
-// x.appendChild(y);
-// console.log(y);
-
-// displayQuestCardContent(testQuest, y, currencyContainer);
-
-
-// const weaponRollButton = document.querySelector("#weaponGenerator");
-// weaponRollButton.addEventListener("click", function () {
-//     openSlotMachineModal();
-// })
-
-// const spinSlot = document.querySelector("#spinSlotButton");
-// spinSlot.addEventListener("click", function (){
-//     userInterfaceManager(currentQuestList, currencyContainer);
-//     let newItem = spin(testWeaponList, currencyContainer);
-//     console.log(newItem);
-//     console.log(getItemImage(newItem._rarity));
-
-//     if (newItem != false) {
-//       player.equipItem(newItem);
-//       inventory.push(newItem)
-//       let heroScore = calcHeroScore(player);
-//       getHeroScoreContainer.textContent = (`Hero Score: ${heroScore}`);
-//       updateInventoryPage(inventory);
-//     }
-    
-// });
-
-// const closeSlotModal = document.querySelector("#closeSlot");
-// closeSlotModal.addEventListener("click", function() {
-//   closeSlotMachineModal();
-// })
-    
-
-// resetSlotMachineImages();
-// inventoryEventHandler(inventory);

@@ -1,10 +1,11 @@
-import { currentQuestList, currentGoalList } from "./data";
+import { currentQuestList, currentGoalList, currencyContainer } from "./data";
+import { renderQuestList } from "./questFunctions";
+import { createEmptyCardTemplate, createGhostCard } from "./questFunctions";
 
 let header = document.querySelector(".gameContentHeader");
 
-export function showEmptyState () {
-   
-    if (currentQuestList.length <= 0) {
+
+export function showEmptyQuestsState () {
 
         let emptyStateContainer = document.createElement('div');
         
@@ -17,11 +18,33 @@ export function showEmptyState () {
         let questButton = document.createElement("button");
         questButton.classList.add("addQuestButton")
         questButton.textContent = "Add Quest +"
+        questButton.addEventListener("click", function() {
+          
+              if (!removeEmptyState()) {
+                  console.log("Emptystate Removed");
+                  removeEmptyState();
+              }
+              
+              if (!createQuestParallax()) {
+                  console.log("QuestParallax created");
+                  createQuestParallax();
+              }
+
+              renderQuestList(currentQuestList, currencyContainer);
+              
+              let x = document.querySelector(".questParallax");
+              x.appendChild(createEmptyCardTemplate());
+              x.appendChild(createGhostCard());
+              console.log(currentGoalList);
+        })
         emptyStateContainer.appendChild(questButton);
+
+        return;
     
     }
 
-    if (currentGoalList.length <= 0) {
+
+   export function showEmptyGoalsState () {
 
         let emptyStateContainer = document.createElement('div');
         
@@ -36,43 +59,46 @@ export function showEmptyState () {
         goalButton.textContent = "Add Goal +"
         emptyStateContainer.appendChild(goalButton);
     
-    }
-}
+        return;
+  }
+
 
 
 export function removeEmptyState () {
 
-    if (currentQuestList.length > 0) {
-        const emptyQuestList = document.querySelector(".emptyStateContainer#emptyQuestContainer")
+  const emptyQuestList = document.querySelector(".emptyStateContainer#emptyQuestContainer")
         if (emptyQuestList) {
                     emptyQuestList.remove();
                 } else {
                   return;
                 }
-        } 
+    
 
-    if (currentGoalList.length > 0) {
-        const emptyQuestList = document.querySelector(".emptyStateContainer#emptyGoalContainer")
-        if (emptyQuestList) {
-            emptyQuestList.remove();
+        const emptyGoalList = document.querySelector(".emptyStateContainer#emptyGoalContainer")
+        if (emptyGoalList) {
+            emptyGoalList.remove();
         } else {
           return;
         }
-    } 
+  
 }
 
-let questParallax;
 
 export function createQuestParallax() {
 
-  if (!questParallax) {
-    let questContainer = document.querySelector(".questContainer");
-    questParallax = document.createElement("div");
-    questParallax.classList.add("questParallax");
-    questContainer.appendChild(questParallax);
+  let questParallax = document.querySelector(".questParallax");
 
+  // Check if the element already exists
+  if (questParallax) {
+      return false; // Return false to indicate that the element already exists
   }
-  questParallax.textContent = "";
+
+  let questContainer = document.querySelector(".questContainer");
+  questParallax = document.createElement("div");
+  questParallax.classList.add("questParallax");
+  questContainer.appendChild(questParallax);
+
+  return true; // Return true to indicate that the element was created
 }
 
 let goalParallax;

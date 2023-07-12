@@ -286,8 +286,12 @@
 }
 
 .ghostCard.hidden {
-  height: 0.5em;
-  opacity: 0;
+  height: 0.1em;
+  justify-self: center;
+  opacity: 0.3;
+  background-color: #46d34d;
+  margin-left: 2em;
+  margin-right: 3em;
 }
 
 .ghostCard.hidden > button {
@@ -426,6 +430,29 @@
 
 .inputRewardLabel {
   font-size: small;
+}
+
+.removeCurrentCardContainer {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.removeCurrentCardContainerButton {
+  width: 20px;
+  height: 20px;
+  border: none;
+  background-color: transparent;
+  color: #000;
+  font-size: 18px;
+  cursor: pointer;
+  margin-bottom: 1em;
+}
+
+#removeCurrentCardContainerButton:hover {
+  color: #f00; /* Change color on hover if desired */
 }
 
 

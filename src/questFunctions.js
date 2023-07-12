@@ -1,8 +1,8 @@
 import { Quest, Currency } from './classes/classes.js'
 import { rewardUtilities, currencyAggregator, displayPlayerCurrentCurrency } from './currencyFunctions.js';
-import { currentQuestList } from './data.js';
+import { currencyContainer, currentQuestList } from './data.js';
 import userInterfaceManager from './eventManager.js';
-import { createQuestParallax, createQuestContainer, questController, removeEmptyState } from './indexViewFunctions.js';
+import { createQuestParallax, createQuestContainer, questController, removeEmptyState, showEmptyQuestsState } from './indexViewFunctions.js';
 import { saveDataToLocalStorage } from './localStorageFunctions.js';
 
 
@@ -27,13 +27,25 @@ export function getNewQuest (card) {
 
 function validateQuestSubmission (newQuest) {
     
+    let validCriteria = true;
+
+    if (!newQuest.objective) {
+        alert("Quest Objective Required!")
+        validCriteria = false;
+    }
+
+    if (!newQuest.dateToComplete) {
+        alert("Invalid Date!")
+        validCriteria = false;
+    }
+
     // Invalid Currency Amount:
     if (!newQuest.reward.amount) {
         alert("Currency Amount must be greater than 0!");
-        return false;
+        validCriteria = false;
     }
     
-    return true;
+    return validCriteria;
 }
 
 export function createGhostCard() {
@@ -44,9 +56,13 @@ export function createGhostCard() {
     const createNewQuestButton = document.createElement("button");
     createNewQuestButton.classList.add("addQuestButton");
     createNewQuestButton.addEventListener("click", function () {
+
+        if (currentQuestList.length <= 0) {
+            alert("Cannot make a new quest until you have submitted your first quest OR your current quest list is greater than 0!")
+            return;
+        }
         let questParallax = document.querySelector(".questParallax");
         let ghostCard = this.parentNode;
-        console.log(questParallax);
         let newQuestCard = createEmptyCardTemplate();
         questParallax.insertBefore(newQuestCard, ghostCard);
     });
@@ -87,10 +103,16 @@ export function createEmptyCardTemplate () {
         const sumbitNewQuestButton = document.createElement("button");
         sumbitNewQuestButton.classList.add("submitNewQuestButton");
         sumbitNewQuestButton.addEventListener("click", function(){
+            let questParallax = document.querySelector(".questParallax");
             let x = getNewQuest(card);
             if (validateQuestSubmission(x)) {
                 currentQuestList.push(x);
+                saveDataToLocalStorage("currentQuestList", currentQuestList);
+                renderQuestList(currentQuestList, currencyContainer);
+                card.remove();
+                questParallax.appendChild(createGhostCard());
             };
+                
             console.log(currentQuestList);
         })
         sumbitNewQuestButton.innerText = "Submit";
@@ -231,7 +253,7 @@ export function createEmptyCardTemplate () {
         rewardAmountInput.setAttribute("type", "number")
         rewardAmountInput.setAttribute("name", "rewardAmountInput")
         rewardAmountInput.setAttribute("min", "0")
-        rewardAmountInput.setAttribute("max", "1000")
+        rewardAmountInput.setAttribute("max", "10000")
         rewardAmountInput.setAttribute("placeholder", "0");
         rewardAmountInput.setAttribute("id", "currencyAmountInput")
         rewardBox.appendChild(rewardAmountInputLabel);
@@ -239,12 +261,33 @@ export function createEmptyCardTemplate () {
 
         // Reward Amount - Constraint to fit available currency allocation
         rewardAmountInput.addEventListener("input", function() {
-            if (this.value > 1000) {
-            alert("This value cannot exceed the maximum of: 1000")
-            this.value = 1000;
+            if (this.value > 10000) {
+            alert("This value cannot exceed the maximum of: 10000")
+            this.value = 10000;
             }
         });
 
+    // 4. Remove current card container
+    let removeCurrentCardContainer = document.createElement("div");
+    removeCurrentCardContainer.classList.add("removeCurrentCardContainer");
+    cardContent.appendChild(removeCurrentCardContainer)
+
+        // 4a) Close Button
+        let removeCurrentCardContainerButton = document.createElement("button");
+        removeCurrentCardContainerButton.classList.add("removeCurrentCardContainerButton")
+        removeCurrentCardContainerButton.textContent = '\u00D7'; // Set the multiplication sign as text content
+
+        removeCurrentCardContainerButton.addEventListener("click", function(){
+            if (currentQuestList <= 0) {
+                let questParallax = document.querySelector(".questParallax")
+                let ghostCard = document.querySelector(".ghostCard");
+                ghostCard.remove();
+                questParallax.remove();
+                showEmptyQuestsState();
+            }
+            card.remove();
+        })
+        removeCurrentCardContainer.appendChild(removeCurrentCardContainerButton)
 
 
     return card;
@@ -269,6 +312,9 @@ export function createCardTemplate (type) {
     //  Check Box
     let completeCheckbox = document.createElement("input");
     completeCheckbox.setAttribute("type", "checkbox");
+    // completeCheckbox.addEventListener("change", function(){
+    //     console.log("True")
+    // })
 
     objective.appendChild(completeCheckbox);
     objective.appendChild(objectiveContent);
@@ -328,15 +374,24 @@ export function displaycardContent (quest, cardElement, currencyContainer) {
         questObjective.setAttribute("id", `${quest.objective}`)
     
         let checkbox = cardElement.querySelector(".questCompleteCheckbox");
-        if (checkbox) {
-          checkbox.addEventListener("click", function() {
+        checkbox.addEventListener("change", function(){
+            quest.questComplete = true;
+            console.log(quest);
             currencyAggregator(currencyContainer, quest);
             displayPlayerCurrentCurrency(currencyContainer);
             removeCompletedQuest(currentQuestList);
-          });
-        } else {
-          console.log("Checkbox element not found in the card");
-        }
+            saveDataToLocalStorage("currentQuestList", currentQuestList)
+            saveDataToLocalStorage("currencyContainer", currencyContainer)
+            cardElement.remove();
+
+            if (currentQuestList.length <= 0) {
+                let ghostCard = document.querySelector(".ghostCard");
+                let questParallax = document.querySelector(".questParallax");
+                ghostCard.remove();
+                questParallax.remove();
+                showEmptyQuestsState();
+            }
+        }) 
         
         //Date to Complete Content
         let dateToCompleteBox = cardElement.querySelector(".objectiveTimeFrame");
@@ -399,18 +454,16 @@ export function displayGoalCardContent (goal, cardElement, currencyContainer) {
 
 export function renderQuestList (currentQuestList, currencyContainer) {
 
+    console.log(currentQuestList);
 
-    if (currentQuestList == null) {
+    if (currentQuestList.length <= 0) {
         console.log("Quest List is Empty");
         return;
     }
 
     else {
-
-        removeEmptyState();
-        createQuestParallax();
         let questList = document.querySelector(".questParallax");
-        console.log(questList);
+        questList.textContent = "";
 
         for (let i = 0; i < currentQuestList.length; i++) {
             let card = createCardTemplate("quest");
