@@ -13,7 +13,7 @@ import { calcHeroScore } from './playerCharacterFunctions';
 import { appendItemImage, createInventoryModal, createInventoryPage, generateInventoryItemImage, generateInventoryItems, updateInventoryPage, inventoryEventHandler}  from './inventoryFunctions';
 import { getItemImage } from './helperFunctions/getItemImage';
 import { currentQuestList, playerInventory, currencyContainer, playerEquippedItems, currentGoalList } from './data.js';
-import { removeEmptyTaskGoalPrompt, createTaskContainer, questController, goalController, showEmptyQuestAndGoals, showEmptyQuestsState, showEmptyGoalsState, emptyStateEventHandler, removeEmptyState, createQuestParallax } from './indexViewFunctions';
+import { removeEmptyTaskGoalPrompt, createTaskContainer, questController, goalController, showEmptyQuestAndGoals, showEmptyQuestsState, showEmptyGoalsState, emptyStateEventHandler, removeEmptyQuestState, createQuestParallax } from './indexViewFunctions';
 import { createGetDataForm } from './generateForm';
 
 console.log(currencyContainer)
@@ -29,12 +29,22 @@ let heroScore = calcHeroScore(player);
 getHeroScoreContainer.textContent = (`Hero Score: ${heroScore}`)
 
 let testQuest = new Quest ("Finish Fn", "4:30pm - 8:00pm", false, new Currency("GGTokens", 12), null, false, null);
+let testQuest2 = new Quest ("Finish Fn", "4:30pm - 8:00pm", false, new Currency("GGTokens", 12), null, false, null);
 
 // currentQuestList.push(testQuest);
 console.log(currentQuestList);
 console.log(currentGoalList);
 
-// let testGoal = new Goal ("Become Fluent in Spanish", new Currency("GGTokens", 12), null, 4, 30)
+let testGoal = new Goal ("Become Fluent in Spanish", new Currency("GGTokens", 12), null, 4, 30)
+
+testGoal.quests.push(testQuest);
+testGoal.quests.push(testQuest);
+testGoal.quests.push(testQuest);
+testGoal.quests.push(testQuest);
+testGoal.quests.push(testQuest);
+testGoal.quests.push(testQuest2);
+
+console.log(testGoal.quests);
 
 // testGoal.quests.push(testQuest);
 // console.log(testGoal.quests);
@@ -46,8 +56,104 @@ console.log(currentGoalList);
 // })
 
 showEmptyQuestsState();
+// showEmptyGoalsState();
+
+let gcc = document.querySelector(".goalContainer");
+
+function generateGoalCard(goal) {
+
+    const goalCard = document.createElement('div');
+    goalCard.classList.add('goalCard');
+  
+    const topHalfGoalCard = document.createElement('div');
+    topHalfGoalCard.classList.add('topHalfGoalCard');
+    goalCard.appendChild(topHalfGoalCard);
+  
+    const bottomHalfGoalCard = document.createElement('div');
+    bottomHalfGoalCard.classList.add('bottomHalfGoalCard');
+    goalCard.appendChild(bottomHalfGoalCard);
+  
+    const goalObjectiveContainer = document.createElement('div');
+    goalObjectiveContainer.classList.add('goalObjectiveContainer');
+    topHalfGoalCard.appendChild(goalObjectiveContainer);
+  
+    const goalCompleteContainer = document.createElement('div');
+    goalCompleteContainer.classList.add('goalCompleteContainer');
+    topHalfGoalCard.appendChild(goalCompleteContainer);
+  
+    const goalObjective = document.createElement('h3');
+    goalObjective.classList.add('goal-objective');
+    goalObjective.textContent = goal.objective;
+    goalObjectiveContainer.appendChild(goalObjective);
+  
+    const questListContainer = document.createElement('div');
+    questListContainer.classList.add('questListContainer');
+    bottomHalfGoalCard.appendChild(questListContainer);
+  
+    const questListParallax = document.createElement('div');
+    questListParallax.classList.add('questListParallax');
+    questListContainer.appendChild(questListParallax);
+  
+    const questList = document.createElement('ul');
+    questList.classList.add('questList');
+    for (let i = 0; i < goal.quests.length; i++) {
+      const questItemContainer = document.createElement('div');
+      questItemContainer.classList.add('questListItemContainer');
+  
+      const questItemContent = document.createElement('span');
+      questItemContent.classList.add('questListItem');
+      questItemContent.textContent = goal.quests[i].objective;
+  
+      const progressBarContainer = document.createElement('div');
+      progressBarContainer.classList.add('progress-bar-container');
+  
+      const progressBar = document.createElement('div');
+      progressBar.classList.add('progress-bar');
+  
+      progressBarContainer.appendChild(progressBar);
+      questItemContainer.appendChild(questItemContent);
+      questItemContainer.appendChild(progressBarContainer);
+      questList.appendChild(questItemContainer);
+
+      
+      questItemContainer.addEventListener('click', function () {
+          generateModal(goal.quests[i]);
+      });
+    }
+
+    questListParallax.appendChild(questList);
+  
+    return goalCard;
+  }
+
+  function generateModal(goalQuest) {
+
+    const goalQuestModal = document.createElement('div');
+    goalQuestModal.classList.add('goalQuestModal');
+  
+    const modalContent = document.createElement('div');
+    modalContent.classList.add('goalQuestModalContent');
+  
+    let goalQuestModalTitle = document.createElement("h2");
+    goalQuestModalTitle.innerText = "Completion Requirement(s): "
+
+    let name = document.createElement("p");
+    name.innerText = goalQuest.objective;
 
 
+    modalContent.appendChild(goalQuestModalTitle);
+    modalContent.appendChild(name)
+    goalQuestModal.appendChild(modalContent);
+    document.body.appendChild(goalQuestModal);
+  
+    return goalQuestModal;
+  }
+      
+  
+
+  let gCard = generateGoalCard(testGoal);
+
+  gcc.appendChild(gCard);
 
 // let goalCard = createCardTemplate("goal");
 // x.appendChild(goalCard);
@@ -68,8 +174,8 @@ userInterfaceManager(currentQuestList, currencyContainer);
 let addQuestButtonClicked = document.querySelector("button.addQuestButton")
 addQuestButtonClicked.addEventListener("click", function () {
 
-    if (!removeEmptyState()) {
-        removeEmptyState();
+    if (!removeEmptyQuestState()) {
+        removeEmptyQuestState();
     }
     
     if (!createQuestParallax()) {

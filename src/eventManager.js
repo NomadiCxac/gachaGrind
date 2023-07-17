@@ -1,7 +1,7 @@
 import { removeCompletedQuest, createAndDisplayQuestCards, renderQuestList, createGhostCard } from "./questFunctions";
 import { displayPlayerCurrentCurrency } from "./currencyFunctions";
 import { getDataFromLocalStorage, saveDataToLocalStorage } from "./localStorageFunctions";
-import { taskAndGoalController, removeEmptyTaskGoalPrompt, createTaskContainer, showEmptyQuestAndGoalsEmptyQuestAndGoals, removeEmptyState, createQuestParallax } from "./indexViewFunctions";
+import { taskAndGoalController, removeEmptyTaskGoalPrompt, createTaskContainer, showEmptyQuestAndGoalsEmptyQuestAndGoals, removeEmptyQuestState, createQuestParallax } from "./indexViewFunctions";
 // import { currentGoalList, currentQuestList } from "./data";
 
 export default function userInterfaceManager (currentQuestList, currencyContainer, currentGoalList) {
@@ -11,7 +11,7 @@ export default function userInterfaceManager (currentQuestList, currencyContaine
     displayPlayerCurrentCurrency(currencyContainer);
 
     if (currentQuestList.length > 0) {
-        removeEmptyState();
+        removeEmptyQuestState();
         createQuestParallax();
         renderQuestList(currentQuestList, currencyContainer);
         let questParallax = document.querySelector(".questParallax")

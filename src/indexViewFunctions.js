@@ -46,7 +46,9 @@ export function showEmptyQuestsState () {
 
    export function showEmptyGoalsState () {
 
+
         let emptyStateContainer = document.createElement('div');
+        console.log(emptyStateContainer);
         
         let goalContainer = document.querySelector(".goalContainer");
         emptyStateContainer.classList.add("emptyStateContainer");
@@ -64,7 +66,7 @@ export function showEmptyQuestsState () {
 
 
 
-export function removeEmptyState () {
+export function removeEmptyQuestState () {
 
   const emptyQuestList = document.querySelector(".emptyStateContainer#emptyQuestContainer")
         if (emptyQuestList) {
@@ -72,15 +74,17 @@ export function removeEmptyState () {
                 } else {
                   return;
                 }
-    
+}
 
-        const emptyGoalList = document.querySelector(".emptyStateContainer#emptyGoalContainer")
+export function removeEmptyGoalState () {
+
+  const emptyGoalList = document.querySelector(".emptyStateContainer#emptyGoalContainer")
         if (emptyGoalList) {
             emptyGoalList.remove();
         } else {
           return;
         }
-  
+
 }
 
 
