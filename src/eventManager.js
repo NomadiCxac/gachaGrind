@@ -19,7 +19,7 @@ export default function userInterfaceManager (currentQuestList, currencyContaine
     }
     
 
-    // if (currentQuestList.length <= 0 && currentGoalList.length <= 0) {
+    // if (currentQuestList.length <= 0 && currentGoalList.length <= 0) { 
     //     showEmptyQuestAndGoals();
     // }
     

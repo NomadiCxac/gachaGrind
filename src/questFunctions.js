@@ -149,24 +149,38 @@ export function createEmptyCardTemplate () {
             objectiveTimeFrameLabelContainer.classList.add("objectiveTimeFrameLabelContainer");
             objectiveTimeFrameElementsContainer.appendChild(objectiveTimeFrameLabelContainer);
 
-                // 2b) i) - Input Date label
+                // 2b) i) 1. - Input Date label
                 let inputDateLabel = document.createElement('label');
-                // inputDateLabel.setAttribute('for', 'objectiveTimeFrameInput');
+                inputDateLabel.setAttribute('for', 'questDate');
+                inputDateLabel.setAttribute('id', 'questDateLabel');
                 inputDateLabel.textContent = 'Date:';
                 objectiveTimeFrameLabelContainer.appendChild(inputDateLabel);
 
-                //  2b) i) - Input Start Time (Optional)
+                //  2b) i) 2. - Input Start Time (Optional)
                 let inputStartTimeLabel = document.createElement('label');
                 inputStartTimeLabel.setAttribute('for', 'questStartTime');
                 inputStartTimeLabel.setAttribute('id', 'questStartTimeLabel');
                 inputStartTimeLabel.textContent = 'Start Time (Optional):';
                 objectiveTimeFrameLabelContainer.appendChild(inputStartTimeLabel);
 
-                //  2b) i) - Input End Time (Optional)
+                //  2b) i) 3. - Input End Time (Optional)
                 let inputEndTimeLabel = document.createElement('label');
-                // inputTimeLabel.setAttribute('for', 'objectiveTimeFrameInput');
+                inputEndTimeLabel.setAttribute('for', 'questEndTime');
+                inputEndTimeLabel.setAttribute('id', 'questEndTimeLabel');
                 inputEndTimeLabel.textContent = 'End Time (Optional):';
                 objectiveTimeFrameLabelContainer.appendChild(inputEndTimeLabel);
+
+                let questTimeTypeLabel = document.createElement('label');
+                questTimeTypeLabel.setAttribute('for', 'questTimeType');
+                questTimeTypeLabel.setAttribute('id', 'questTimeTypeLabel');
+                questTimeTypeLabel.textContent = 'Time Spent Type:';
+                objectiveTimeFrameLabelContainer.appendChild(questTimeTypeLabel);
+
+                let questTimeValueLabel = document.createElement('label');
+                questTimeValueLabel.setAttribute('for', 'questTimeValue');
+                questTimeValueLabel.setAttribute('id', 'questTimeValueLabel');
+                questTimeValueLabel.textContent = 'Time Spent Value:';
+                objectiveTimeFrameLabelContainer.appendChild(questTimeValueLabel);
 
 
             // 2b) ii) Objective Timeframe Input Container
@@ -203,6 +217,60 @@ export function createEmptyCardTemplate () {
                 endTimeInput.id = 'questEndTime';
                 endTimeInput.className = 'formInput';
                 objectiveTimeFrameInputsContainer.appendChild(endTimeInput);
+
+            // 2b) ii) - Create time spent unit select input
+                const timeSpentTypeInput = document.createElement('select');
+                timeSpentTypeInput.setAttribute('name', 'questTimeType');
+                timeSpentTypeInput.id = 'questTimeType';
+                timeSpentTypeInput.className = 'formInput';
+
+                // Option 1: Hours
+                const hoursOption = document.createElement('option');
+                hoursOption.value = 'hours';
+                hoursOption.textContent = 'Hours';
+                timeSpentTypeInput.appendChild(hoursOption);
+
+                // Option 2: Minutes
+                const minutesOption = document.createElement('option');
+                minutesOption.value = 'minutes';
+                minutesOption.textContent = 'Minutes';
+                timeSpentTypeInput.appendChild(minutesOption);
+
+                // Option 3: No specific timeframe
+                const flexibleOption = document.createElement('option');
+                flexibleOption.value = 'flexible';
+                flexibleOption.textContent = 'Flexible';
+                timeSpentTypeInput.appendChild(flexibleOption);
+
+                objectiveTimeFrameInputsContainer.appendChild(timeSpentTypeInput);
+
+                // 2b) ii) - Create time spent input
+                const timeSpentInput = document.createElement('input');
+                timeSpentInput.setAttribute('type', 'number');
+                timeSpentInput.setAttribute('name', 'questTimeValue');
+                timeSpentInput.id = 'questTimeValue';
+                timeSpentInput.className = 'formInput';
+                timeSpentInput.min = 1; // Set the minimum value to 0
+                timeSpentInput.setAttribute('autocomplete', 'off'); // Disable autocomplete for numeric input
+                objectiveTimeFrameInputsContainer.appendChild(timeSpentInput);
+
+                // Add event listener to disable timeSpentInput when "Flexible" option is selected
+                timeSpentTypeInput.addEventListener('change', function() {
+                    const selectedValue = timeSpentTypeInput.value;
+                    timeSpentInput.disabled = (selectedValue === 'flexible');
+                    if (selectedValue === 'flexible') {
+                    timeSpentInput.value = ''; // Clear the value if disabled
+                    }
+                });
+                
+                // Add event listener to validate the input as a positive integer
+                timeSpentInput.addEventListener('input', function() {
+                    const value = timeSpentInput.value.trim();
+                    const numericValue = value.replace(/\D/g, ''); // Remove all non-numeric characters
+                    timeSpentInput.value = numericValue; // Update the input value to numeric-only value
+                });
+                
+                objectiveTimeFrameInputsContainer.appendChild(timeSpentInput);
                 
 
     // 3. Reward CONTAINER content - includes user reward type input and reward amount input

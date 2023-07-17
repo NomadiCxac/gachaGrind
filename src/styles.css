@@ -521,10 +521,28 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
+  font-size: small;
+  color: rgb(0, 0, 0);
+}
+
+#questDateLabel {
+  margin-left: 0.1em;
 }
 
 #questStartTimeLabel {
-  margin-left: 4.5em;
+  margin-left: 6.6em;
+}
+
+#questEndTimeLabel {
+  margin-right: 0.5em;
+}
+
+#questTimeTypeLabel {
+  margin-right: 0.8em;
+}
+
+#questTimeValueLabel {
+  margin-right: 0.3em;
 }
 
 .objectiveTimeFrameInputsContainer {
@@ -532,6 +550,14 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
+}
+
+.formInput#questDate {
+  max-width: 7.5em;
+}
+
+.formInput {
+  max-width: 6em;
 }
 
 

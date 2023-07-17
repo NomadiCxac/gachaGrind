@@ -35,7 +35,17 @@ let testQuest2 = new Quest ("Finish Fn", "4:30pm - 8:00pm", false, new Currency(
 console.log(currentQuestList);
 console.log(currentGoalList);
 
-let testGoal = new Goal ("Become Fluent in Spanish", new Currency("GGTokens", 12), null, 4, 30)
+let testGoal = new Goal ("Become Fluent in Spanish", new Currency("GGTokens", 12))
+
+// class Goal {
+//     constructor(objective, reward, frequency, frequencyValue, totalTimeRequired, totalTimeSpent) 
+
+let gymGoal = new Goal (("Get Six Pack Abs"), new Currency ("GGTokens", 12));
+let gymQuest = gymGoal.generateQuest(4, 0);
+gymGoal.quests.push(gymQuest);
+console.log(gymQuest);
+
+console.log(gymGoal.quests[0].timesPerWeekRequired)
 
 testGoal.quests.push(testQuest);
 testGoal.quests.push(testQuest);

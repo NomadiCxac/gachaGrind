@@ -1,3 +1,4 @@
+import { getNewQuest } from "../questFunctions";
 import zodiacSigns from "../zodiacPowers";
 
 export class Quest {
@@ -13,30 +14,32 @@ export class Quest {
 }
 
 export class Goal {
-  constructor(objective, reward, frequency, frequencyValue, timeRequired, timeSpentUnit) {
+  constructor(objective, reward) {
     this.objective = objective;
     this.reward = reward;
-    this.frequency = frequency;
-    this.frequencyValue = frequencyValue;
-    this.timeRequired = timeRequired;
-    this.timeSpentUnit = timeSpentUnit;
     this.quests = [];
     this.completed = false;
     this.totalTimeSpent = 0;
+    this.timesPerWeekSpent = 0;
   }
 
-  generateQuest() {
-    const remainingTime = this.timeRequired - this.totalTimeSpent;
-    const questDuration = Math.min(this.timeSpentUnit === 'hours' ? 60 : 1, remainingTime);
-    const description = `Study ${this.name} for ${questDuration} ${this.timeSpentUnit}`;
+  generateQuest(timesPerWeekRequired, totalTimeRequired) {
 
-    const quest = new Quest(description, questDuration, false, this.reward, generateUniqueId(), false, this);
-    this.quests.push(quest);
-    this.totalTimeSpent += questDuration;
+    let quest = new Quest("Go to Gym", null, false, new Currency("GGTokens", 18), null, null, null)
 
-    return quest;
+    // Case 1: Frequency type is time-arbitrary
+     if (totalTimeRequired == 0 || totalTimeRequired == null) {
+        const remainingTime = timesPerWeekRequired - this.timesPerWeekSpent;
+        return {quest, timesPerWeekRequired, remainingTime};
+     }
+
+
+    // Case 2: Frequency type is time-specific
+    else {
+      const remainingTime = totalTimeRequired - this.totalTimeSpent;
+      return {quest, totalTimeRequired, remainingTime};
+    }
   }
-
 
   linkQuestToGoal(quest) {
     if (this.quests.length <= 0) {
