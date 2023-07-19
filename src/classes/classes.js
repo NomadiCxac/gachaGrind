@@ -2,7 +2,7 @@ import { getNewQuest } from "../questFunctions";
 import zodiacSigns from "../zodiacPowers";
 
 export class Quest {
-  constructor(objective, dateToComplete, questComplete, reward, id, oneOffBool, goalId) {
+  constructor(objective, dateToComplete, questComplete, reward, id, oneOffBool, goalId, timeSpent) {
     this.objective = objective;
     this.dateToComplete = dateToComplete;
     this.questComplete = questComplete;
@@ -10,6 +10,7 @@ export class Quest {
     this.id = id;
     this.oneOffBool = oneOffBool;
     this.goalId = goalId;
+    this.timeSpent = timeSpent
   }
 }
 
@@ -39,6 +40,8 @@ export class Goal {
       const remainingTime = totalTimeRequired - this.totalTimeSpent;
       return {quest, totalTimeRequired, remainingTime};
     }
+
+    
   }
 
   linkQuestToGoal(quest) {

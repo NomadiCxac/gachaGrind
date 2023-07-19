@@ -7,11 +7,16 @@ import { saveDataToLocalStorage } from './localStorageFunctions.js';
 
 
 export function getNewQuest (card) {
-    let questObject = new Quest(null, null, null, new Currency(null, null), null, null, null)
+    let questObject = new Quest(null, null, null, new Currency(null, null), null, null, null, null)
     let getQuestFormObjective = card.querySelector("#objectiveTextInput").value;
     let getQuestFormDate = card.querySelector("#questDate").value;
     let getQuestCurrencyType = card.querySelector("#currencyTypeInput").value;
     let getQuestCurrencyAmount = card.querySelector("#currencyAmountInput").value;
+    let getQuestTimeSpent = card.querySelector("#questTimeValue").value
+    let getQuestTimeType = card.querySelector("#questTimeType").value
+    let timeFrameStart = card.querySelector("#questStartTime").value
+    let timeFrameEnd = card.querySelector("#questEndTime").value
+
 
     questObject.objective = getQuestFormObjective;
     questObject.dateToComplete = getQuestFormDate;
@@ -21,6 +26,22 @@ export function getNewQuest (card) {
     questObject.id = null;
     questObject.oneOffBool = false;
     questObject.goalId = null;
+    questObject.timeSpent = getQuestTimeSpent;
+    questObject.timeType = getQuestTimeType;
+
+   
+
+     
+    if (timeFrameStart == null || timeFrameStart == undefined || timeFrameStart == "" ||
+        timeFrameEnd == null || timeFrameEnd == undefined || timeFrameEnd == "") {
+        questObject.timeFrameStart = null;
+        questObject.timeFrameEnd = null;
+        console.log(questObject.timeFrameStart)
+    } else {
+        questObject.timeFrameStart = timeFrameStart;
+        questObject.timeFrameEnd = timeFrameEnd;
+    }
+    
 
     return questObject;
 }
@@ -370,12 +391,39 @@ export function createCardTemplate (type) {
     //Quest Objective Content
     let objective = document.createElement("div");
     let objectiveContent = document.createElement("div");
-    objectiveContent.classList.add("objectiveContent")
+    objectiveContent.classList.add("objectiveContentContainer")
 
-    let objectiveText = document.createElement("div");
-    objectiveText.classList.add("objectiveText");
-    let objectiveTimeFrame = document.createElement("div");
-    objectiveTimeFrame.classList.add("objectiveTimeFrame");
+        // Quest Objective Text
+        let objectiveText = document.createElement("div");
+        objectiveText.classList.add("objectiveText");
+
+        // Quest Objective Time Content
+        let objectiveTimeFrameContainer = document.createElement("div");
+        objectiveTimeFrameContainer.classList.add("objectiveTimeFrameContainer");
+
+        let dotOne = document.createElement("div");
+        dotOne.classList.add("dot");
+        dotOne.id = "dotOne";
+
+        let dotTwo = document.createElement("div");
+        dotTwo.classList.add("dot");
+        dotTwo.id = "dotTwo";
+
+        let dateToCompleteText = document.createElement("div");
+        dateToCompleteText.id = "dateToCompleteText";
+
+        let timeSpentOnQuest = document.createElement("div");
+        timeSpentOnQuest.id = "timeSpentOnQuest";
+
+        let timeFrameOfQuest = document.createElement("div");
+        timeFrameOfQuest.id = "timeFrameOfQuest";
+
+        objectiveTimeFrameContainer.appendChild(dateToCompleteText);
+        objectiveTimeFrameContainer.appendChild(dotOne);
+        objectiveTimeFrameContainer.appendChild(timeSpentOnQuest);
+        objectiveTimeFrameContainer.appendChild(dotTwo);
+        objectiveTimeFrameContainer.appendChild(timeFrameOfQuest);
+
 
     //  Check Box
     let completeCheckbox = document.createElement("input");
@@ -384,10 +432,12 @@ export function createCardTemplate (type) {
     //     console.log("True")
     // })
 
+    console.log(objectiveTimeFrameContainer);
+
     objective.appendChild(completeCheckbox);
     objective.appendChild(objectiveContent);
     objectiveContent.appendChild(objectiveText)
-    objectiveContent.appendChild(objectiveTimeFrame)
+    objectiveContent.appendChild(objectiveTimeFrameContainer)
    
 
     //Reward Box Content
@@ -462,9 +512,34 @@ export function displaycardContent (quest, cardElement, currencyContainer) {
         }) 
         
         //Date to Complete Content
-        let dateToCompleteBox = cardElement.querySelector(".objectiveTimeFrame");
-        dateToCompleteBox.setAttribute("id", `questCard-${quest.dateToComplete}`)
-        dateToCompleteBox.textContent = (`${quest.dateToComplete}`);
+        let timeCriteriaContent = cardElement.querySelector(".objectiveTimeFrameContainer");
+       
+        let dateToCompleteText = cardElement.querySelector("#dateToCompleteText");
+        let timeSpentOnQuest = cardElement.querySelector("#timeSpentOnQuest");
+        let timeFrameOfQuest = cardElement.querySelector("#timeFrameOfQuest");
+
+        let dotTwo = cardElement.querySelector("#dotTwo");
+
+        if (quest.timeFrameStart == null || quest.timeFrameEnd == null) {
+            console.log("True")
+            console.log(dotTwo);
+            dotTwo.remove();
+            timeFrameOfQuest.remove();
+        }
+
+        function capitalizeFirstLetter(str) {
+
+            if (quest.timeType == undefined) {
+                return;
+            } else {
+                return str.charAt(0).toUpperCase() + str.slice(1);
+            }
+        }
+       
+
+        dateToCompleteText.textContent = (`${quest.dateToComplete}`);
+        timeSpentOnQuest.textContent = (`Time Requirement: ${quest.timeSpent} ${capitalizeFirstLetter(quest.timeType)}`);
+        timeFrameOfQuest.textContent = (`${quest.timeFrameStart} to ${quest.timeFrameEnd}`)
 
         //Reward Box Content
         let rewardBox = cardElement.querySelector(".rewardBox");
@@ -500,9 +575,9 @@ export function displayGoalCardContent (goal, cardElement, currencyContainer) {
     }
     
     //Date to Complete Content
-    let dateToCompleteBox = cardElement.querySelector(".dateToCompleteBox");
-    dateToCompleteBox.setAttribute("id", `goalCard-${goal.dateToComplete}`)
-    dateToCompleteBox.textContent = (`${goal.dateToComplete}`);
+    let dateToCompleteText = cardElement.querySelector(".dateToCompleteText");
+    dateToCompleteText.setAttribute("id", `goalCard-${goal.dateToComplete}`)
+    dateToCompleteText.textContent = (`${goal.dateToComplete}`);
 
     //Reward Box Content
     let rewardBox = cardElement.querySelector(".rewardBox");
