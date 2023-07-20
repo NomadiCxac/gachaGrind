@@ -259,8 +259,8 @@ export function createEmptyCardTemplate () {
 
                 // Option 3: No specific timeframe
                 const flexibleOption = document.createElement('option');
-                flexibleOption.value = 'flexible';
-                flexibleOption.textContent = 'Flexible';
+                flexibleOption.value = 'N/A';
+                flexibleOption.textContent = 'N/A';
                 timeSpentTypeInput.appendChild(flexibleOption);
 
                 objectiveTimeFrameInputsContainer.appendChild(timeSpentTypeInput);
@@ -275,11 +275,11 @@ export function createEmptyCardTemplate () {
                 timeSpentInput.setAttribute('autocomplete', 'off'); // Disable autocomplete for numeric input
                 objectiveTimeFrameInputsContainer.appendChild(timeSpentInput);
 
-                // Add event listener to disable timeSpentInput when "Flexible" option is selected
+                // Add event listener to disable timeSpentInput when "N/A" option is selected
                 timeSpentTypeInput.addEventListener('change', function() {
                     const selectedValue = timeSpentTypeInput.value;
-                    timeSpentInput.disabled = (selectedValue === 'flexible');
-                    if (selectedValue === 'flexible') {
+                    timeSpentInput.disabled = (selectedValue === 'N/A');
+                    if (selectedValue === 'N/A') {
                     timeSpentInput.value = ''; // Clear the value if disabled
                     }
                 });
@@ -432,8 +432,6 @@ export function createCardTemplate (type) {
     //     console.log("True")
     // })
 
-    console.log(objectiveTimeFrameContainer);
-
     objective.appendChild(completeCheckbox);
     objective.appendChild(objectiveContent);
     objectiveContent.appendChild(objectiveText)
@@ -521,8 +519,6 @@ export function displaycardContent (quest, cardElement, currencyContainer) {
         let dotTwo = cardElement.querySelector("#dotTwo");
 
         if (quest.timeFrameStart == null || quest.timeFrameEnd == null) {
-            console.log("True")
-            console.log(dotTwo);
             dotTwo.remove();
             timeFrameOfQuest.remove();
         }
@@ -547,7 +543,6 @@ export function displaycardContent (quest, cardElement, currencyContainer) {
 
             // Reward Box Image
             let rewardBoxCurrencyTypeImage = cardElement.querySelector(".questRewardImage");
-            console.log(rewardUtilities.getRewardImage(quest))
             rewardBoxCurrencyTypeImage.setAttribute("src", rewardUtilities.getRewardImage(quest));            
            
             // Reward Box Currency Amount
@@ -596,8 +591,6 @@ export function displayGoalCardContent (goal, cardElement, currencyContainer) {
 }
 
 export function renderQuestList (currentQuestList, currencyContainer) {
-
-    console.log(currentQuestList);
 
     if (currentQuestList.length <= 0) {
         console.log("Quest List is Empty");

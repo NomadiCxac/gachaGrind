@@ -15,6 +15,7 @@ import { getItemImage } from './helperFunctions/getItemImage';
 import { currentQuestList, playerInventory, currencyContainer, playerEquippedItems, currentGoalList } from './data.js';
 import { removeEmptyTaskGoalPrompt, createTaskContainer, questController, goalController, showEmptyQuestAndGoals, showEmptyQuestsState, showEmptyGoalsState, emptyStateEventHandler, removeEmptyQuestState, createQuestParallax } from './indexViewFunctions';
 import { createGetDataForm } from './generateForm';
+import renderGoalCreationPage from './goalCreationPage';
 
 console.log(currencyContainer)
 // Globally Scoped Variables
@@ -43,7 +44,7 @@ let testGoal = new Goal ("Become Fluent in Spanish", new Currency("GGTokens", 12
 let gymGoal = new Goal (("Get Six Pack Abs"), new Currency ("GGTokens", 12));
 let gymQuest = gymGoal.generateQuest(4, 0);
 gymGoal.quests.push(gymQuest);
-console.log(gymQuest);
+console.log(gymGoal.quests);
 
 console.log(gymGoal.quests[0].timesPerWeekRequired)
 
@@ -162,8 +163,10 @@ function generateGoalCard(goal) {
   
 
   let gCard = generateGoalCard(testGoal);
+  let gCard2 = generateGoalCard(gymGoal);
 
   gcc.appendChild(gCard);
+  gcc.appendChild(gCard2);
 
 // let goalCard = createCardTemplate("goal");
 // x.appendChild(goalCard);
@@ -220,3 +223,13 @@ formSubmitButton.addEventListener("click", function (e) {
     addQuest(currentQuestList, newlyGeneratedQuest);
     userInterfaceManager(currentQuestList, currencyContainer);
 })
+
+
+let mainPage = document.querySelector(".appContent");
+
+// Remove all current children of the parent element
+while (mainPage.firstChild) {
+    mainPage.removeChild(mainPage.firstChild);
+  }
+
+renderGoalCreationPage();

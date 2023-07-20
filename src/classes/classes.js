@@ -26,8 +26,8 @@ export class Goal {
 
   generateQuest(timesPerWeekRequired, totalTimeRequired) {
 
-    let quest = new Quest("Go to Gym", null, false, new Currency("GGTokens", 18), null, null, null)
-
+    let quest = new Quest("Go to Gym", null, false, new Currency("GGTokens", 18), null, null, null, null)
+    this.quests.push(quest);
     // Case 1: Frequency type is time-arbitrary
      if (totalTimeRequired == 0 || totalTimeRequired == null) {
         const remainingTime = timesPerWeekRequired - this.timesPerWeekSpent;

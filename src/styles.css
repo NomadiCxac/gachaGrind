@@ -322,7 +322,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
-  height: 25em;
+  height: 20em;
   background: #fff;
   box-shadow: 0px 10px 20px rgba(0, 0, 0, 1);
   border-radius: 8px;
@@ -403,7 +403,7 @@
   margin-bottom: 1em;
   border: 1px solid black;
   margin-right: 1em;
-  padding: 1.2em;
+  padding: 0.6em;
   background-color: #ccc;
   /* border-radius: 8px; */
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
@@ -550,6 +550,8 @@
   justify-content: space-between;
   width: 100%;
 }
+
+
 
 .formInput#questDate {
   max-width: 7.5em;
@@ -1106,3 +1108,120 @@
   margin-right: 10px;
 }
 
+.goalCreationPage {
+  margin-left: 1em;
+  margin-right: 1em;
+}
+
+#headerGoalCreationPage {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: xx-large;
+  height: 15%;
+  /* background-color: red; */
+  /* border: 1px solid black; */
+}
+
+#goalCreationContentContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  font-size: xx-large;
+  height: 60%;
+  /* background-color: yellow; */
+  /* border: 1px solid black; */
+}
+
+#footerGoalCreationPage {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: xx-large;
+  height: 25%;
+  background-color: #007bff;
+  border: 1px solid black;
+}
+
+
+.goalTitleContainer {
+  display: flex;
+  height: 15%; /* 15% width of the goalCreationContainer */
+  width: 100%;
+  border: none;
+  outline: none;
+  align-items: center;
+  margin-left: 4em;
+  font-size: xx-large;
+  background-color: transparent;
+}
+
+.rewardAssignmentContainer {
+  display: flex;
+  height: 15%; /* 15% width of the goalCreationContainer */
+  width: 100%;
+  align-items: center;
+  margin-left: 4em;
+}
+
+.linkExistingQuestContainer {
+  display: flex;
+  flex-direction: column;
+  height: 15%; /* 15% width of the goalCreationContainer */
+  width: 100%;
+  align-items: flex-start;
+  margin-left: 4em;
+}
+
+.linkExistingQuestInputContainer {
+  width: 100%;
+}
+
+.addQuestContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50%; /* 50% width of the goalCreationContainer */
+  width: 100%;
+  border: 1px solid black;
+}
+
+.addQuestContainer > .emptyCard {
+  margin: 0;
+  height: 80%;
+  width: 100%;
+  margin-left: 1em;
+  margin-right: 1em;
+}
+
+.addQuestContainer > * > * > * > * > * > .formInput,
+.addQuestContainer > * > * > * > * > * > #questDate.formInput {
+  max-width: unset;
+  width: 10em;
+  border: 1px solid red;
+}
+
+
+#backPageGoalCreationPage {
+  justify-self: flex-start;
+  color: black;
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: 900;
+  font-size: 1em;
+  padding: 0;
+  border: none;
+  background: none;
+}
+
+.headerTitleContainer{
+  display: flex;
+  justify-content: space-between;
+  width: 3.5em;
+  margin-left: 1em;
+}
+
+#deleteGoalCreationPage {
+  font-size: x-large;
+  margin-right: 1em;
+}
