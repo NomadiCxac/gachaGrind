@@ -9,52 +9,6 @@
     <body>
         <div class="appContainer">
 
-            
-
-            <div id="modal-form" style="display: none">
-
-                <form class="createQuestForm">
-
-                    <div class="formTop">
-                        <button class="formTopButton" id="formTopExitButton">X</button>
-                    </div>
-
-                    <div>
-                        <label for="formObjective">Objective:</label>
-                        <input type="text" name="formObjective" id="formObjective" class="formInput">
-                        <br>
-                    </div>
-
-                    <div>
-                        <label for="formDate">Date to Complete:</label>
-                        <input type="date" name="formDate"  id="formDate" class="formInput">
-                        <br>
-                    </div>
-
-                    <div>
-                        <label for ="formCurrencyType">Currency Type</label>
-                        <select name="formCurrencyType"  id="formCurrencyType" class="formInput" max="10000" min="1">
-                            <option value="GGTokens">GG Tokens</option>
-                            <option value="ChestKeys">Chest Keys</option>
-                        </select>
-                        <br>
-                    </div>
-
-                    <div>
-                        <label for="formCurrencyAmount">Currency Amount:</label>
-                        <input type="number" name="formCurrencyAmount"  id="formCurrencyAmount" class="formInput" max="10000" min="1">
-                        <br>
-                    </div>
-
-                    <div class="formButtonDiv">
-                        <button class="formButton" id="formSubmitButton">Submit</button>
-                    </div>
-
-                </form>
-            </div>
-
-                
-
                 <div class="topNav">
                     <div class="playerCurrencyContainer">
                         <div class="playerCurrency" id="GGTokensContainer">
@@ -89,40 +43,8 @@
                 </div>
                     
                 <div class="appContent">
-
-                    <div class="taskAndGoalButtonContainer">
-                        <button class="addQuestButton">Add Quest +</button>
-                        <button class="addGoalButton">Add Goal +</button>
-                    </div>
-
-                    <div class="gameContentHeader">
-                        <div id="questHeader">
-                            My Quests
-                            <div class="questTimeOptions">
-                                <div id="todayQuests">Today</div>
-                                <div id="weeklyQUests">Weekly</div>
-                            </div>
-                        </div>
-                        <div id="goalHeader">
-                            My Goals
-                            <div class="goalCompleteOptions">
-                                <div id="inProgress">In Progress</div>
-                                <div id="completed">Completed</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="gameContent">
-                        <div class="questContainer"></div>
-                        <div class="goalContainer"></div>
-                        <!-- JS Adjusts This -->
-                    </div>
-                    
                 </div>
-
-            
         </div>
-        <!-- <script src="index.js" type="module"></script> -->
     </body>
     
 </html>

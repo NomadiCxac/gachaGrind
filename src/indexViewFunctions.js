@@ -46,7 +46,7 @@ export function showEmptyQuestsState () {
 
    export function showEmptyGoalsState () {
 
-
+    
         let emptyStateContainer = document.createElement('div');
         console.log(emptyStateContainer);
         

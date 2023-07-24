@@ -148,7 +148,7 @@
 }
 
 .questParallax {
-  position: absolute;
+  /* position: absolute; */
   top: 0;
   left: 0;
   width: 100%;
@@ -1118,7 +1118,8 @@
   align-items: center;
   justify-content: space-between;
   font-size: xx-large;
-  height: 15%;
+  height: 10%;
+  margin-bottom: 0.5em;
   /* background-color: red; */
   /* border: 1px solid black; */
 }
@@ -1129,40 +1130,93 @@
   align-items: center;
   justify-content: space-between;
   font-size: xx-large;
-  height: 60%;
+  height: 80%;
   /* background-color: yellow; */
   /* border: 1px solid black; */
 }
 
 #footerGoalCreationPage {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  align-items: flex-start;
+  justify-content: flex-end;
   font-size: xx-large;
-  height: 25%;
-  background-color: #007bff;
-  border: 1px solid black;
+  height: 10%;
+  margin-bottom: 0.5em;
+}
+
+.goalConfirmCreateButton {
+  margin-top: 2em;
+  margin-right: 1em;
+  font-size: x-large;
+  color: white;
+  background-color: #3dc721;
 }
 
 
 .goalTitleContainer {
   display: flex;
-  height: 15%; /* 15% width of the goalCreationContainer */
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
   width: 100%;
-  border: none;
-  outline: none;
-  align-items: center;
   margin-left: 4em;
   font-size: xx-large;
   background-color: transparent;
 }
 
-.rewardAssignmentContainer {
+
+#goalTitleContainerInput {
+  border: none;
+  outline: none;
+  align-items: center;
+  font-size: xx-large;
+  background-color: transparent;
+  width: 90%;
+}
+
+.goalCreationExampleText {
+  font-size: 14px;
+  font-style: italic;
+  color: #4984f1;
+  margin-top: 0.5em;
+}
+
+.rewardAssignmentContainer, .timeAssignmentContainer {
   display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
   height: 15%; /* 15% width of the goalCreationContainer */
   width: 100%;
-  align-items: center;
   margin-left: 4em;
+  margin-top: 0.5em;
+}
+
+.rewardAssignmentInputContainer, .timeAssignmentInputContainer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.rewardAssignmentExampleTextContainer {
+  margin-top: 0.2em;
+}
+
+
+.goalRewardAssignmentAmount, .goalTimeAssignmentAmount {
+  margin-left: 2em;
+  height: 2em;
+}
+
+.timeAssignmentInputContainer > .radioLabel {
+  font-size: medium;
+  margin-left: 1em;
+}
+
+.radioLabel > input {
+  font-size: medium;
+  margin-right: 0.5em;
 }
 
 .linkExistingQuestContainer {
@@ -1172,19 +1226,38 @@
   width: 100%;
   align-items: flex-start;
   margin-left: 4em;
+  margin-top: 0.5em;
 }
 
+
 .linkExistingQuestInputContainer {
+  display: flex;
+  align-items: center;
+  margin-top: 0.3em;
+  margin-bottom: 0.2em;
   width: 100%;
+}
+
+.linkExistingQuestInput {
+  width: 50%;
+  height: 2em;
 }
 
 .addQuestContainer {
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-start;
   justify-content: center;
-  height: 50%; /* 50% width of the goalCreationContainer */
-  width: 100%;
+  height: 75%; /* 50% width of the goalCreationContainer */
+  width: calc(100% - 4em); /* Subtract 8em from 100% width */
+  margin-top: 1em;
+}
+
+.addQuestContainerInputField {
+  margin-top: 0.3em;
   border: 1px solid black;
+  width: 100%;
+  height: 100%;
 }
 
 .addQuestContainer > .emptyCard {
@@ -1202,8 +1275,26 @@
   border: 1px solid red;
 }
 
+.formFieldContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  margin-left: 0.5em;
+  margin-top: 0.8em;
+}
 
-#backPageGoalCreationPage {
+
+#questGoalObjective {
+  border: none;
+  outline: none;
+  width: 100%;
+  align-items: center;
+  font-size: x-large;
+  background-color: transparent;
+}
+
+#backPageButtonGoalCreationPage {
   justify-self: flex-start;
   color: black;
   font-family: 'Courier New', Courier, monospace;
@@ -1212,6 +1303,10 @@
   padding: 0;
   border: none;
   background: none;
+}
+
+#backPageButtonGoalCreationPage:hover {
+  color: rgb(169, 20, 199);
 }
 
 .headerTitleContainer{
@@ -1224,4 +1319,6 @@
 #deleteGoalCreationPage {
   font-size: x-large;
   margin-right: 1em;
+  color: white;
+  background-color: red;
 }
