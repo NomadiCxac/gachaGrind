@@ -2,6 +2,7 @@ import { currentQuestList } from "./data";
 import initializeDefaultIndex from "./initializeIndexFunctions";
 import { createEmptyCardTemplate } from "./questFunctions";
 import { createObjectiveInputElement, createInputValueElement, addRadioButtonsToElement, listContainer, createQuestForm } from "./goalCreationPageHTML";
+import { getNewGoalObject } from "./goalFunctions";
 
 export default function renderGoalCreationPage () {
 
@@ -85,7 +86,6 @@ export default function renderGoalCreationPage () {
             "rewardAssignmentExampleText"
             )
 
-
         // Create the third child div with class "timeAssignmentContainer"
   
         let timeAssignmentContainer = createInputValueElement (
@@ -109,26 +109,8 @@ export default function renderGoalCreationPage () {
             "addQuestContainer",
             "Add Quest(s) to Your Goal:",
             "addQuestContainerInputField",
-            "questParallax"
+            "goalQuestList"
         )
-        // )document.createElement("div");
-        // addQuestContainer.className = "addQuestContainer";
-
-        // let addQuestContainerTitle = document.createElement("h4");
-        // let addQuestContainerInputField = document.createElement("div");
-        // addQuestContainerInputField.classList.add("addQuestContainerInputField");
-
-        // addQuestContainerTitle.textContent = "Add Quest(s) to Your Goal:"
-        
-      
-        // addQuestContainer.appendChild(addQuestContainerTitle);
-        // addQuestContainer.appendChild(addQuestContainerInputField);
-
-        // let defineQuest = document.createElement("div");
-        // defineQuest.classList.add("questParallax")
-        // defineQuest.appendChild(createQuestForm());
-
-        // addQuestContainerInputField.appendChild(defineQuest);
 
     // Append the child divs to the second parent div
     goalCreationContainer.appendChild(goalTitleContainer);
@@ -144,172 +126,16 @@ export default function renderGoalCreationPage () {
     let goalConfirmCreateButton = document.createElement("button");
     goalConfirmCreateButton.classList.add("goalConfirmCreateButton");
     goalConfirmCreateButton.textContent = "Confirm"
+    goalConfirmCreateButton.addEventListener('click', function() {
+        getNewGoalObject();
+    })
     footer.appendChild(goalConfirmCreateButton);
 
     // Append the parent divs to the document body or any other container
     mainPage.appendChild(header);
     mainPage.appendChild(goalCreationContainer);
     mainPage.appendChild(footer);
-
-
-createQuestForm();
-
-
-//     let goalTimeContainer = createInputValueElement (
-//         "formFieldContainer", 
-//         "rewardAssignmentInputContainer", 
-//         "rewardAssignmentExampleTextContainer", 
-//         "Assign Rewards:", 
-//         "goalRewardAssignmentAmount", 
-//         "goalRewardAssignmentAmount", 
-//         "Assign rewards to your goal. The specified amount will be split among your outstanding quests.", 
-//         "goalCreationExampleText",
-//         "rewardAssignmentExampleText",
-//     );
-
-//     // questForm.appendChild(goalTimeContainer);
-  
-//     // Frequency of Quest
-//     let frequencyContainer = createInputValueElement (
-//         "formFieldContainer", 
-//         "timeAssignmentInputContainer", 
-//         "rewardAssignmentExampleTextContainer", 
-//         "Assign Time:", 
-//         "goalTimeAssignmentAmount", 
-//         "goalTimeAssignmentAmount", 
-//         "Assign time to your goal. The specified time will be split among your outstanding quests.", 
-//         "goalCreationExampleText",
-//         "timeAssignmentExampleText",
-//     );
-
-//     let deadlineContainer = createFormField(
-//         "date",
-//         "deadline",
-//         "Enter the deadline for your quest.",
-//         "Enter the start date and end date for your Goal."
-//       );
-
-// x.appendChild(questNameContainer);
-// x.appendChild(goalTimeContainer);
-// x.appendChild(frequencyContainer);
-// x.appendChild(deadlineContainer);
-
 }
 
 
 
-
-
-// let questNameContainer = createObjectiveInputElement(
-//     "formInputContainer", 
-//     "text", 
-//     "questGoalObjective",
-//     "Enter Your Quest Objective Here...",
-//     'Enter the "objective" OR "name" of your quest (action) field above. Examples of quests are: "Study Spanish" or "Do Ab-Crunches"',
-// );
-
-
-// function createQuestForm() {
-//     const questForm = document.createElement("form");
-//     questForm.classList.add("questForm");
-
-//     let defaultClass = "formInputContainer";
-  
-//     // Quest Name
-//     let questNameContainer = createObjectiveInputElement(
-//         defaultClass, 
-//         "text", 
-//         "questGoalObjective",
-//         "Enter Your Quest Objective Here...",
-//         'Enter the "objective" OR "name" of your quest (action) field above. Examples of quests are: "Study Spanish" or "Do Ab-Crunches"',
-//     );
-//     questForm.appendChild(questNameContainer);
-
-//     // Goal Time Allotment
-//     let goalTimeContainer = createValueAssignmentContainer(
-//         "Allocate Quest Time:",
-//         "Assign time to your goal. The specified time will be split among your outstanding quests.",
-//         "questGoalTimeSpent"
-//     );
-//     questForm.appendChild(goalTimeContainer);
-  
-//     // Frequency of Quest
-//     let frequencyContainer = createValueAssignmentContainer(
-//         "Quest Frequency:",
-//         'Enter the frequency (per week) at which you will complete this quest. Example: "4 times / Week" or "Every Monday, Tuesday, Thursday and Sunday of each Week"',
-//         "questGoalFrequency"
-//     );
-//     questForm.appendChild(frequencyContainer);
-  
-//     // Goal Deadline
-//     let deadlineContainer = createFormField(
-//       "date",
-//       "deadline",
-//       "Enter the deadline for your quest.",
-//       "Enter the start date and end date for your Goal."
-//     );
-//     questForm.appendChild(deadlineContainer);
- 
-  
-//     return questForm;
-// }
-
-// function createValueAssignmentContainer(titleText, exampleText, id) {
-//     let valueAssignmentContainer = document.createElement("div");
-//     valueAssignmentContainer.classList.add("formFieldContainer");
-//     valueAssignmentContainer.setAttribute("id", id);
-  
-//     let valueAssignmentInputContainer = document.createElement("div");
-//     valueAssignmentInputContainer.classList.add("valueAssignmentInputContainer");
-  
-//     // Create the radio buttons for time options
-//     let hoursRadioLabel = document.createElement("label");
-//     hoursRadioLabel.classList.add("radioLabel");
-  
-//     let hoursRadioInput = document.createElement("input");
-//     hoursRadioInput.setAttribute("type", "radio");
-//     hoursRadioInput.setAttribute("name", "valueAssignment");
-//     hoursRadioInput.setAttribute("value", "hours");
-//     hoursRadioInput.classList.add("valueAssignmentRadioButton");
-//     hoursRadioLabel.appendChild(hoursRadioInput);
-//     hoursRadioLabel.appendChild(document.createTextNode("Hours"));
-  
-//     let naRadioLabel = document.createElement("label");
-//     naRadioLabel.classList.add("radioLabel");
-  
-//     let naRadioInput = document.createElement("input");
-//     naRadioInput.setAttribute("type", "radio");
-//     naRadioInput.setAttribute("name", "valueAssignment");
-//     naRadioInput.setAttribute("value", "na");
-//     naRadioInput.classList.add("valueAssignmentRadioButton");
-//     naRadioLabel.appendChild(naRadioInput);
-//     naRadioLabel.appendChild(document.createTextNode("N/A"));
-  
-//     // Create the input element for time
-//     let valueAssignmentAmount = document.createElement("input");
-//     valueAssignmentAmount.classList.add("goalValueAssignmentAmount");
-//     valueAssignmentAmount.setAttribute("type", "number");
-//     valueAssignmentAmount.setAttribute("min", "0");
-  
-//     let valueAssignmentExampleTextContainer = document.createElement("div");
-//     valueAssignmentExampleTextContainer.classList.add("valueAssignmentExampleTextContainer");
-  
-//     let valueAssignmentTitle = document.createElement("h4");
-//     valueAssignmentTitle.textContent = titleText;
-  
-//     let valueAssignmentContainerExampleText = document.createElement("h6");
-//     valueAssignmentContainerExampleText.textContent = exampleText;
-//     valueAssignmentContainerExampleText.classList.add("goalCreationExampleText");
-//     valueAssignmentContainerExampleText.id = "valueAssignmentExampleText";
-  
-//     valueAssignmentInputContainer.appendChild(valueAssignmentTitle);
-//     valueAssignmentInputContainer.appendChild(valueAssignmentAmount);
-//     valueAssignmentInputContainer.appendChild(hoursRadioLabel);
-//     valueAssignmentInputContainer.appendChild(naRadioLabel);
-//     valueAssignmentExampleTextContainer.appendChild(valueAssignmentContainerExampleText);
-  
-//     valueAssignmentContainer.appendChild(valueAssignmentInputContainer);
-//     valueAssignmentContainer.appendChild(valueAssignmentExampleTextContainer);
-
-//     return valueAssignmentContainer;
-// }

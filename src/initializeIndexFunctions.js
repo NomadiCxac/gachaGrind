@@ -10,7 +10,7 @@ import { removeEmptyQuestState, createQuestParallax } from './indexViewFunctions
 import { createGetDataForm } from './generateForm';
 import renderDefaultIndex from './renderDefaultIndexHtml';
 import generateGoalCard from './goalFunctions';
-import renderGoalList from './goalFunctions';
+import { renderGoalList } from './goalFunctions';
 import renderGoalCreationPage from './goalCreationPage';
 
 

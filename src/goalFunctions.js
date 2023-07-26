@@ -1,4 +1,6 @@
-export default function renderGoalList (currentGoalList) {
+import { Currency, Goal } from "./classes/classes";
+
+export function renderGoalList (currentGoalList) {
 
     let goalContainer = document.querySelector(".goalContainer");
 
@@ -7,6 +9,31 @@ export default function renderGoalList (currentGoalList) {
     }
 }
 
+export function getNewGoalObject () {
+    let goalObject = new Goal(null, new Currency('GGTokens', null))
+    let goalObjective = document.querySelector("#goalTitleContainerInput").value;
+    let goalRewardAmount = document.querySelector("#goalRewardAssignmentAmount").value;
+    let totalTimeRequired = document.querySelector("#goalTimeAssignmentAmount").value;
+    let timesPerWeekRequired = document.querySelector("#goalQuestFrequencyInput").value;
+    let questObjective = document.querySelector("#questGoalObjective").value;
+    let getQuestTimeSpent = document.querySelector("#goalQuestTimeInput").value;
+    let goalStartDate = document.querySelector("#deadlineStart.formFieldInput").value;
+    let goalEndDate = document.querySelector("#deadlineEnd.formFieldInput").value;
+
+    goalObject.objective = goalObjective;
+    goalObject.reward.amount = goalRewardAmount;
+    goalObject.quests = [];
+    goalObject.completed = false;
+    goalObject.totalTimeRequired = totalTimeRequired;
+    goalObject.totalTimeSpent = 0;
+    goalObject.timesPerWeekRequired = timesPerWeekRequired;
+    goalObject.timesPerWeekSpent = 0;
+    goalObject.startDate = goalStartDate;
+    goalObject.endDate = goalEndDate;
+
+    console.log(goalObject);
+    return goalObject
+}
 
 function generateGoalCard(goal) {
 

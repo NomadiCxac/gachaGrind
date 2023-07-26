@@ -54,6 +54,7 @@ export function createInputValueElement (
     elementTitle.textContent = promptTitle;
 
     let elementInputValue = document.createElement("input");
+    elementInputValue.type = 'number';
     elementInputValue.classList.add(inputValueClass);
     elementInputValue.id = inputValueID;
 
@@ -69,16 +70,16 @@ export function createInputValueElement (
     elementContainer.appendChild(elementInputContainer);
     elementContainer.appendChild(elementExampleTextContainer);
 
-    elementInputValue.addEventListener("input", function () {
-        const enteredValue = elementInputValue.value;
-        const parsedValue = parseInt(enteredValue);
+    // elementInputValue.addEventListener("input", function () {
+    //     const enteredValue = elementInputValue.value;
+    //     const parsedValue = parseInt(enteredValue);
       
-        if (parsedValue <= 0 || isNaN(parsedValue)) {
-            elementInputValueAmount.setCustomValidity("Please enter a positive whole number greater than 0.");
-        } else {
-            elementInputValueAmount.setCustomValidity("");
-        }
-    });
+    //     if (parsedValue <= 0 || isNaN(parsedValue)) {
+    //         elementInputValueAmount.setCustomValidity("Please enter a positive whole number greater than 0.");
+    //     } else {
+    //         elementInputValueAmount.setCustomValidity("");
+    //     }
+    // });
 
     return elementContainer;
 }

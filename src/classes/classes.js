@@ -20,8 +20,12 @@ export class Goal {
     this.reward = reward;
     this.quests = [];
     this.completed = false;
+    this.totalTimeRequired = null;
     this.totalTimeSpent = 0;
+    this.timesPerWeekRequired = null;
     this.timesPerWeekSpent = 0;
+    this.startDate = null;
+    this.endDate = null;
   }
 
   generateQuest(timesPerWeekRequired, totalTimeRequired) {
