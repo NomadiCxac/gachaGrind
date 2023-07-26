@@ -87,58 +87,115 @@ export function createInputValueElement (
 export function addRadioButtonsToElement (elementContainer, inputContainerClassName) {
 
         let inputContainer = elementContainer.querySelector(`.${inputContainerClassName}`)
-        console.log(inputContainer)
-    // Create the radio buttons for time options
+
+ 
+        // Create the radio buttons for time options
 
         // Hours Radio Label
         let hoursRadioLabel = document.createElement("label");
         hoursRadioLabel.classList.add("radioLabel");
-    
         let hoursRadioInput = document.createElement("input");
         hoursRadioInput.setAttribute("type", "radio");
         hoursRadioInput.setAttribute("name", "element");
         hoursRadioInput.setAttribute("value", "hours");
         hoursRadioInput.classList.add("radioButton");
-        hoursRadioLabel.appendChild(hoursRadioInput);
-        hoursRadioLabel.appendChild(document.createTextNode("Hours"));
+
+        // Minutes Radio Label
+        let minutesRadioLabel = document.createElement("label");
+        minutesRadioLabel.classList.add("radioLabel");
+        let minutesRadioInput = document.createElement("input");
+        minutesRadioInput.setAttribute("type", "radio");
+        minutesRadioInput.setAttribute("name", "element");
+        minutesRadioInput.setAttribute("value", "minutes");
+        minutesRadioInput.classList.add("radioButton");
+
     
         // N/A Radio Lavel
         let naRadioLabel = document.createElement("label");
         naRadioLabel.classList.add("radioLabel");
-    
         let naRadioInput = document.createElement("input");
         naRadioInput.setAttribute("type", "radio");
         naRadioInput.setAttribute("name", "element");
         naRadioInput.setAttribute("value", "na");
         naRadioInput.classList.add("radioButton");
-        naRadioLabel.appendChild(naRadioInput);
-        naRadioLabel.appendChild(document.createTextNode("N/A"));
-          
+
+        // Radio Change Text Event Listeners
         hoursRadioInput.addEventListener("change", handleRadioChange);
+        minutesRadioInput.addEventListener("change", handleRadioChange);
         naRadioInput.addEventListener("change", handleRadioChange);
 
+          
+        if (inputContainerClassName == "goalQuestTimeInputContainer") {
+            hoursRadioLabel.appendChild(hoursRadioInput);
+            hoursRadioLabel.appendChild(document.createTextNode("Hours"));
+            minutesRadioLabel.appendChild(minutesRadioInput);
+            minutesRadioLabel.appendChild(document.createTextNode("Minutes"));  
+            
+            inputContainer.appendChild(hoursRadioLabel);
+            inputContainer.appendChild(minutesRadioLabel);
+
+        } else {
+            hoursRadioLabel.appendChild(hoursRadioInput);
+            hoursRadioLabel.appendChild(document.createTextNode("Hours"));
+            naRadioLabel.appendChild(naRadioInput);
+            naRadioLabel.appendChild(document.createTextNode("N/A"));
+
+            inputContainer.appendChild(hoursRadioLabel);
+            inputContainer.appendChild(naRadioLabel);
+        }
 
 
         // Function to handle radio button changes
         function handleRadioChange(event) {
             const timeAssignmentAmount = document.querySelector(".goalTimeAssignmentAmount");
             const timeAssignmentExampleText = document.querySelector("#timeAssignmentExampleText");
+            const goalQuestTimeInput = document.querySelector(".goalQuestTimeInput");
+            const goalQuestTimeExampleText = document.querySelector("#goalQuestTimeExampleText");
+            const goalQuestTimeContainer = document.querySelector(".goalQuestTimeInputContainer");
+            const hoursButton = goalQuestTimeContainer.querySelector("input[value='hours']");
+            const minutesButton = goalQuestTimeContainer.querySelector("input[value='minutes']");
           
+            // Case: N/A selected in Assign Time Field
             if (event.target.value === "na") {
               // If N/A is selected, disable the input field and show the N/A message
               timeAssignmentAmount.disabled = true;
+              goalQuestTimeInput.disabled = true;
               timeAssignmentExampleText.textContent =
                 "Selecting 'N/A' for time assignment will require your goal to be completed based solely on the completion of quests. No time entry is required.";
-            } else if (event.target.value === "hours") {
-              // If Hours is selected, enable the input field and show the Hours message
+                if (inputContainerClassName === "timeAssignmentInputContainer") {
+                    // Disable radio buttons for hours and minutes in goalQuestTimeInputContainer
+                    hoursButton.disabled = true;
+                    minutesButton.disabled = true;
+                    goalQuestTimeExampleText.textContent = "All time input fields disabled for this quest, as the the time assigned to this goal is 'N/A'."
+                }
+            } 
+            
+            if (event.target.value === "hours" && inputContainerClassName == "timeAssignmentInputContainer") {
+              
+                // If Hours is selected, enable the input field and show the Hours message
               timeAssignmentAmount.disabled = false;
+              goalQuestTimeInput.disabled = false;
+              hoursButton.disabled = false;
+              minutesButton.disabled = false;
+
               timeAssignmentExampleText.textContent =
                 "Selecting 'Hours' for time assignment will require your goal to be completed based on overall time completion. Time will be allotted to all outstanding quests available to the goal.";
-            }
+            } 
+            
+            if (event.target.value === "minutes") {
+                // If Hours is selected, enable the input field and show the Hours message
+                goalQuestTimeExampleText.textContent =
+                  'The required time to complete this quest will be documented in "Minutes".'
+              } 
+
+              if (event.target.value === "hours" && inputContainerClassName == "goalQuestTimeInputContainer") {
+                // If Hours is selected, enable the input field and show the Hours message
+                goalQuestTimeExampleText.textContent =
+                  'The required time to complete this quest will be documented in "Hours".';
+              } 
           }
 
-          inputContainer.appendChild(hoursRadioLabel);
-          inputContainer.appendChild(naRadioLabel);
+
   
 }
 
@@ -147,8 +204,6 @@ export function createQuestForm () {
     const questForm = document.createElement("form");
     questForm.classList.add("questForm");
 
-    let x = document.querySelector(".questParallax");
-    console.log(x);
     // Quest Name
     let questNameContainer = createObjectiveInputElement (
         "formFieldContainer", 
@@ -164,14 +219,14 @@ export function createQuestForm () {
     // Goal Time Allotment
     let goalTimeContainer = createInputValueElement (
         "formFieldContainer", 
-        "rewardAssignmentInputContainer", 
-        "rewardAssignmentExampleTextContainer", 
-        "Assign Rewards:", 
-        "goalRewardAssignmentAmount", 
-        "goalRewardAssignmentAmount", 
+        "goalQuestFrequencyInputContainer", 
+        "goalQuestFrequencyExampleTextContainer", 
+        "Quest Frequency:", 
+        "goalQuestFrequencyInput", 
+        "goalQuestFrequencyInput", 
         "Assign rewards to your goal. The specified amount will be split among your outstanding quests.", 
         "goalCreationExampleText",
-        "rewardAssignmentExampleText",
+        "goalQuestFrequencyInputExampleText",
     );
 
     questForm.appendChild(goalTimeContainer);
@@ -179,17 +234,17 @@ export function createQuestForm () {
     // Frequency of Quest
     let frequencyContainer = createInputValueElement (
         "formFieldContainer", 
-        "timeAssignmentInputContainer", 
-        "rewardAssignmentExampleTextContainer", 
-        "Assign Time:", 
-        "goalTimeAssignmentAmount", 
-        "goalTimeAssignmentAmount", 
+        "goalQuestTimeInputContainer", 
+        "goalQuestTimeExampleTextContainer", 
+        "Assign Time to Quest:", 
+        "goalQuestTimeInput", 
+        "goalQuestTimeInput", 
         "Assign time to your goal. The specified time will be split among your outstanding quests.", 
         "goalCreationExampleText",
-        "timeAssignmentExampleText",
+        "goalQuestTimeExampleText",
     );
 
-    addRadioButtonsToElement(frequencyContainer, "timeAssignmentInputContainer");
+    addRadioButtonsToElement(frequencyContainer, "goalQuestTimeInputContainer");
     questForm.appendChild(frequencyContainer);
   
     // Goal Deadline
@@ -201,8 +256,8 @@ export function createQuestForm () {
     );
     questForm.appendChild(deadlineContainer);
  
-  
-    x.appendChild(questForm);
+        
+    return questForm;
 }
 
 
@@ -226,7 +281,7 @@ export function listContainer (
 
     let listItemsContainer = document.createElement("div");
     listItemsContainer.classList.add(listItemsContainerClass);
-    // listItemsContainer.appendChild(createQuestForm());
+    listItemsContainer.appendChild(createQuestForm());
     elementInputField.appendChild(listItemsContainer);
     
     return element
@@ -307,80 +362,3 @@ function createLabel(forInput, labelText) {
     label.textContent = labelText;
     return label;
 }
-
-// The code below is if I want to include the ability to link and existing quest.
-
-//         let linkExistingQuestContainer = document.createElement("div");
-//         linkExistingQuestContainer.classList.add("linkExistingQuestContainer");
-        
-//         let linkExistingQuestTitle = document.createElement("h4");
-//         let linkExistingQuestInputContainer = document.createElement("div");
-//         let linkExistingQuestInput = document.createElement("select");
-        
-//         let linkExistingQuestExampleText = document.createElement("h6");
-//         linkExistingQuestExampleText.textContent = 'If you have already created a quest that you would like to link to this goal, please select from your list of outstanding unfinished quests.';
-//         linkExistingQuestExampleText.classList.add("goalCreationExampleText")
-
-//        // Add the placeholder option as the first option in the dropdown
-//         let placeholderOption = document.createElement("option");
-//         placeholderOption.value = ""; // Set the value to an empty string or any appropriate default value
-//         placeholderOption.textContent = "Select an Existing Quest to Link";
-//         placeholderOption.disabled = true;
-//         placeholderOption.selected = true;
-//         linkExistingQuestInput.appendChild(placeholderOption);
-
-//         // Add event listener to handle focus event
-//         linkExistingQuestInput.addEventListener("focus", function() {
-//             // Check if the placeholder option is selected (value is an empty string)
-//             if (linkExistingQuestInput.value === "") {
-//             // Remove the placeholder option from the dropdown
-//             linkExistingQuestInput.removeChild(linkExistingQuestInput.options[0]);
-//             }
-//         });
-  
-//         // Add event listener to handle blur event (when the dropdown loses focus)
-//         linkExistingQuestInput.addEventListener("blur", function() {
-//             // Check if no option is selected (value is an empty string)
-//             if (linkExistingQuestInput.value === "") {
-//             // Re-add the placeholder option to the dropdown
-//       const placeholderOption = document.createElement("option");
-//       placeholderOption.value = "";
-//       placeholderOption.textContent = "Select an Existing Quest to Link:";
-//       placeholderOption.disabled = true;
-//       placeholderOption.selected = true;
-//       linkExistingQuestInput.insertBefore(placeholderOption, linkExistingQuestInput.firstChild);
-//     }
-//   });
-
-//         for (let i = 0; i < currentQuestList.length; i++) {
-//             let quest = currentQuestList[i];
-//             let option = document.createElement("option");
-//             option.value = quest.id;
-//             option.textContent = quest.objective;
-//             linkExistingQuestInput.appendChild(option);
-//         }
-
-        // // Add event listener to the dropdown to handle change event
-        // linkExistingQuestInput.addEventListener("change", function() {
-        //     // Check if the placeholder option is selected (value is empty string)
-        //     if (linkExistingQuestInput.value === "") {
-        //     // Remove the placeholder option from the dropdown
-        //     linkExistingQuestInput.removeChild(placeholderOption);
-        //     }
-        // });
-        
-        // Add classes to the elements corresponding to their variable names
-        // linkExistingQuestTitle.classList.add("linkExistingQuestTitle");
-        // linkExistingQuestInputContainer.classList.add("linkExistingQuestInputContainer");
-        // linkExistingQuestInput.classList.add("linkExistingQuestInput");
-        
-        // Add content or styles to the elements as needed
-        // linkExistingQuestTitle.textContent = "Link Existing Quest:";
-        
-        // Append the elements to the linkExistingQuestContainer
-        // linkExistingQuestContainer.appendChild(linkExistingQuestTitle);
-        // linkExistingQuestContainer.appendChild(linkExistingQuestInputContainer);
-        // linkExistingQuestContainer.appendChild(linkExistingQuestExampleText);
-        // linkExistingQuestInputContainer.appendChild(linkExistingQuestInput)
-
-    
