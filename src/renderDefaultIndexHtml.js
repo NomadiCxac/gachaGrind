@@ -70,6 +70,10 @@ export default function renderDefaultIndex(mainPage) {
   
     const goalContainerDiv = document.createElement("div");
     goalContainerDiv.classList.add("goalContainer");
+
+    const goalContainerParallax = document.createElement("div");
+    goalContainerParallax.classList.add("goalParallax");
+    goalContainerDiv.appendChild(goalContainerParallax);
   
     // Append the child divs to the gameContent div
     gameContentDiv.appendChild(questContainerDiv);

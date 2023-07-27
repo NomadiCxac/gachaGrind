@@ -70,17 +70,6 @@ export function createInputValueElement (
     elementContainer.appendChild(elementInputContainer);
     elementContainer.appendChild(elementExampleTextContainer);
 
-    // elementInputValue.addEventListener("input", function () {
-    //     const enteredValue = elementInputValue.value;
-    //     const parsedValue = parseInt(enteredValue);
-      
-    //     if (parsedValue <= 0 || isNaN(parsedValue)) {
-    //         elementInputValueAmount.setCustomValidity("Please enter a positive whole number greater than 0.");
-    //     } else {
-    //         elementInputValueAmount.setCustomValidity("");
-    //     }
-    // });
-
     return elementContainer;
 }
 

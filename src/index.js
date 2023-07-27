@@ -15,12 +15,12 @@ import { getItemImage } from './helperFunctions/getItemImage';
 import { currentQuestList, playerInventory, currencyContainer, playerEquippedItems, currentGoalList } from './data.js';
 import { removeEmptyTaskGoalPrompt, createTaskContainer, questController, goalController, showEmptyQuestAndGoals, showEmptyQuestsState, showEmptyGoalsState, emptyStateEventHandler, removeEmptyQuestState, createQuestParallax } from './indexViewFunctions';
 import { createGetDataForm } from './generateForm';
-import renderGoalCreationPage from './goalCreationPage';
+import renderGoalCreationPage from './renderGoalPage';
 import renderDefaultIndex from './renderDefaultIndexHtml';
 import initializeDefaultIndex from './initializeIndexFunctions';
 
-// initializeDefaultIndex()
-renderGoalCreationPage();
+initializeDefaultIndex()
+// renderGoalCreationPage();
 
 // console.log(currencyContainer)
 // // Globally Scoped Variables

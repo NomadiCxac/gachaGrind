@@ -1,8 +1,9 @@
-import { currentQuestList } from "./data";
+import { currentGoalList, currentQuestList } from "./data";
 import initializeDefaultIndex from "./initializeIndexFunctions";
 import { createEmptyCardTemplate } from "./questFunctions";
 import { createObjectiveInputElement, createInputValueElement, addRadioButtonsToElement, listContainer, createQuestForm } from "./goalCreationPageHTML";
-import { getNewGoalObject } from "./goalFunctions";
+import { createNewGoalObject } from "./goalFunctions";
+import { saveDataToLocalStorage } from "./localStorageFunctions";
 
 export default function renderGoalCreationPage () {
 
@@ -127,7 +128,20 @@ export default function renderGoalCreationPage () {
     goalConfirmCreateButton.classList.add("goalConfirmCreateButton");
     goalConfirmCreateButton.textContent = "Confirm"
     goalConfirmCreateButton.addEventListener('click', function() {
-        getNewGoalObject();
+        let newGoal = createNewGoalObject();
+
+        // Only add the goal, save it, and re-initialize the page if newGoal is not null
+        if(newGoal !== null) {
+            currentGoalList.push(newGoal);
+            saveDataToLocalStorage("currentGoalList", currentGoalList);
+            console.log(currentGoalList);
+    
+            while (mainPage.firstChild) {
+                mainPage.removeChild(mainPage.firstChild);
+            }
+    
+            initializeDefaultIndex();
+        }
     })
     footer.appendChild(goalConfirmCreateButton);
 
@@ -135,6 +149,9 @@ export default function renderGoalCreationPage () {
     mainPage.appendChild(header);
     mainPage.appendChild(goalCreationContainer);
     mainPage.appendChild(footer);
+
+    console.log(currentGoalList);
+  
 }
 
 

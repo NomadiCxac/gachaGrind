@@ -28,23 +28,37 @@ export class Goal {
     this.endDate = null;
   }
 
-  generateQuest(timesPerWeekRequired, totalTimeRequired) {
+  generateQuestCluster(questObjective) {
+    
+  }
 
-    let quest = new Quest("Go to Gym", null, false, new Currency("GGTokens", 18), null, null, null, null)
-    this.quests.push(quest);
+  generateQuest(questObjective) {
+
+    let questObject = new Quest(null, null, null, null, null, null, null, null);
+
+    // let quest = new Quest("Go to Gym", null, false, new Currency("GGTokens", 18), null, null, null, null)
+    // this.quests.push(quest);
     // Case 1: Frequency type is time-arbitrary
-     if (totalTimeRequired == 0 || totalTimeRequired == null) {
-        const remainingTime = timesPerWeekRequired - this.timesPerWeekSpent;
+     if (this.totalTimeRequired == 0 || this.totalTimeRequired == null) {
+        const remainingTime = this.timesPerWeekRequired - this.timesPerWeekSpent;
         return {quest, timesPerWeekRequired, remainingTime};
      }
 
 
     // Case 2: Frequency type is time-specific
     else {
-      const remainingTime = totalTimeRequired - this.totalTimeSpent;
-      return {quest, totalTimeRequired, remainingTime};
+      const remainingTime = this.totalTimeRequired - this.totalTimeSpent;
+        questObject.objective = questObjective;
+        questObject.dateToComplete = null;
+        questObject.questComplete = false;
+        questObject.reward = (this.reward.amount / this.timesPerWeekRequired);
+        questObject.id = null;
+        questObject.oneOffBool = null;
+        questObject.goalId = null;
+        questObject.timeSpent = (remainingTime / this.timesPerWeekRequired);
     }
 
+    return questObject;
     
   }
 
